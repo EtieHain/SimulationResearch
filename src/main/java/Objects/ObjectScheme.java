@@ -1,3 +1,5 @@
+package Objects;
+
 import javafx.scene.image.Image;
 
 /**
