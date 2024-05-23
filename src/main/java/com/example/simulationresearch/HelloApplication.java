@@ -1,8 +1,12 @@
 package com.example.simulationresearch;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,10 +14,24 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+        stage.setTitle( "Timeline Example" );
+        Group root = new Group();
+        Scene theScene = new Scene( root );
+        stage.setScene( theScene );
+        Canvas canvas = new Canvas( 600, 600 );
+        root.getChildren().add( canvas );
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        final long startNanoTime = System.nanoTime();
+        System.out.println(startNanoTime);
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+
+            }
+        }.start();
         stage.show();
     }
 
