@@ -4,24 +4,37 @@ import javafx.scene.image.Image;
 
 public class Cible extends ObjectScheme
 {
-    @Override
-    public void changeImage(Image image) {
-
+    public Cible(float positionX,float positionY,float radiusCommunication,Image image)
+    {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.radiusCommunication = radiusCommunication;
+        this.image = image;
     }
 
     @Override
-    public void changePosition(float positionX, float positionY) {
-
+    public void changeImage(Image image)
+    {
+        this.image = image;
     }
 
     @Override
-    public void changeRadiusCommunication(float radius) {
-
+    public void changePosition(float positionX, float positionY)
+    {
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     @Override
-    public float[] getPosition() {
-        return new float[0];
+    public void changeRadiusCommunication(float radius)
+    {
+        this.radiusCommunication = radius;
+    }
+
+    @Override
+    public float[] getPosition()
+    {
+        return new float[]{positionX,positionY};
     }
 
     @Override

@@ -4,6 +4,13 @@ import javafx.scene.image.Image;
 
 public class Agent extends ObjectScheme
 {
+    public Agent(float positionX,float positionY,float radiusCommunication,Image image)
+    {
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.radiusCommunication = radiusCommunication;
+        this.image = image;
+    }
 
     @Override
     public void changeImage(Image image) {
@@ -21,8 +28,9 @@ public class Agent extends ObjectScheme
     }
 
     @Override
-    public float[] getPosition() {
-        return new float[0];
+    public float[] getPosition()
+    {
+        return new float[]{positionX,positionY};
     }
 
     @Override
@@ -32,7 +40,7 @@ public class Agent extends ObjectScheme
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
