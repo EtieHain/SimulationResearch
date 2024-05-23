@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 public class Agent extends ObjectScheme
 {
+    static public float angle;
     public Agent(float positionX,float positionY,float radiusCommunication,Image image)
     {
         this.positionX = positionX;
@@ -18,8 +19,10 @@ public class Agent extends ObjectScheme
     }
 
     @Override
-    public void changePosition(float positionX, float positionY) {
-
+    public void changePosition(float positionX, float positionY)
+    {
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     @Override

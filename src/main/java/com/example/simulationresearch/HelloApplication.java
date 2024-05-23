@@ -1,5 +1,7 @@
 package com.example.simulationresearch;
 
+import GestionObjects.GestionObjects;
+import Objects.Agent;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +26,14 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         System.out.println(startNanoTime);
-
+        GestionObjects.creationObjects(5);
         new AnimationTimer()
         {
+
             public void handle(long currentNanoTime)
             {
-
+                GestionObjects.Affichage(gc);
+                Agent.angle++;
             }
         }.start();
         stage.show();

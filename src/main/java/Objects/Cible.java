@@ -44,7 +44,7 @@ public class Cible extends ObjectScheme
 
     @Override
     public Image getImage() {
-        return null;
+        return this.image;
     }
 
     @Override
