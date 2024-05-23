@@ -14,6 +14,6 @@ public class GestionObjects
     }
     static void Affichage()
     {
-
+        int a = 0;
     }
 }
