@@ -1,5 +1,6 @@
 package GestionObjects;
 
+import LectureConfig.LectureConfig;
 import Objects.Agent;
 import Objects.Cible;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,13 +19,12 @@ public class GestionObjects
         Agent[] temp = new Agent[5];
         NbrAgent = NbrAgents;
         Image earth = new Image( "earth.png" );
-        cible = new Cible(552f,552f,4f,earth);
+        cible = new Cible(LectureConfig.posCible[0], LectureConfig.posCible[1], earth);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            temp[idx] = new Agent(110.0f*idx,110.0f*idx,4f,earth);
+            temp[idx] = new Agent(110.0f*idx,110.0f*idx,earth);
         }
         agents = temp;
-
     }
     static public void Affichage(GraphicsContext gc)
     {
@@ -33,7 +33,8 @@ public class GestionObjects
         //gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            drawImage(gc,agents[idx].getImage(),Agent.angle,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+            System.out.println(agents[idx].getAngle());
+            drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
         }
         drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
     }

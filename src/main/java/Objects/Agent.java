@@ -1,16 +1,20 @@
 package Objects;
 
+import LectureConfig.LectureConfig;
 import javafx.scene.image.Image;
 
 public class Agent extends ObjectScheme
 {
-    static public float angle;
-    public Agent(float positionX,float positionY,float radiusCommunication,Image image)
+    public double agentsDetectionRange;
+    public Agent(float positionX,float positionY,Image image)
     {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.radiusCommunication = radiusCommunication;
+        this.radiusCommunication = LectureConfig.agentsCommunicationRange;
         this.image = image;
+        this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
+        this.velocityMagnitude = LectureConfig.agentSpeed;
+        this.direction = new float[]{1,1};
     }
 
     @Override
@@ -49,5 +53,10 @@ public class Agent extends ObjectScheme
     @Override
     public boolean isCommunication(ObjectScheme object) {
         return false;
+    }
+
+    public float getAngle()
+    {
+        return (float) Math.toDegrees(Math.atan(this.direction[1]/this.direction[0]));
     }
 }

@@ -1,14 +1,15 @@
 package Objects;
 
+import GestionObjects.GestionObjects;
+import LectureConfig.LectureConfig;
 import javafx.scene.image.Image;
 
 public class Cible extends ObjectScheme
 {
-    public Cible(float positionX,float positionY,float radiusCommunication,Image image)
+    public Cible(float positionX,float positionY,Image image)
     {
-        this.positionX = positionX;
         this.positionY = positionY;
-        this.radiusCommunication = radiusCommunication;
+        this.positionX = positionX;
         this.image = image;
     }
 

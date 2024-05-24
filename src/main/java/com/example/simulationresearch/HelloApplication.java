@@ -1,6 +1,7 @@
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
+import LectureConfig.LectureConfig;
 import Objects.Agent;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -12,15 +13,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 public class HelloApplication extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle( "Timeline Example" );
+        LectureConfig.LectureFichier();
+        stage.setTitle( "CACA" );
         Group root = new Group();
         Scene theScene = new Scene( root );
         stage.setScene( theScene );
-        Canvas canvas = new Canvas( 600, 600 );
+        Canvas canvas = new Canvas( LectureConfig.dimensionCaneva[0], LectureConfig.dimensionCaneva[1] );
         root.getChildren().add( canvas );
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -29,11 +31,9 @@ public class HelloApplication extends Application {
         GestionObjects.creationObjects(5);
         new AnimationTimer()
         {
-
             public void handle(long currentNanoTime)
             {
                 GestionObjects.Affichage(gc);
-                Agent.angle++;
             }
         }.start();
         stage.show();
