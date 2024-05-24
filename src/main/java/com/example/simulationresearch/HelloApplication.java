@@ -33,6 +33,7 @@ public class HelloApplication extends Application {
         {
             public void handle(long currentNanoTime)
             {
+                GestionObjects.agents[0].Deplacement();
                 GestionObjects.Affichage(gc);
             }
         }.start();

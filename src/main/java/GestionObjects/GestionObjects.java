@@ -18,11 +18,11 @@ public class GestionObjects
     {
         Agent[] temp = new Agent[5];
         NbrAgent = NbrAgents;
-        Image earth = new Image( "earth.png" );
-        cible = new Cible(LectureConfig.posCible[0], LectureConfig.posCible[1], earth);
+        Image ship = new Image( "ship.png" );
+        cible = new Cible(LectureConfig.posCible[0], LectureConfig.posCible[1], ship);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            temp[idx] = new Agent(110.0f*idx,110.0f*idx,earth);
+            temp[idx] = new Agent(110.0f*idx,110.0f*idx,ship);
         }
         agents = temp;
     }
@@ -33,7 +33,6 @@ public class GestionObjects
         //gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            System.out.println(agents[idx].getAngle());
             drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
         }
         drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);

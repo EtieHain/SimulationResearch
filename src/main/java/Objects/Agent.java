@@ -15,7 +15,8 @@ public class Agent extends ObjectScheme
         this.image = image;
         this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
         this.velocityMagnitude = LectureConfig.agentSpeed;
-        this.direction = new float[]{1,0};
+        this.direction = new float[]{1,-1};
+        this.angle = 90;
     }
 
     @Override
@@ -58,6 +59,29 @@ public class Agent extends ObjectScheme
 
     public float getAngle()
     {
-        return this.angle;
+        float temp;
+        temp = (float) Math.toDegrees(Math.atan(-direction[1]/direction[0]));
+        if(direction[0] < 0)
+        {
+            temp -= 180;
+        }
+        return temp+180;
+    }
+
+    public void Deplacement()
+    {
+        float newPosX = positionX + velocityMagnitude*direction[0];
+        if(newPosX > LectureConfig.dimensionCaneva[1] - image.getWidth() || newPosX < 0)
+        {
+            direction[0] = -direction[0];
+        }
+        float newPosY = positionY + velocityMagnitude*direction[1];
+        if(newPosY > LectureConfig.dimensionCaneva[0] - image.getHeight()|| newPosY < 0)
+        {
+            direction[1] = -direction[1];
+        }
+        changePosition(newPosX,newPosY);
+        System.out.println(getAngle());
     }
 }
+
