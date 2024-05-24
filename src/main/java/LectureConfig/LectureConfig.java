@@ -16,7 +16,7 @@ public class LectureConfig
     public static float agentsCommunicationRange;
     static public void LectureFichier()
     {
-        File file = new File("C:/Users/etien/IdeaProjects/SimulationResearch/src/main/resources/configuration.txt"); // e.g., "src/winequality-red.csv";
+        File file = new File("src/main/resources/configuration.txt"); // e.g., "src/winequality-red.csv";
         ArrayList<String> values = new ArrayList<String>();
         try {
             // Create an object of filereader

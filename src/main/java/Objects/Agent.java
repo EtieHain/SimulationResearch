@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 public class Agent extends ObjectScheme
 {
     public double agentsDetectionRange;
+    private float angle;
     public Agent(float positionX,float positionY,Image image)
     {
         this.positionX = positionX;
@@ -14,7 +15,7 @@ public class Agent extends ObjectScheme
         this.image = image;
         this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
         this.velocityMagnitude = LectureConfig.agentSpeed;
-        this.direction = new float[]{1,1};
+        this.direction = new float[]{1,0};
     }
 
     @Override
@@ -57,6 +58,6 @@ public class Agent extends ObjectScheme
 
     public float getAngle()
     {
-        return (float) Math.toDegrees(Math.atan(this.direction[1]/this.direction[0]));
+        return this.angle;
     }
 }
