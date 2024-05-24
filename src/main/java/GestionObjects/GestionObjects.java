@@ -2,7 +2,6 @@ package GestionObjects;
 
 import Objects.Agent;
 import Objects.Cible;
-import com.example.simulationresearch.HelloController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -19,10 +18,10 @@ public class GestionObjects
         Agent[] temp = new Agent[5];
         NbrAgent = NbrAgents;
         Image earth = new Image( "earth.png" );
-        cible = new Cible(0.0f,0f,4f,earth);
+        cible = new Cible(552f,552f,4f,earth);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            temp[idx] = new Agent(100.0f*idx,100.0f*idx,4f,earth);
+            temp[idx] = new Agent(110.0f*idx,110.0f*idx,4f,earth);
         }
         agents = temp;
 
@@ -30,12 +29,13 @@ public class GestionObjects
     static public void Affichage(GraphicsContext gc)
     {
         gc.setFill(Color.WHITE); // Couleur de fond
-        gc.fillRect(0, 0, 800,800);
+        gc.fillRect(0, 0, 600,600);
         //gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
         for(int idx = 0;idx < NbrAgent;idx++)
         {
             drawImage(gc,agents[idx].getImage(),Agent.angle,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
         }
+        drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
     }
     static private void drawImage(GraphicsContext gc, Image image, double angle,float positionX,float positionY) {
 
