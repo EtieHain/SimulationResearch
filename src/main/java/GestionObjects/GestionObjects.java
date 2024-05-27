@@ -16,29 +16,45 @@ public class GestionObjects
 
     static public void creationObjects(int NbrAgents)
     {
-        Agent[] temp = new Agent[5];
+        //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
+
+        //Création d'un tableau temporaire d'agents
+        Agent[] temp = new Agent[NbrAgents];
+
+        //Création de l'image
         Image ship = new Image( "ship.png" );
-        //cible = new Cible(LectureConfig.posCible[0], LectureConfig.posCible[1], ship);
+
+        //Création de la cible
+        cible = new Cible(LectureConfig.posCible[0], LectureConfig.posCible[1], ship);
+
+        //Création des agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
             temp[idx] = new Agent(110.0f*idx,110.0f*idx,ship);
         }
+
+        //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
     }
     static public void Affichage(GraphicsContext gc)
     {
-        gc.setFill(Color.WHITE); // Couleur de fond
-        gc.fillRect(0, 0, 600,600);
-        //gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
+        //Actualisation de l'arriere plan
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
+
+        //Affichage de la cible
+        drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
+
+        //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
             drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
         }
-        //drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
     }
     static private void drawImage(GraphicsContext gc, Image image, double angle,float positionX,float positionY) {
 
+        //Acquisition de la position de l'image
         float posX = (float) (positionX + image.getWidth()/2);
         float posY = (float) (positionY + image.getHeight()/2);
         // Sauvegarder l'état actuel de la transformation
@@ -47,10 +63,14 @@ public class GestionObjects
         // Appliquer la rotation
         gc.rotate(angle);
 
-        //Calculs marabouteux pour replacer l'image au bon endroit
+        //Calcul de la position de l'image en polaire
         double alpha = Math.atan(posX/-posY);
         double module = Math.hypot(posX,posY);
+
+        //Calcul du nouvel angle de l'image apres rotation
         double alpha2 = alpha + (angle/180*Math.PI);
+
+        //Calcul de la nouvelle position en cartésien
         double posX2 = module * Math.cos(alpha2);
         double posY2 = -module * Math.sin(alpha2);
 

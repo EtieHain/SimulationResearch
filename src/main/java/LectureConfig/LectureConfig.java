@@ -16,14 +16,19 @@ public class LectureConfig
     public static float agentsCommunicationRange;
     static public void LectureFichier()
     {
-        File file = new File("src/main/resources/configuration.txt"); // e.g., "src/winequality-red.csv";
+        //Déclaration du fichier a lire
+        File file = new File("src/main/resources/configuration.txt");
+
+        //Création d'une array liste qui va stocker chaque ligne
         ArrayList<String> values = new ArrayList<String>();
         try {
-            // Create an object of filereader
-            // class with CSV file as a parameter.
+            //Création d'un nouveau filereader
             Scanner filereader = new Scanner(file);
+
+            //Initialisation des séparateur des lignes
             filereader.useDelimiter("\r\n");
-            // change the delimiter according to your file
+
+            //Lecture du fichier tant qu'il a du contenu
             while (filereader.hasNextLine())
             {
                 values.add(filereader.next());
@@ -32,9 +37,14 @@ public class LectureConfig
         {
             e.printStackTrace();
         }
+
+        //Pour chaque ligne de l'array list
         for(int idx = 0;idx < values.size();idx++)
         {
+            //Décomposition de la ligne en mots
             String[] data = values.get(idx).split(" ");
+
+            //Attibution de la valeur à la bonne variable
             switch (data[0])
             {
                 case "environment_size_W_H":
