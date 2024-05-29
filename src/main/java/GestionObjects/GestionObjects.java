@@ -86,8 +86,11 @@ public class GestionObjects
     static public void Affichage(GraphicsContext gc)
     {
         //Actualisation de l'arriere plan
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
+//        gc.setFill(Color.WHITE);
+//        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
+
+        Image bg = new Image("background.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
+        gc.drawImage(bg,0,0);
 
         //Affichage de la cible
         //drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
