@@ -1,13 +1,18 @@
 package Objects;
 
+import GestionObjects.GestionObjects;
 import LectureConfig.LectureConfig;
+import com.example.simulationresearch.HelloApplication;
 import javafx.scene.image.Image;
+
+import java.nio.charset.MalformedInputException;
 
 public class Agent extends ObjectScheme
 {
     public double agentsDetectionRange;
     private float angle;
-    public Agent(float positionX,float positionY,Image image)
+    public int step;
+    public Agent(float positionX,float positionY,int Step,Image image)
     {
         this.positionX = positionX;
         this.positionY = positionY;
@@ -15,8 +20,9 @@ public class Agent extends ObjectScheme
         this.image = image;
         this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
         this.velocityMagnitude = LectureConfig.agentSpeed;
-        this.direction = new float[]{1,-1};
         this.angle = 90;
+        this.step = Step;
+        this.direction = new float[]{0,0};
     }
 
     @Override
@@ -68,20 +74,37 @@ public class Agent extends ObjectScheme
         return temp+180;
     }
 
-    public void Deplacement()
-    {
-        float newPosX = positionX + velocityMagnitude*direction[0];
-        if(newPosX > LectureConfig.dimensionCaneva[1] - image.getWidth() || newPosX < 0)
-        {
-            direction[0] = -direction[0];
+    public void Deplacement() {
+        for (int idx = 0;idx<GestionObjects.NbrAgent;idx++){
+            int step = GestionObjects.agents[idx].step;
+            int NP = step+1;
+            if(NP==GestionObjects.N) NP=0;
+            GestionObjects.agents[idx].changePosition(GestionObjects.agents[idx].getPosition()[0]+LectureConfig.agentSpeed*GestionObjects.agents[idx].getDirection()[0],GestionObjects.agents[idx].getPosition()[1]+LectureConfig.agentSpeed*GestionObjects.agents[idx].getDirection()[1]);
+            if(Math.hypot(GestionObjects.agents[idx].getPosition()[0]-GestionObjects.posTab[step][0],GestionObjects.agents[idx].getPosition()[1]-GestionObjects.posTab[step][1])>Math.hypot(GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0],GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])){
+                if(step==GestionObjects.N-1){
+                    GestionObjects.agents[idx].setStep(0);
+                }else{
+                    GestionObjects.agents[idx].setStep(step+1);
+                }
+                step = GestionObjects.agents[idx].step;
+                NP = step+1;
+                if(NP==GestionObjects.N) NP=0;
+                GestionObjects.agents[idx].changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+                GestionObjects.agents[idx].setDirection((float) ((GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[step][1]-GestionObjects.posTab[NP][1])))));
+            }
         }
-        float newPosY = positionY + velocityMagnitude*direction[1];
-        if(newPosY > LectureConfig.dimensionCaneva[0] - image.getHeight()|| newPosY < 0)
-        {
-            direction[1] = -direction[1];
-        }
-        changePosition(newPosX,newPosY);
-        System.out.println(getAngle());
+    }
+    public float[] getDirection(){
+        return new float[]{this.direction[0], this.direction[1]};
+    }
+
+    public void setDirection(float dirX, float dirY){
+        this.direction[0] = dirX;
+        this.direction[1] = dirY;
+    }
+
+    public void setStep(int step){
+        this.step=step;
     }
 }
 
