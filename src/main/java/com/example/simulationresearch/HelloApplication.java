@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         LectureConfig.LectureFichier();
-        stage.setTitle( "CACA" );
+        stage.setTitle( "Simulation Research" );
         Group root = new Group();
         Scene theScene = new Scene( root );
         stage.setScene( theScene );
