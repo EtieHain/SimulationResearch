@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         System.out.println(startNanoTime);
-        GestionObjects.creationObjects(160);
+        GestionObjects.creationObjects(159);
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)

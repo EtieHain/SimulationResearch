@@ -73,23 +73,21 @@ public class Agent extends ObjectScheme
     }
 
     public void Deplacement() {
-        for (int idx = 0;idx<GestionObjects.NbrAgent;idx++){
-            int step = GestionObjects.agents[idx].step;
-            int NP = step+1;
-            if(NP==GestionObjects.N) NP=0;
-            GestionObjects.agents[idx].changePosition(GestionObjects.agents[idx].getPosition()[0]+LectureConfig.agentSpeed*GestionObjects.agents[idx].getDirection()[0],GestionObjects.agents[idx].getPosition()[1]+LectureConfig.agentSpeed*GestionObjects.agents[idx].getDirection()[1]);
-            if(Math.hypot(GestionObjects.agents[idx].getPosition()[0]-GestionObjects.posTab[step][0],GestionObjects.agents[idx].getPosition()[1]-GestionObjects.posTab[step][1])>Math.hypot(GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0],GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])){
-                if(step==GestionObjects.N-1){
-                    GestionObjects.agents[idx].setStep(0);
-                }else{
-                    GestionObjects.agents[idx].setStep(step+1);
-                }
-                step = GestionObjects.agents[idx].step;
-                NP = step+1;
-                if(NP==GestionObjects.N) NP=0;
-                GestionObjects.agents[idx].changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
-                GestionObjects.agents[idx].setDirection((float) ((GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[step][1]-GestionObjects.posTab[NP][1])))));
+        int step = this.step;
+        int NP = step+1;
+        if(NP==GestionObjects.N) NP=0;
+        this.changePosition(this.getPosition()[0]+this.velocityMagnitude*this.getDirection()[0],this.getPosition()[1]+this.velocityMagnitude*this.getDirection()[1]);
+        if(Math.hypot(this.getPosition()[0]-GestionObjects.posTab[step][0],this.getPosition()[1]-GestionObjects.posTab[step][1])>Math.hypot(GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0],GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])){
+            if(step==GestionObjects.N-1){
+                this.setStep(0);
+            }else{
+                this.setStep(step+1);
             }
+            step = this.step;
+            NP = step+1;
+            if(NP==GestionObjects.N) NP=0;
+            this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+            this.setDirection((float) ((GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[step][1]-GestionObjects.posTab[NP][1])))));
         }
     }
     public float[] getDirection(){
