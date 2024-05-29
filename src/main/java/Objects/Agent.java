@@ -10,7 +10,6 @@ import java.nio.charset.MalformedInputException;
 public class Agent extends ObjectScheme
 {
     public double agentsDetectionRange;
-    private float angle;
     public int step;
     public Agent(float positionX,float positionY,int Step,Image image)
     {
@@ -20,7 +19,6 @@ public class Agent extends ObjectScheme
         this.image = image;
         this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
         this.velocityMagnitude = LectureConfig.agentSpeed;
-        this.angle = 90;
         this.step = Step;
         this.direction = new float[]{0,0};
     }
