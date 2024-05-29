@@ -64,12 +64,12 @@ public class Agent extends ObjectScheme
     public float getAngle()
     {
         float temp;
-        temp = (float) Math.toDegrees(Math.atan(-direction[1]/direction[0]));
+        temp = (float) Math.toDegrees(Math.atan(direction[1]/direction[0]));
         if(direction[0] < 0)
         {
             temp -= 180;
         }
-        return temp+180;
+        return temp + 90;
     }
 
     public void Deplacement() {

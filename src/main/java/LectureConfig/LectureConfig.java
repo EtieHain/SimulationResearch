@@ -33,6 +33,7 @@ public class LectureConfig
             {
                 values.add(filereader.next());
             }
+            filereader.close();
         } catch (Exception e)
         {
             e.printStackTrace();

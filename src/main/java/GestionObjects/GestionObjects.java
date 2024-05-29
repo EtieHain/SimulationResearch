@@ -114,7 +114,7 @@ public class GestionObjects
         gc.rotate(angle);
 
         //Calcul de la position de l'image en polaire
-        double alpha = Math.atan(posX/-posY);
+        double alpha = Math.atan(posY/-posX);
         double module = Math.hypot(posX,posY);
 
         //Calcul du nouvel angle de l'image apres rotation
