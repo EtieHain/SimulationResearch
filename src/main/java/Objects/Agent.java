@@ -88,6 +88,8 @@ public class Agent extends ObjectScheme
             if(NP==GestionObjects.N) NP=0;
             this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
             this.setDirection((float) ((GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[step][1]-GestionObjects.posTab[NP][1])))));
+            System.out.println(this.getDirection()[0]+" "+this.getDirection()[1]+" "+this.getAngle());
+            System.out.println(this.getPosition()[0]+" "+this.getPosition()[1]);
         }
     }
     public float[] getDirection(){

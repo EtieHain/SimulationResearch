@@ -62,6 +62,10 @@ public class GestionObjects
                 posTab[i][1]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][1]-winSize/2);
             }
         }
+        for(int d = 0;d<N-1;d++){
+//            System.out.println(d+" : "+posTab[d][0]+" "+posTab[d][1]);
+//            System.out.println("dir : "+(posTab[d+1][0]-posTab[d][0])/(Math.hypot((posTab[d][0]-posTab[d+1][0]),(posTab[d+1][1]-posTab[d][1])))+(posTab[d+1][1]-posTab[d][1])/(Math.hypot((posTab[d][0]-posTab[d+1][0]),(posTab[d][1]-posTab[d+1][1]))));
+        }
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
 
@@ -99,6 +103,7 @@ public class GestionObjects
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
+//            gc.drawImage(agents[idx].getImage(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
             drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
         }
     }
