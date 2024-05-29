@@ -5,7 +5,7 @@ import Objects.Agent;
 import Objects.Cible;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
+
 import java.lang.Math;
 
 public class GestionObjects
@@ -31,7 +31,7 @@ public class GestionObjects
 
     static public void creationObjects(int NbrAgents)
     {
-        Image ship = new Image( "ship2.png" );
+        Image ship = new Image("ship.png");
         winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
         l = (winSize /2)/x;
         //boucle de calcul des coordonnée des position
