@@ -32,6 +32,7 @@ public class GestionObjects
     static public void creationObjects(int NbrAgents)
     {
         Image ship = new Image( "ship.png" );
+        Image target = new Image("target.png");
         winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
         l = (winSize /2)/x;
         //boucle de calcul des coordonnée des position
@@ -83,6 +84,8 @@ public class GestionObjects
 
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
+
+        cible = new Cible(LectureConfig.posCible[0],LectureConfig.posCible[1],target);
     }
     static public void Affichage(GraphicsContext gc)
     {
@@ -94,7 +97,7 @@ public class GestionObjects
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
-        //drawImage(gc,cible.getImage(),0d,cible.getPosition()[0],cible.getPosition()[1]);
+        gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
 
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
