@@ -11,6 +11,7 @@ public class Agent extends ObjectScheme
 {
     public double agentsDetectionRange;
     public int step;
+    public boolean targetFound;
     public Agent(float positionX,float positionY,int Step,Image image)
     {
         this.positionX = positionX;
@@ -21,6 +22,7 @@ public class Agent extends ObjectScheme
         this.velocityMagnitude = LectureConfig.agentSpeed;
         this.step = Step;
         this.direction = new float[]{0,0};
+        this.targetFound = false;
     }
 
     @Override
@@ -72,25 +74,30 @@ public class Agent extends ObjectScheme
         return temp+180;
     }
 
-    public void Deplacement() {
+    public void Deplacement() {if(this.targetFound==false) {
         int step = this.step;
-        int NP = step+1;
-        if(NP==GestionObjects.N) NP=0;
-        this.changePosition(this.getPosition()[0]+this.velocityMagnitude*this.getDirection()[0],this.getPosition()[1]+this.velocityMagnitude*this.getDirection()[1]);
-        if(Math.hypot(this.getPosition()[0]-GestionObjects.posTab[step][0],this.getPosition()[1]-GestionObjects.posTab[step][1])>Math.hypot(GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0],GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])){
-            if(step==GestionObjects.N-1){
+        int NP = step + 1;
+        if (NP == GestionObjects.N) NP = 0;
+        this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+        if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
+            if (step == GestionObjects.N - 1) {
                 this.setStep(0);
-            }else{
-                this.setStep(step+1);
+            } else {
+                this.setStep(step + 1);
             }
             step = this.step;
-            NP = step+1;
-            if(NP==GestionObjects.N) NP=0;
+            NP = step + 1;
+            if (NP == GestionObjects.N) NP = 0;
             this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
-            this.setDirection((float) ((GestionObjects.posTab[NP][0]-GestionObjects.posTab[step][0])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1]-GestionObjects.posTab[step][1])/(Math.hypot((GestionObjects.posTab[step][0]-GestionObjects.posTab[NP][0]),(GestionObjects.posTab[step][1]-GestionObjects.posTab[NP][1])))));
-            System.out.println(this.getDirection()[0]+" "+this.getDirection()[1]+" "+this.getAngle());
-            System.out.println(this.getPosition()[0]+" "+this.getPosition()[1]);
+            this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
+            System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
+            System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
         }
+    }else{
+        this.setDirection((float) ((LectureConfig.dimensionCaneva[0]/2-this.positionX)/Math.hypot(LectureConfig.dimensionCaneva[0]/2-this.positionX,LectureConfig.dimensionCaneva[1]/2-this.positionY)), (float) ((LectureConfig.dimensionCaneva[1]/2-this.positionY)/Math.hypot(LectureConfig.dimensionCaneva[0]/2-this.positionX,LectureConfig.dimensionCaneva[1]/2-this.positionY)));
+        this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+    }
+
     }
     public float[] getDirection(){
         return new float[]{this.direction[0], this.direction[1]};
@@ -103,6 +110,12 @@ public class Agent extends ObjectScheme
 
     public void setStep(int step){
         this.step=step;
+    }
+
+    public void targetDetection(Cible target){
+        if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
+            this.targetFound=true;
+        }
     }
 }
 
