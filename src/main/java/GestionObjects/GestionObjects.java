@@ -16,7 +16,7 @@ public class GestionObjects
     //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
     //x : nombre de position minimale sur la moitié d'une arrete
     //arrondie au dessus en cas de division pas entière
-    private static float x = (float)Math.ceil((float)(LectureConfig.dimensionCaneva[0])/(LectureConfig.agentsDetectionRange*2));
+    private static float x = (float)Math.ceil((float)(LectureConfig.dimensionCaneva[0]/2)/(LectureConfig.agentsDetectionRange*2));
     static int winSize;
     //l : distance minimale entre les positions afin de tout couvrir
      private static float l;
@@ -70,11 +70,14 @@ public class GestionObjects
 
         //calcul de l'intervalle de position dans le tableau entre les agent
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
+        System.out.println(N);
         float intervalle = (float) Math.ceil(N /NbrAgents);
+        System.out.println(intervalle);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
             //position de l'agent en fct de l'offset
             int S = (int) (jj*intervalle);
+            System.out.println(S);
             //cration de l'objet et calcul de sa direction en fct de sa prochaine position
             temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,ship);
             temp[jj].setDirection((float) ((posTab[S+1][0]-posTab[S][0])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S+1][1]-posTab[S][1])))), (float) ((posTab[S+1][1]-posTab[S][1])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S][1]-posTab[S+1][1])))));
