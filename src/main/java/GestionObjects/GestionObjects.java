@@ -72,12 +72,10 @@ public class GestionObjects
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
         System.out.println(N);
         float intervalle = (float) Math.ceil(N /NbrAgents);
-        System.out.println(intervalle);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
             //position de l'agent en fct de l'offset
             int S = (int) (jj*intervalle);
-            System.out.println(S);
             //cration de l'objet et calcul de sa direction en fct de sa prochaine position
             temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,ship);
             temp[jj].setDirection((float) ((posTab[S+1][0]-posTab[S][0])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S+1][1]-posTab[S][1])))), (float) ((posTab[S+1][1]-posTab[S][1])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S][1]-posTab[S+1][1])))));
