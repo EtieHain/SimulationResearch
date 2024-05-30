@@ -131,4 +131,24 @@ public class GestionObjects
         gc.restore();
 
     }
+
+    public void testCommunication()
+    {
+        for(int idx = 0;idx < NbrAgent;idx++)
+        {
+            for(int idx2 = idx+1;idx2<NbrAgent;idx2++)
+            {
+                if(Math.hypot(agents[idx].getPosition()[0]-agents[idx2].getPosition()[0],agents[idx].getPosition()[1]-agents[idx2].getPosition()[1]) <= LectureConfig.agentsCommunicationRange)
+                {
+                    if(agents[idx].targetFound)
+                    {
+                        agents[idx2].isGoingToTarget = true;
+                    } else if (agents[idx2].targetFound)
+                    {
+                        agents[idx].isGoingToTarget = true;
+                    }
+                }
+            }
+        }
+    }
 }
