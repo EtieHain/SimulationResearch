@@ -76,7 +76,7 @@ public class Agent extends ObjectScheme
     }
 
     public void Deplacement() {
-        if(this.targetFound==false) {
+        if(this.targetFound==false && this.isGoingToTarget == false) {
         int step = this.step;
         int NP = step + 1;
         if (NP == GestionObjects.N) NP = 0;
@@ -95,8 +95,8 @@ public class Agent extends ObjectScheme
             System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
             System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
         }
-    }else {
-            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < 1) {
+    }else if (this.isGoingToTarget == false){
+            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
                 this.setDirection(0f,-1f);
                 this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
             } else {
@@ -104,6 +104,11 @@ public class Agent extends ObjectScheme
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
                 System.out.println(Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY));
             }
+        }else
+        {
+            this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
+            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+            System.out.println(Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY));
         }
 
     }

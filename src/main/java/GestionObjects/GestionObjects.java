@@ -137,7 +137,7 @@ public class GestionObjects
 
     }
 
-    public void testCommunication()
+    public static void testCommunication()
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
@@ -151,6 +151,11 @@ public class GestionObjects
                         {
                             agents[idx2].isGoingToTarget = true;
                             nbrAgentAvertis++;
+                            if(nbrAgentAvertis >= NbrAgent/2)
+                            {
+                                agents[idx].isGoingToTarget = true;
+                                nbrAgentAvertis++;
+                            }
                         }
                     } else if (agents[idx2].targetFound)
                     {
@@ -158,6 +163,11 @@ public class GestionObjects
                         {
                             agents[idx].isGoingToTarget = true;
                             nbrAgentAvertis++;
+                            if(nbrAgentAvertis >= NbrAgent/2)
+                            {
+                                agents[idx2].isGoingToTarget = true;
+                                nbrAgentAvertis++;
+                            }
                         }
                     }
                 }
