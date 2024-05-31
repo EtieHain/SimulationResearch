@@ -10,6 +10,7 @@ import java.lang.Math;
 
 public class GestionObjects
 {
+    static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
     static public Agent[] agents;
     static public Cible cible;
@@ -136,7 +137,7 @@ public class GestionObjects
 
     }
 
-    public void testCommunication()
+    public static void testCommunication()
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
@@ -146,10 +147,30 @@ public class GestionObjects
                 {
                     if(agents[idx].targetFound)
                     {
-                        agents[idx2].isGoingToTarget = true;
+                        if(!agents[idx2].isGoingToTarget)
+                        {
+                            agents[idx2].isGoingToTarget = true;
+                            nbrAgentAvertis++;
+                            if(nbrAgentAvertis >= NbrAgent/2)
+                            {
+                                agents[idx].isGoingToTarget = true;
+                                agents[idx].targetFound = false;
+                                nbrAgentAvertis++;
+                            }
+                        }
                     } else if (agents[idx2].targetFound)
                     {
-                        agents[idx].isGoingToTarget = true;
+                        if(!agents[idx].isGoingToTarget)
+                        {
+                            agents[idx].isGoingToTarget = true;
+                            nbrAgentAvertis++;
+                            if(nbrAgentAvertis >= NbrAgent/2)
+                            {
+                                agents[idx2].isGoingToTarget = true;
+                                agents[idx2].targetFound = false;
+                                nbrAgentAvertis++;
+                            }
+                        }
                     }
                 }
             }
