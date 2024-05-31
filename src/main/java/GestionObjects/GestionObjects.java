@@ -154,6 +154,7 @@ public class GestionObjects
                             if(nbrAgentAvertis >= NbrAgent/2)
                             {
                                 agents[idx].isGoingToTarget = true;
+                                agents[idx].targetFound = false;
                                 nbrAgentAvertis++;
                             }
                         }
@@ -166,6 +167,7 @@ public class GestionObjects
                             if(nbrAgentAvertis >= NbrAgent/2)
                             {
                                 agents[idx2].isGoingToTarget = true;
+                                agents[idx2].targetFound = false;
                                 nbrAgentAvertis++;
                             }
                         }
