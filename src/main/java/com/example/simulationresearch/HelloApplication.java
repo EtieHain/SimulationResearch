@@ -35,9 +35,8 @@ public class HelloApplication extends Application {
             {
                 for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
                 {
-                    GestionObjects.agents[idx].targetDetection();
                     GestionObjects.agents[idx].Deplacement();
-                    GestionObjects.testCommunication();
+                    GestionObjects.agents[idx].targetDetection();
                 }
                 GestionObjects.Affichage(gc);
             }
