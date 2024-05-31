@@ -96,7 +96,7 @@ public class Agent extends ObjectScheme
             System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
         }
     }else {
-            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < 1) {
+            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
                 this.setDirection(0f,-1f);
                 this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
             } else {
