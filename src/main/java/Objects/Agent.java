@@ -9,10 +9,14 @@ import java.nio.charset.MalformedInputException;
 
 public class Agent extends ObjectScheme
 {
-    public boolean isGoingToTarget = false;
+    public boolean isGoingToTarget;
     public double agentsDetectionRange;
     public int step;
     public boolean targetFound;
+    public float newAngle;
+    public float oldAngle;
+    public boolean isRotating;
+
     public Agent(float positionX,float positionY,int Step,Image image)
     {
         this.positionX = positionX;
@@ -24,11 +28,13 @@ public class Agent extends ObjectScheme
         this.step = Step;
         this.direction = new float[]{0,0};
         this.targetFound=false;
+        this.isGoingToTarget=false;
+        this.isRotating=false;
     }
 
     @Override
     public void changeImage(Image image) {
-
+        this.image=image;
     }
 
     @Override
@@ -76,7 +82,7 @@ public class Agent extends ObjectScheme
     }
 
     public void Deplacement() {
-        if(this.targetFound==false && this.isGoingToTarget == false) {
+        if(this.targetFound==false && this.isGoingToTarget == false && !this.isRotating) {
             int step = this.step;
             int NP = step + 1;
             if (NP == GestionObjects.N) NP = 0;
@@ -84,18 +90,20 @@ public class Agent extends ObjectScheme
             if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
                 if (step == GestionObjects.N - 1) {
                     this.setStep(0);
+                    this.isRotating=false;
                 } else {
                     this.setStep(step + 1);
+                    this.isRotating=true;
+                    this.oldAngle=this.getAngle();
                 }
                 step = this.step;
                 NP = step + 1;
                 if (NP == GestionObjects.N) NP = 0;
                 this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
                 this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
-//                System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
-//                System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
+                this.newAngle=this.getAngle();
             }
-        }else if(this.targetFound && !this.isGoingToTarget){
+        }else if(this.targetFound && !this.isGoingToTarget && !this.isRotating){
             if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
                 this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
             } else {
@@ -103,7 +111,7 @@ public class Agent extends ObjectScheme
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
             }
         }
-        else {
+        else if(!this.isRotating){
             this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
             this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
 

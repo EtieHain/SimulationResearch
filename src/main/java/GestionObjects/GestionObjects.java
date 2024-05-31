@@ -94,10 +94,6 @@ public class GestionObjects
     static public void Affichage(GraphicsContext gc)
     {
         //Actualisation de l'arriere plan
-//        gc.setFill(Color.WHITE);
-//        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
-
-//        Image bg = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
@@ -106,7 +102,31 @@ public class GestionObjects
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+            if(agents[idx].isRotating)
+            {
+                int rotationSpeed = 10;
+                if(agents[idx].oldAngle > agents[idx].newAngle)
+                {
+                    agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;
+                    if(agents[idx].oldAngle < agents[idx].newAngle)
+                    {
+                        agents[idx].isRotating = false;
+                    }
+                }
+                else
+                {
+                    agents[idx].oldAngle = agents[idx].oldAngle +rotationSpeed;
+                    if(agents[idx].oldAngle > agents[idx].newAngle)
+                    {
+                        agents[idx].isRotating = false;
+                    }
+                }
+                drawImage(gc,agents[idx].getImage(),agents[idx].oldAngle,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+            }
+            else
+            {
+                drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+            }
         }
     }
     static private void drawImage(GraphicsContext gc, Image image, double angle,float positionX,float positionY) {

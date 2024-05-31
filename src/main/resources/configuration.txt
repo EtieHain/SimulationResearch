@@ -1,7 +1,7 @@
 environment_size_W_H 700 700
 
 target_position_x_y 640 700
-agents_speed 1
+agents_speed 4
 
 agents_detection_range 29
 agents_communication_range 29
