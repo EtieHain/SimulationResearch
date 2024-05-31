@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 public class HelloApplication extends Application {
-
+    static boolean Play = true;
     @Override
     public void start(Stage stage) throws IOException {
         LectureConfig.LectureFichier();
@@ -33,13 +33,21 @@ public class HelloApplication extends Application {
         {
             public void handle(long currentNanoTime)
             {
-                for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
-                {
-                    GestionObjects.testCommunication();
-                    GestionObjects.agents[idx].targetDetection();
-                    GestionObjects.agents[idx].Deplacement();
+                if(Play) {
+                    int NbrFound = 0;
+                    for (int idx = 0; idx < GestionObjects.NbrAgent; idx++) {
+                        GestionObjects.testCommunication();
+                        GestionObjects.agents[idx].targetDetection();
+                        if(!GestionObjects.agents[idx].isGoingToTarget||!GestionObjects.agents[idx].targetFound)GestionObjects.agents[idx].Deplacement();
+                        System.out.println(idx + " " + GestionObjects.agents[idx].targetFound);
+                        System.out.println(idx + " " + GestionObjects.agents[idx].isGoingToTarget);
+                        if (GestionObjects.agents[idx].targetFound) NbrFound++;
+                    }
+                    GestionObjects.Affichage(gc);
+                    if (NbrFound >= (int) (GestionObjects.NbrAgent / 2 + 1)) {
+                        Play = false;
+                    }
                 }
-                GestionObjects.Affichage(gc);
             }
         }.start();
         stage.show();

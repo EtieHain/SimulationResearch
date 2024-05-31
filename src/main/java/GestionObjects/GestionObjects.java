@@ -28,7 +28,6 @@ public class GestionObjects
     //N cellule avec 2 coordonnée (x,y)
     public static float[][] posTab = new float[N][2];
     //définition du r minimale pour le calcul des positions intérieures.
-    private static float r = Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange);
 
     static public void creationObjects(int NbrAgents)
     {
@@ -36,6 +35,7 @@ public class GestionObjects
         Image target = new Image("target.png");
         winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
         l = (winSize /2)/x;
+        float r = (float) (Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange)*0.95);
         int o = (int) (ship.getWidth()/2);
         //boucle de calcul des coordonnée des position
         for(int i =0;i<N;i+=2){
