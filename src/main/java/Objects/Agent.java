@@ -9,6 +9,7 @@ import java.nio.charset.MalformedInputException;
 
 public class Agent extends ObjectScheme
 {
+    public boolean isGoingToTarget = false;
     public double agentsDetectionRange;
     public int step;
     public boolean targetFound;
