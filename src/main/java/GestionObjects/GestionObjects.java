@@ -24,10 +24,11 @@ public class GestionObjects
     //N cellule avec 2 coordonnée (x,y)
     public static float[][] posTab;
 
-    public static Image bg = new Image("bg.png",Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),false,false);
+    public static Image bg;
 
     static public void creationObjects(int NbrAgents)
     {
+        bg = new Image("bg.png",Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),false,false);
         Image ship = new Image( "ship.png" );
         Image target = new Image("target.png");
         winWidth = (int) (LectureConfig.dimensionCaneva[0]-(ship.getWidth()));
