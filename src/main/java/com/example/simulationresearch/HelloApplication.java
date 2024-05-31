@@ -32,6 +32,7 @@ public class HelloApplication extends Application {
         {
             public void handle(long currentNanoTime)
             {
+                float simulationTime = (float)(currentNanoTime-startNanoTime)/1000000000f;
                 if(Play) {
                     int NbrFound = 0;
                     for (int idx = 0; idx < GestionObjects.NbrAgent; idx++) {
@@ -43,7 +44,7 @@ public class HelloApplication extends Application {
                     GestionObjects.Affichage(gc);
                     if (NbrFound >= (int) (GestionObjects.NbrAgent / 2 + 1)) {
                         Play = false;
-                        System.out.println(((float)(currentNanoTime-startNanoTime))/1000000000f*(LectureConfig.agentSpeed/5));
+                        System.out.println((simulationTime*(LectureConfig.agentSpeed*100/500)));
                     }
                 }
             }

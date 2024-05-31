@@ -63,7 +63,7 @@ public class LectureConfig
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":
-                    agentSpeed = Float.parseFloat(data[1]);
+                    agentSpeed = Float.parseFloat(data[1])/100;
                     break;
                 case "agents_detection_range":
                     agentsDetectionRange = Float.parseFloat(data[1]);
