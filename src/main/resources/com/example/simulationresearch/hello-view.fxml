@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="687.0" prefWidth="762.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-   <children>
-      <Canvas fx:id="ResearchZone" height="200.0" width="200.0" />
-   </children>
-</VBox>
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="800.0" prefWidth="1100.0"
+           xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
+    <AnchorPane prefHeight="800.0" prefWidth="800.0">
+        <Canvas fx:id="myCanvas" height="800.0" width="800.0"/>
+    </AnchorPane>
+
+    <AnchorPane prefHeight="800.0" prefWidth="300.0">
+        <fx:include source="Interface.fxml"/>
+    </AnchorPane>
+</SplitPane>

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import com.example.simulationresearch.HelloController;
 
 import java.io.IOException;
 public class HelloApplication extends Application {
@@ -18,13 +19,20 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         LectureConfig.LectureFichier();
+        /*
         stage.setTitle( "Simulation Research" );
         Group root = new Group();
         Scene theScene = new Scene( root );
         stage.setScene( theScene );
         Canvas canvas = new Canvas( LectureConfig.dimensionCaneva[0], LectureConfig.dimensionCaneva[1] );
         root.getChildren().add( canvas );
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+         */
+
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1100,800);
+        stage.setTitle("CACA");
+        stage.setScene(scene);
+        HelloController test = fxmlLoader.getController();
 
         final long startNanoTime = System.nanoTime();
         System.out.println(startNanoTime);
@@ -33,12 +41,7 @@ public class HelloApplication extends Application {
         {
             public void handle(long currentNanoTime)
             {
-                for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
-                {
-                    GestionObjects.agents[idx].Deplacement();
-                    GestionObjects.agents[idx].targetDetection();
-                }
-                GestionObjects.Affichage(gc);
+                test.Afficher();
             }
         }.start();
         stage.show();
