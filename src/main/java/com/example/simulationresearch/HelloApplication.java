@@ -19,6 +19,7 @@ import static com.example.simulationresearch.InterfaceController.Situation;
 
 public class HelloApplication extends Application {
 
+    static long startTime;
     @Override
     public void start(Stage stage) throws IOException {
         LectureConfig.LectureFichier();
@@ -41,11 +42,12 @@ public class HelloApplication extends Application {
         //InterfaceController Ctrl_Interface = fxmlLoader2.getController();
 
         final long startNanoTime = System.nanoTime();
-        System.out.println(startNanoTime);
+        startTime = startNanoTime;
         GestionObjects.creationObjects(5);
 
         new AnimationTimer()
         {
+            float simulationTime=0;
             public void handle(long currentNanoTime)
             {
                 //int test = Ctrl_Interface.getSituation();
@@ -53,15 +55,22 @@ public class HelloApplication extends Application {
                 if(Situation == 1) {
 
                     Ctrl_Global.Afficher();
+                    if(Situation==0){
+                        simulationTime = (currentNanoTime-startTime)/1000000000f;
+                        System.out.println((simulationTime*(LectureConfig.agentSpeed*100/500)));
+                    }
                 }
                 else if(Situation == 0){
 
                 }
                 else{
+                    startTime=currentNanoTime;
+                    Situation=0;
                     GestionObjects.creationObjects(5);
                     Ctrl_Global.Afficher();
                 }
             }
+
         }.start();
         stage.show();
     }

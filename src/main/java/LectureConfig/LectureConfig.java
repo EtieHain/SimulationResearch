@@ -5,6 +5,7 @@ import com.example.simulationresearch.HelloApplication;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 public class LectureConfig
@@ -51,15 +52,21 @@ public class LectureConfig
                 case "environment_size_W_H":
                     int x = Integer.parseInt(data[1]);
                     int y = Integer.parseInt(data[2]);
+                    Random rand = new Random();
+                    x = rand.nextInt(500+1)+200;
+                    y = rand.nextInt(500+1)+200;
                     dimensionCaneva = new int[]{x,y};
                     break;
                 case "target_position_x_y":
                     float x1 = Float.parseFloat(data[1]);
                     float y1 = Float.parseFloat(data[2]);
+                    Random rand2 = new Random();
+                    x1 = rand2.nextInt(dimensionCaneva[0]+1);
+                    y1 = rand2.nextInt(dimensionCaneva[1]+1);
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":
-                    agentSpeed = Float.parseFloat(data[1]);
+                    agentSpeed = Float.parseFloat(data[1])/100;
                     break;
                 case "agents_detection_range":
                     agentsDetectionRange = Float.parseFloat(data[1]);
