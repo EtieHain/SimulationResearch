@@ -16,6 +16,7 @@ public class Agent extends ObjectScheme
     public float newAngle;
     public float oldAngle;
     public boolean isRotating;
+    public boolean changement;
 
     public Agent(float positionX,float positionY,int Step,Image image)
     {
@@ -30,6 +31,7 @@ public class Agent extends ObjectScheme
         this.targetFound=false;
         this.isGoingToTarget=false;
         this.isRotating=false;
+        this.changement = false;
     }
 
     @Override
@@ -107,14 +109,37 @@ public class Agent extends ObjectScheme
             if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
                 this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
             } else {
-                this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
-                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                if(changement)
+                {
+                    oldAngle = this.getAngle();
+                    this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
+                    this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                    this.newAngle = this.getAngle();
+                    this.isRotating = true;
+                    changement = false;
+                }
+                else
+                {
+                    this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
+                    this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                }
             }
         }
         else if(!this.isRotating){
-            this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
-            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
-
+            if(this.changement)
+            {
+                oldAngle = this.getAngle();
+                this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
+                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                this.newAngle = this.getAngle();
+                this.isRotating = true;
+                changement = false;
+            }
+            else
+            {
+                this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
+                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+            }
         }
     }
     public float[] getDirection(){
@@ -134,6 +159,7 @@ public class Agent extends ObjectScheme
         Cible target = GestionObjects.cible;
         if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
             this.targetFound=true;
+            this.changement = true;
         }
     }
     public boolean[] getState(){

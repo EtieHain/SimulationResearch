@@ -104,7 +104,7 @@ public class GestionObjects
         {
             if(agents[idx].isRotating)
             {
-                int rotationSpeed = 10;
+                int rotationSpeed = 25;
                 if(agents[idx].oldAngle > agents[idx].newAngle)
                 {
                     agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;
@@ -166,6 +166,7 @@ public class GestionObjects
             if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]){
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
+                agents[idx].changement = true;
                 nbrAgentAvertis++;
                 if(nbrAgentAvertis>=NbrAgent/2){
                     agents[founderIndex].isGoingToTarget=true;
