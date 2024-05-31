@@ -28,5 +28,10 @@ public class HelloController {
         }
         GestionObjects.Affichage(gc);
     }
+    public void EspaceVide(){
+        GraphicsContext gc = myCanvas.getGraphicsContext2D();
+        Image space = new Image( "background3.png" );
+        gc.drawImage(space, 0, 0);
+    }
 
 }
