@@ -57,9 +57,9 @@ public class LectureConfig
                 case "target_position_x_y":
                     float x1 = Float.parseFloat(data[1]);
                     float y1 = Float.parseFloat(data[2]);
-//                    Random rand = new Random();
-//                    x1 = rand.nextInt(dimensionCaneva[0]+1);
-//                    y1 = rand.nextInt(dimensionCaneva[1]+1);
+                    Random rand = new Random();
+                    x1 = rand.nextInt(dimensionCaneva[0]+1);
+                    y1 = rand.nextInt(dimensionCaneva[1]+1);
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":

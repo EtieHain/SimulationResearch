@@ -36,12 +36,10 @@ public class HelloApplication extends Application {
                 if(Play) {
                     int NbrFound = 0;
                     for (int idx = 0; idx < GestionObjects.NbrAgent; idx++) {
-                        GestionObjects.testCommunication();
+                        if(GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1])GestionObjects.testCommunication(idx);
                         GestionObjects.agents[idx].targetDetection();
-                        if(!GestionObjects.agents[idx].isGoingToTarget||!GestionObjects.agents[idx].targetFound)GestionObjects.agents[idx].Deplacement();
-                        System.out.println(idx + " " + GestionObjects.agents[idx].targetFound);
-                        System.out.println(idx + " " + GestionObjects.agents[idx].isGoingToTarget);
-                        if (GestionObjects.agents[idx].targetFound) NbrFound++;
+                        if(!GestionObjects.agents[idx].getState()[0]||!GestionObjects.agents[idx].getState()[1])GestionObjects.agents[idx].Deplacement();
+                        if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
                     }
                     GestionObjects.Affichage(gc);
                     if (NbrFound >= (int) (GestionObjects.NbrAgent / 2 + 1)) {

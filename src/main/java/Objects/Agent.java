@@ -40,7 +40,7 @@ public class Agent extends ObjectScheme
 
     @Override
     public void changeRadiusCommunication(float radius) {
-
+        this.radiusCommunication=radius;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Agent extends ObjectScheme
 
     @Override
     public float radiusCommunication() {
-        return 0;
+        return this.radiusCommunication;
     }
 
     @Override
@@ -77,27 +77,26 @@ public class Agent extends ObjectScheme
 
     public void Deplacement() {
         if(this.targetFound==false && this.isGoingToTarget == false) {
-        int step = this.step;
-        int NP = step + 1;
-        if (NP == GestionObjects.N) NP = 0;
-        this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
-        if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
-            if (step == GestionObjects.N - 1) {
-                this.setStep(0);
-            } else {
-                this.setStep(step + 1);
-            }
-            step = this.step;
-            NP = step + 1;
+            int step = this.step;
+            int NP = step + 1;
             if (NP == GestionObjects.N) NP = 0;
-            this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
-            this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
-            System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
-            System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
-        }
-    }else if(this.targetFound && !this.isGoingToTarget){
+            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+            if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
+                if (step == GestionObjects.N - 1) {
+                    this.setStep(0);
+                } else {
+                    this.setStep(step + 1);
+                }
+                step = this.step;
+                NP = step + 1;
+                if (NP == GestionObjects.N) NP = 0;
+                this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+                this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
+                System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
+                System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
+            }
+        }else if(this.targetFound && !this.isGoingToTarget){
             if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
-                this.setDirection(0f,-1f);
                 this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
             } else {
                 this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
@@ -105,13 +104,9 @@ public class Agent extends ObjectScheme
             }
         }
         else {
-            if (Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY) < LectureConfig.agentSpeed) {
-                this.setDirection(0f, -1f);
-                this.changePosition(LectureConfig.posCible[0], LectureConfig.posCible[1]);
-            } else {
-                this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
-                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);System.out.println(Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY));
-            }
+            this.setDirection((float) ((LectureConfig.posCible[0] - this.positionX) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)), (float) ((LectureConfig.posCible[1] - this.positionY) / Math.hypot(LectureConfig.posCible[0] - this.positionX, LectureConfig.posCible[1] - this.positionY)));
+            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);System.out.println(Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY));
+
         }
     }
     public float[] getDirection(){
@@ -132,6 +127,9 @@ public class Agent extends ObjectScheme
         if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
             this.targetFound=true;
         }
+    }
+    public boolean[] getState(){
+        return new boolean[]{this.targetFound,this.isGoingToTarget};
     }
 }
 

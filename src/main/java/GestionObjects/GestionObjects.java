@@ -95,7 +95,7 @@ public class GestionObjects
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
 
-        Image bg = new Image("background2.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
+        Image bg = new Image("background.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
@@ -137,11 +137,19 @@ public class GestionObjects
 
     }
 
-    public static void testCommunication()
+    public static void testCommunication(int founderIndex)
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            for(int idx2 = idx+1;idx2<NbrAgent;idx2++)
+            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[0]){
+                agents[idx].isGoingToTarget=true;
+                nbrAgentAvertis++;
+                if(nbrAgentAvertis>=NbrAgent/2){
+                    agents[founderIndex].isGoingToTarget=true;
+                    agents[founderIndex].targetFound=false;
+                }
+            }
+            /*for(int idx2 = idx+1;idx2<NbrAgent;idx2++)
             {
                 if(Math.hypot(agents[idx].getPosition()[0]-agents[idx2].getPosition()[0],agents[idx].getPosition()[1]-agents[idx2].getPosition()[1]) <= LectureConfig.agentsCommunicationRange)
                 {
@@ -173,7 +181,7 @@ public class GestionObjects
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }
