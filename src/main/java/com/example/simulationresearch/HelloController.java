@@ -38,7 +38,7 @@ public class HelloController {
         }
         GestionObjects.Affichage(gc);
         if (NbrFound >= (GestionObjects.NbrAgent / 2 + 1)) {
-            InterfaceController.Situation=0;
+            InterfaceController.Situation=2;
         }
     }
     public void EspaceVide(){

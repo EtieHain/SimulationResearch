@@ -28,6 +28,12 @@ public class GestionObjects
 
     static public void creationObjects(int NbrAgents)
     {
+        Random rand = new Random();
+        LectureConfig.dimensionCaneva[0] = rand.nextInt(501)+200;
+        LectureConfig.dimensionCaneva[1] = rand.nextInt(501)+200;
+        LectureConfig.posCible[0] = rand.nextInt(LectureConfig.dimensionCaneva[0]+1);
+        LectureConfig.posCible[1] = rand.nextInt(LectureConfig.dimensionCaneva[1]+1);
+
         bg = new Image("bg.png",Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),false,false);
         Image ship = new Image( "ship.png" );
         Image target = new Image("target.png");

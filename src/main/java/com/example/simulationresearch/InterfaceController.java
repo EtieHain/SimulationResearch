@@ -20,12 +20,6 @@ public class InterfaceController {
     }
     @FXML
     void btnResetClick(){
-        Random rand = new Random();
-        LectureConfig.dimensionCaneva[0] = rand.nextInt(501)+200;
-        LectureConfig.dimensionCaneva[1] = rand.nextInt(501)+200;
-        LectureConfig.posCible[0] = rand.nextInt(LectureConfig.dimensionCaneva[0]+1);
-        LectureConfig.posCible[1] = rand.nextInt(LectureConfig.dimensionCaneva[1]+1);
-        System.out.println(LectureConfig.dimensionCaneva[0]+"x"+LectureConfig.dimensionCaneva[1]);
         Situation = 2;
     }
 }

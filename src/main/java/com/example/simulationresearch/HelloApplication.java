@@ -55,7 +55,7 @@ public class HelloApplication extends Application {
                 if(Situation == 1) {
 
                     Ctrl_Global.Afficher();
-                    if(Situation==0){
+                    if(Situation==2){
                         simulationTime = (currentNanoTime-startTime)/1000000000f;
                         System.out.println((simulationTime*(LectureConfig.agentSpeed*100/500)));
                     }
@@ -64,10 +64,10 @@ public class HelloApplication extends Application {
 
                 }
                 else{
-                    startTime=currentNanoTime;
-                    Situation=0;
                     GestionObjects.creationObjects(5);
-                    Ctrl_Global.Afficher();
+//                    Ctrl_Global.Afficher();
+                    startTime=currentNanoTime;
+                    Situation=1;
                 }
             }
 
