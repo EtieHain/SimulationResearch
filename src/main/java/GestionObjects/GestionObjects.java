@@ -13,7 +13,7 @@ public class GestionObjects
     static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
     static public Agent[] agents;
-    static Cible cible;
+    static public Cible cible;
     //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
     //x : nombre de position minimale sur la moitié d'une arrete
     //arrondie au dessus en cas de division pas entière
@@ -36,32 +36,33 @@ public class GestionObjects
         Image target = new Image("target.png");
         winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
         l = (winSize /2)/x;
+        int o = (int) (ship.getWidth()/2);
         //boucle de calcul des coordonnée des position
         for(int i =0;i<N;i+=2){
             //algo différent en fonction de l'arrête
             if (i>=0&&i<N/4) {
                 //calcul des coordonnée des position extérieure
-                posTab[i+1][0] = winSize-(i/2)*l;
-                posTab[i+1][1] = winSize;
+                posTab[i+1][0] = winSize-(i/2)*l+o;
+                posTab[i+1][1] = winSize+o;
                 //Calcul des positions intérieures en fonction des position intérieure
                 //position allignée à la position extérieures par rapport au centre
-                posTab[i][0]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][0]-winSize/2);
-                posTab[i][1]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][1]-winSize/2);
+                posTab[i][0]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][0]-o-winSize/2);
+                posTab[i][1]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][1]-o-winSize/2);
             } else if (i>=N/4&&i<N/2) {
-                posTab[i+1][0] = 0;
-                posTab[i+1][1] = winSize-((i/2)-N/8)*l;
-                posTab[i][0]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][0]-winSize/2);
-                posTab[i][1]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][1]-winSize/2);
+                posTab[i+1][0] = o;
+                posTab[i+1][1] = winSize-((i/2)-N/8)*l+o;
+                posTab[i][0]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][0]-o-winSize/2);
+                posTab[i][1]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][1]-o-winSize/2);
             } else if (i>=N/2&&i<N*0.75) {
-                posTab[i+1][0] = ((i/2)-N/4)*l;
-                posTab[i+1][1] = 0;
-                posTab[i][0]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][0]-winSize/2);
-                posTab[i][1]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][1]-winSize/2);
+                posTab[i+1][0] = ((i/2)-N/4)*l+o;
+                posTab[i+1][1] = o;
+                posTab[i][0]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][0]-o-winSize/2);
+                posTab[i][1]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][1]-o-winSize/2);
             } else if (i>=N*0.75&&i<N) {
-                posTab[i+1][0] = winSize;
-                posTab[i+1][1] = (float)((i/2)-(N/2)*0.75)*l;
-                posTab[i][0]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][0]-winSize/2);
-                posTab[i][1]=winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-winSize/2),(GestionObjects.posTab[i+1][1]-winSize/2))))*(GestionObjects.posTab[i+1][1]-winSize/2);
+                posTab[i+1][0] = winSize+o;
+                posTab[i+1][1] = (float)((i/2)-(N/2)*0.75)*l+o;
+                posTab[i][0]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][0]-o-winSize/2);
+                posTab[i][1]=o+winSize/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-o-winSize/2),(GestionObjects.posTab[i+1][1]-o-winSize/2))))*(GestionObjects.posTab[i+1][1]-o-winSize/2);
             }
         }
         //Stock dans la classe le nombre d'agents
@@ -94,11 +95,11 @@ public class GestionObjects
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
 
-        Image bg = new Image("background.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
+        Image bg = new Image("background2.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
-        gc.drawImage(cible.getImage(),cible.getPosition()[0],cible.getPosition()[1]);
+        gc.drawImage(cible.getImage(),cible.getPosition()[0]-cible.getImage().getWidth()/2,cible.getPosition()[1]-cible.getImage().getHeight()/2);
 
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
@@ -109,8 +110,8 @@ public class GestionObjects
     static private void drawImage(GraphicsContext gc, Image image, double angle,float positionX,float positionY) {
 
         //Acquisition de la position de l'image
-        float posX = (float) (positionX + image.getWidth()/2);
-        float posY = (float) (positionY + image.getHeight()/2);
+        float posX = (float) (positionX/* + image.getWidth()/2*/);
+        float posY = (float) (positionY/* + image.getHeight()/2*/);
         // Sauvegarder l'état actuel de la transformation
         gc.save();
 
