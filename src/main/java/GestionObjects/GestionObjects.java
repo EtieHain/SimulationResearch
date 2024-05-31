@@ -75,9 +75,6 @@ public class GestionObjects
                 posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             }
         }
-        for(int p = 0;p<N;p+=2){
-            System.out.println(posTab[p+1][0]+" "+posTab[p+1][1]);
-        }
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
 
@@ -87,7 +84,8 @@ public class GestionObjects
         //calcul de l'intervalle de position dans le tableau entre les agent
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
 //        System.out.println(N);
-        float intervalle = (float) Math.ceil(N /NbrAgents);
+//        float intervalle = (float) Math.ceil((double) N /NbrAgents);
+        float intervalle = (float) Math.ceil( N /NbrAgents);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
             //position de l'agent en fct de l'offset
@@ -115,7 +113,7 @@ public class GestionObjects
         {
             if(agents[idx].isRotating)
             {
-                int rotationSpeed = 10;
+                int rotationSpeed = 25;
                 if(agents[idx].oldAngle > agents[idx].newAngle)
                 {
                     agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;

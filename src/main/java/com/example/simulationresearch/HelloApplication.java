@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         final long startNanoTime = System.nanoTime();
-        GestionObjects.creationObjects(5);
+        GestionObjects.creationObjects(63);
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
