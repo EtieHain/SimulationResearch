@@ -74,7 +74,8 @@ public class Agent extends ObjectScheme
         return temp + 90;
     }
 
-    public void Deplacement() {if(this.targetFound==false) {
+    public void Deplacement() {
+        if(this.targetFound==false) {
         int step = this.step;
         int NP = step + 1;
         if (NP == GestionObjects.N) NP = 0;
@@ -93,10 +94,16 @@ public class Agent extends ObjectScheme
             System.out.println(this.getDirection()[0] + " " + this.getDirection()[1] + " " + this.getAngle());
             System.out.println(this.getPosition()[0] + " " + this.getPosition()[1]);
         }
-    }else{
-        this.setDirection((float) ((LectureConfig.dimensionCaneva[0]/2-this.positionX)/Math.hypot(LectureConfig.dimensionCaneva[0]/2-this.positionX,LectureConfig.dimensionCaneva[1]/2-this.positionY)), (float) ((LectureConfig.dimensionCaneva[1]/2-this.positionY)/Math.hypot(LectureConfig.dimensionCaneva[0]/2-this.positionX,LectureConfig.dimensionCaneva[1]/2-this.positionY)));
-        this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
-    }
+    }else {
+            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < 1) {
+                this.setDirection(0f,-1f);
+                this.changePosition(LectureConfig.dimensionCaneva[0]/2,LectureConfig.dimensionCaneva[1]/2);
+            } else {
+                this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
+                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                System.out.println(Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY));
+            }
+        }
 
     }
     public float[] getDirection(){
@@ -112,7 +119,8 @@ public class Agent extends ObjectScheme
         this.step=step;
     }
 
-    public void targetDetection(Cible target){
+    public void targetDetection(){
+        Cible target = GestionObjects.cible;
         if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
             this.targetFound=true;
         }

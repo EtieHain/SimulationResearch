@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         System.out.println(startNanoTime);
-        GestionObjects.creationObjects(1);
+        GestionObjects.creationObjects(5);
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
@@ -36,6 +36,7 @@ public class HelloApplication extends Application {
                 for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
                 {
                     GestionObjects.agents[idx].Deplacement();
+                    GestionObjects.agents[idx].targetDetection();
                 }
                 GestionObjects.Affichage(gc);
             }
