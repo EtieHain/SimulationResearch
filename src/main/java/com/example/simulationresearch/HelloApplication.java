@@ -27,7 +27,6 @@ public class HelloApplication extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         final long startNanoTime = System.nanoTime();
-        System.out.println(startNanoTime);
         GestionObjects.creationObjects(5);
         new AnimationTimer()
         {
@@ -37,20 +36,20 @@ public class HelloApplication extends Application {
                     int NbrFound = 0;
                     for (int idx = 0; idx < GestionObjects.NbrAgent; idx++) {
                         if(GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1])GestionObjects.testCommunication(idx);
-                        GestionObjects.agents[idx].targetDetection();
+                        else GestionObjects.agents[idx].targetDetection();
                         if(!GestionObjects.agents[idx].getState()[0]||!GestionObjects.agents[idx].getState()[1])GestionObjects.agents[idx].Deplacement();
                         if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
                     }
                     GestionObjects.Affichage(gc);
                     if (NbrFound >= (int) (GestionObjects.NbrAgent / 2 + 1)) {
                         Play = false;
+                        System.out.println(((float)(currentNanoTime-startNanoTime))/1000000000f*(LectureConfig.agentSpeed/5));
                     }
                 }
             }
         }.start();
         stage.show();
     }
-
     public static void main(String[] args) {
         launch();
     }

@@ -15,26 +15,29 @@ public class GestionObjects
     static public Agent[] agents;
     static public Cible cible;
     //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
-    //x : nombre de position minimale sur la moitié d'une arrete
-    //arrondie au dessus en cas de division pas entière
-    private static float x = (float)Math.ceil((float)(LectureConfig.dimensionCaneva[0]/2)/(LectureConfig.agentsDetectionRange*2));
     static int winSize;
-    //l : distance minimale entre les positions afin de tout couvrir
-     private static float l;
-    //N : nombre totale de positions
-    // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
-     public static int N = (int) (16*x);
+    static public int N;
     //déclaration du tableau de position
     //N cellule avec 2 coordonnée (x,y)
-    public static float[][] posTab = new float[N][2];
-    //définition du r minimale pour le calcul des positions intérieures.
+    public static float[][] posTab;
+
+    public static Image bg = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
 
     static public void creationObjects(int NbrAgents)
     {
         Image ship = new Image( "ship.png" );
         Image target = new Image("target.png");
         winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
-        l = (winSize /2)/x;
+        //x : nombre de position minimale sur la moitié d'une arrete
+        //arrondie au dessus en cas de division pas entière
+        float x = (float) Math.ceil((double) LectureConfig.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(ship.getHeight()/2,2))));
+        //l : distance minimale entre les positions afin de tout couvrir
+        float l = ((float) winSize /2)/x;
+        //N : nombre totale de positions
+        // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
+        N = (int) (16*x);
+        System.out.println(N);
+        posTab = new float[N][2];
         float r = (float) (Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange)*0.95);
         int o = (int) (ship.getWidth()/2);
         //boucle de calcul des coordonnée des position
@@ -73,7 +76,7 @@ public class GestionObjects
 
         //calcul de l'intervalle de position dans le tableau entre les agent
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
-        System.out.println(N);
+//        System.out.println(N);
         float intervalle = (float) Math.ceil(N /NbrAgents);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
@@ -95,7 +98,7 @@ public class GestionObjects
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
 
-        Image bg = new Image("background.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
+//        Image bg = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
@@ -141,8 +144,9 @@ public class GestionObjects
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[0]){
+            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]){
                 agents[idx].isGoingToTarget=true;
+                agents[idx].targetFound=false;
                 nbrAgentAvertis++;
                 if(nbrAgentAvertis>=NbrAgent/2){
                     agents[founderIndex].isGoingToTarget=true;
