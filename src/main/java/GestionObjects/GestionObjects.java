@@ -10,6 +10,7 @@ import java.lang.Math;
 
 public class GestionObjects
 {
+    static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
     static public Agent[] agents;
     static Cible cible;
@@ -145,10 +146,18 @@ public class GestionObjects
                 {
                     if(agents[idx].targetFound)
                     {
-                        agents[idx2].isGoingToTarget = true;
+                        if(!agents[idx2].isGoingToTarget)
+                        {
+                            agents[idx2].isGoingToTarget = true;
+                            nbrAgentAvertis++;
+                        }
                     } else if (agents[idx2].targetFound)
                     {
-                        agents[idx].isGoingToTarget = true;
+                        if(!agents[idx].isGoingToTarget)
+                        {
+                            agents[idx].isGoingToTarget = true;
+                            nbrAgentAvertis++;
+                        }
                     }
                 }
             }
