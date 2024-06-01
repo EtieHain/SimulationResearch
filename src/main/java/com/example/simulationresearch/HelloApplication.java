@@ -20,6 +20,8 @@ import static com.example.simulationresearch.InterfaceController.Situation;
 public class HelloApplication extends Application {
 
     static long startTime;
+    static float sum;
+    static float n;
     @Override
     public void start(Stage stage) throws IOException {
         LectureConfig.LectureFichier();
@@ -56,8 +58,11 @@ public class HelloApplication extends Application {
 
                     Ctrl_Global.Afficher();
                     if(Situation==2){
-                        simulationTime = (currentNanoTime-startTime)/1000000000f;
-                        System.out.println((simulationTime*(LectureConfig.agentSpeed*100/500)));
+                        n++;
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed*100/500);
+                        System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
+                        sum+=simulationTime;
+                        System.out.println("Average time : "+sum/n+" seconds");
                     }
                 }
                 else if(Situation == 0){

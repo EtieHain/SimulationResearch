@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class InterfaceController {
 
-    static int Situation = 0;
+    static int Situation = 1;
 
     @FXML
     void btnStartClick(){

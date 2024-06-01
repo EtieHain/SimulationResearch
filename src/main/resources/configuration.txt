@@ -1,4 +1,4 @@
-environment_size_W_H 700 700
+environment_size_W_H 780 780
 target_position_x_y 500 500
 agents_speed 1500
 agents_detection_range 50

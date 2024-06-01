@@ -52,9 +52,9 @@ public class LectureConfig
                 case "environment_size_W_H":
                     int x = Integer.parseInt(data[1]);
                     int y = Integer.parseInt(data[2]);
-                    Random rand = new Random();
-                    x = rand.nextInt(500+1)+200;
-                    y = rand.nextInt(500+1)+200;
+//                    Random rand = new Random();
+//                    x = rand.nextInt(500+1)+200;
+//                    y = rand.nextInt(500+1)+200;
                     dimensionCaneva = new int[]{x,y};
                     break;
                 case "target_position_x_y":
