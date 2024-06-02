@@ -2,10 +2,7 @@ package Objects;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.LectureConfig;
-import com.example.simulationresearch.HelloApplication;
 import javafx.scene.image.Image;
-
-import java.nio.charset.MalformedInputException;
 
 public class Agent extends ObjectScheme
 {
@@ -16,8 +13,9 @@ public class Agent extends ObjectScheme
     public float newAngle;
     public float oldAngle;
     public boolean isRotating;
+    public Image stopImg;
 
-    public Agent(float positionX,float positionY,int Step,Image image)
+    public Agent(float positionX,float positionY,int Step,Image image,Image stopImg)
     {
         this.positionX = positionX;
         this.positionY = positionY;
@@ -30,6 +28,7 @@ public class Agent extends ObjectScheme
         this.targetFound=false;
         this.isGoingToTarget=false;
         this.isRotating=false;
+        this.stopImg =stopImg;
     }
 
     @Override
@@ -135,7 +134,7 @@ public class Agent extends ObjectScheme
                 this.oldAngle=this.getAngle();
                 this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
                 this.newAngle=this.getAngle();
-            }
+            }else this.image = this.stopImg;
         }
     }
     public boolean[] getState(){

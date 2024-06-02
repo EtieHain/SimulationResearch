@@ -37,7 +37,7 @@ public class HelloController {
             if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
         }
         GestionObjects.Affichage(gc);
-        if (NbrFound >= (GestionObjects.NbrAgent / 2 + 1)) {
+        if (NbrFound >= GestionObjects.NbrObjectif) {
             InterfaceController.Situation=2;
         }
     }

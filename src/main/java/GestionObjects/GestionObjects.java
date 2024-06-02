@@ -13,6 +13,7 @@ public class GestionObjects
 {
     static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
+    static public int NbrObjectif;
     static public Agent[] agents;
     static public Cible cible;
     //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
@@ -28,21 +29,22 @@ public class GestionObjects
 
     static public void creationObjects(int NbrAgents)
     {
-        Random rand = new Random();
-//        LectureConfig.dimensionCaneva[0] = rand.nextInt(501)+200;
-//        LectureConfig.dimensionCaneva[1] = rand.nextInt(501)+200;
-        LectureConfig.posCible[0] = rand.nextInt(LectureConfig.dimensionCaneva[0]+1);
-        LectureConfig.posCible[1] = rand.nextInt(LectureConfig.dimensionCaneva[1]+1);
+        LectureConfig.LectureFichier();
 
         bg = new Image("bg.png",Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),false,false);
-        Image ship = new Image( "ship.png" );
-        Image target = new Image("target.png");
-        winWidth = (int) (LectureConfig.dimensionCaneva[0]-(ship.getWidth()));
-        winHeight = (int) (LectureConfig.dimensionCaneva[1]-(ship.getHeight()));
+        Image agentImg = new Image( "ship.png");
+        if(LectureConfig.agentsDetectionRange<agentImg.getHeight()*Math.sqrt(2)/2){
+            agentImg = new Image(agentImg.getUrl(),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),false,false);
+        }
+        Image agentStopImg = new Image("shipstop.png",agentImg.getHeight(),agentImg.getWidth(),false,false);
+        Image target = new Image("target.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
+//        Image target = new Image("target.png");
+        winWidth = (int) (LectureConfig.dimensionCaneva[0]-(agentImg.getWidth()));
+        winHeight = (int) (LectureConfig.dimensionCaneva[1]-(agentImg.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete
         //arrondie au dessus en cas de division pas entière
-        float x = (float) Math.ceil((double) LectureConfig.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(ship.getWidth()/2,2))));
-        float y = (float) Math.ceil((double) LectureConfig.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(ship.getHeight()/2,2))));
+        float x = (float) Math.ceil((double) LectureConfig.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(agentImg.getWidth()/2,2))));
+        float y = (float) Math.ceil((double) LectureConfig.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(agentImg.getHeight()/2,2))));
         //l : distance minimale entre les positions afin de tout couvrir
         float w = ((float) winWidth/2)/x;
         float h = ((float) winHeight/2)/y;
@@ -52,8 +54,8 @@ public class GestionObjects
         posTab = new float[N][2];
         float r = (float) (Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange)*0.95);
         int o = 0;
-        int ox = (int) (ship.getWidth()/2);
-        int oy = (int) (ship.getHeight()/2);
+        int ox = (int) (agentImg.getWidth()/2);
+        int oy = (int) (agentImg.getHeight()/2);
         //boucle de calcul des coordonnée des position
         for(int i =0;i<N;i+=2){
             //algo différent en fonction de l'arrête
@@ -87,6 +89,8 @@ public class GestionObjects
 //        }
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
+        NbrObjectif = NbrAgents/2+1;
+//        NbrObjectif = NbrAgents;
         nbrAgentAvertis = 0;
 
         //Création d'un tableau temporaire d'agents
@@ -102,7 +106,7 @@ public class GestionObjects
             //position de l'agent en fct de l'offset
             int S = (int) (jj*intervalle);
             //cration de l'objet et calcul de sa direction en fct de sa prochaine position
-            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,ship);
+            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,agentImg,agentStopImg);
             temp[jj].setDirection((float) ((posTab[S+1][0]-posTab[S][0])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S+1][1]-posTab[S][1])))), (float) ((posTab[S+1][1]-posTab[S][1])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S][1]-posTab[S+1][1])))));
         }
 
@@ -183,7 +187,7 @@ public class GestionObjects
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
+            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
 
@@ -193,7 +197,7 @@ public class GestionObjects
                 agents[idx].newAngle=agents[idx].getAngle();
 
                 nbrAgentAvertis++;
-                if(nbrAgentAvertis>=NbrAgent/2){
+                if(nbrAgentAvertis>=NbrObjectif-1){
                     agents[founderIndex].isGoingToTarget=true;
                     agents[founderIndex].targetFound=false;
 

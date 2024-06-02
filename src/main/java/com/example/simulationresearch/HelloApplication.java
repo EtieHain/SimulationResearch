@@ -24,16 +24,6 @@ public class HelloApplication extends Application {
     static float n;
     @Override
     public void start(Stage stage) throws IOException {
-        LectureConfig.LectureFichier();
-        /*
-        stage.setTitle( "Simulation Research" );
-        Group root = new Group();
-        Scene theScene = new Scene( root );
-        stage.setScene( theScene );
-        Canvas canvas = new Canvas( LectureConfig.dimensionCaneva[0], LectureConfig.dimensionCaneva[1] );
-        root.getChildren().add( canvas );
-         */
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
         //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1100,800);
