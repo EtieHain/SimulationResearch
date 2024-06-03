@@ -38,6 +38,7 @@ public class GestionObjects
         }
         Image agentStopImg = new Image("shipstop.png",agentImg.getHeight(),agentImg.getWidth(),false,false);
         Image target = new Image("target.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
+//        Image target = new Image("DetectionCircle.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
 //        Image target = new Image("target.png");
         winWidth = (int) (LectureConfig.dimensionCaneva[0]-(agentImg.getWidth()));
         winHeight = (int) (LectureConfig.dimensionCaneva[1]-(agentImg.getHeight()));
@@ -128,7 +129,7 @@ public class GestionObjects
         {
             if(agents[idx].isRotating)
             {
-                int rotationSpeed = 25;
+                int rotationSpeed = (int) (LectureConfig.agentSpeed*5);
                 if(agents[idx].oldAngle > agents[idx].newAngle)
                 {
                     agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;
