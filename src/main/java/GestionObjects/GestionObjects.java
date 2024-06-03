@@ -37,9 +37,9 @@ public class GestionObjects
             agentImg = new Image(agentImg.getUrl(),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),false,false);
         }
         Image agentStopImg = new Image("shipstop.png",agentImg.getHeight(),agentImg.getWidth(),false,false);
-        Image target = new Image("target.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
+//        Image target = new Image("target.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
 //        Image target = new Image("DetectionCircle.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
-//        Image target = new Image("target.png");
+        Image target = new Image("target.png");
         winWidth = (int) (LectureConfig.dimensionCaneva[0]-(agentImg.getWidth()));
         winHeight = (int) (LectureConfig.dimensionCaneva[1]-(agentImg.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete

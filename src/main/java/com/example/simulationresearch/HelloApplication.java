@@ -42,14 +42,12 @@ public class HelloApplication extends Application {
             float simulationTime=0;
             public void handle(long currentNanoTime)
             {
-                //int test = Ctrl_Interface.getSituation();
-
                 if(Situation == 1) {
 
                     Ctrl_Global.Afficher();
                     if(Situation==2){
                         n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed*100/500);
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed*6/50);
                         System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
                         sum+=simulationTime;
                         System.out.println("Average time : "+sum/n+" seconds");
