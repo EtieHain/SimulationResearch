@@ -18,7 +18,7 @@ public class HelloController {
     private Canvas myCanvas;
 
 
-    public void Afficher(){
+    public void Afficher(Image bg){
 
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
         for(int idx = 0; idx < GestionObjects.NbrAgent; idx++)
@@ -26,12 +26,7 @@ public class HelloController {
             GestionObjects.agents[idx].Deplacement();
             GestionObjects.agents[idx].targetDetection();
         }
-        GestionObjects.Affichage(gc);
-    }
-    public void EspaceVide(){
-        GraphicsContext gc = myCanvas.getGraphicsContext2D();
-        Image space = new Image( "background3.png" );
-        gc.drawImage(space, 0, 0);
+        GestionObjects.Affichage(gc, bg);
     }
 
 }

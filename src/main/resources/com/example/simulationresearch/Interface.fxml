@@ -1,19 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.InterfaceController">
    <children>
-      <Button fx:id="btnStart" layoutX="30.0" layoutY="506.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="20.0" prefWidth="60.0" text="Start" />
-      <Label fx:id="lbl_Titre" layoutX="30.0" layoutY="26.0" prefHeight="50.0" prefWidth="200.0" text="TITRE">
+      <Label fx:id="lbl_Titre" layoutX="50.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" text="Spaceship">
          <font>
-            <Font name="Perpetua" size="35.0" />
+            <Font name="Perpetua" size="55.0" />
          </font>
       </Label>
-      <Button fx:id="btnStop" layoutX="120.0" layoutY="506.0" mnemonicParsing="false" onAction="#btnStopClick" prefHeight="20.0" prefWidth="60.0" text="Stop" />
-      <Button fx:id="btnReset" layoutX="210.0" layoutY="506.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="20.0" prefWidth="60.0" text="Reset" />
+      <Label layoutX="10.0" layoutY="100.0" prefHeight="30.0" prefWidth="280.0" text="Choose File">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSelectFile" layoutX="100.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnSelectFileClick" prefHeight="30.0" prefWidth="100.0" text="Select " />
+      <Label layoutX="10.0" layoutY="202.0" prefHeight="30.0" prefWidth="280.0" text=" Information of the file">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="232.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (0.5 ; 0.5)" />
+      <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="292.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : 0.05" />
+      <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="262.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : 0.05" />
+      <Label layoutX="10.0" layoutY="340.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgSpace" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="375.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../background3.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="10.0" layoutY="447.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgShip" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="490.0" onMouseClicked="#imgShipeClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../ship.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgStar" fitHeight="50.0" fitWidth="50.0" layoutX="200.0" layoutY="490.0" onMouseClicked="#imgStarClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../star.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="10.0" layoutY="556.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgAlien" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="595.0" onMouseClicked="#imgAlienClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../target.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="imgEarth" fitHeight="50.0" fitWidth="50.0" layoutX="200.0" layoutY="595.0" onMouseClicked="#imgEarthClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../earth.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnStart" layoutX="15.0" layoutY="730.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="50.0" prefWidth="80.0" text="Start" />
+      <Button fx:id="btnStop" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnStopClick" prefHeight="50.0" prefWidth="80.0" text="Stop" />
+      <Button fx:id="btnReset" layoutX="205.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="50.0" prefWidth="80.0" text="Reset" />
+      <Label layoutX="10.0" layoutY="657.0" prefHeight="30.0" prefWidth="280.0" text="Timer">
+         <font>
+            <Font name="Arial" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="687.0" prefWidth="280.0" text="0.00000 secondes" />
    </children>
 </AnchorPane>

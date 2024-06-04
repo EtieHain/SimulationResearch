@@ -28,7 +28,7 @@ public class Agent extends ObjectScheme
 
     @Override
     public void changeImage(Image image) {
-
+        this.image = image;
     }
 
     @Override

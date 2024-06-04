@@ -30,13 +30,11 @@ public class GestionObjects
     //définition du r minimale pour le calcul des positions intérieures.
     private static float r = Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange);
 
-    static public void creationObjects(int NbrAgents)
+    static public void creationObjects(int NbrAgents, Image imgAgent, Image imgTarget)
     {
-        Image ship = new Image( "ship.png" );
-        Image target = new Image("target.png");
-        winSize = (int) (LectureConfig.dimensionCaneva[0]-(ship.getHeight()));
+        winSize = (int) (LectureConfig.dimensionCaneva[0]-(imgAgent.getHeight()));
         l = (winSize /2)/x;
-        int o = (int) (ship.getWidth()/2);
+        int o = (int) (imgAgent.getWidth()/2);
         //boucle de calcul des coordonnée des position
         for(int i =0;i<N;i+=2){
             //algo différent en fonction de l'arrête
@@ -80,22 +78,22 @@ public class GestionObjects
             //position de l'agent en fct de l'offset
             int S = (int) (jj*intervalle);
             //cration de l'objet et calcul de sa direction en fct de sa prochaine position
-            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,ship);
+            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,imgAgent);
             temp[jj].setDirection((float) ((posTab[S+1][0]-posTab[S][0])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S+1][1]-posTab[S][1])))), (float) ((posTab[S+1][1]-posTab[S][1])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S][1]-posTab[S+1][1])))));
         }
 
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
 
-        cible = new Cible(LectureConfig.posCible[0],LectureConfig.posCible[1],target);
+        cible = new Cible(LectureConfig.posCible[0],LectureConfig.posCible[1],imgTarget);
     }
-    static public void Affichage(GraphicsContext gc)
+    static public void Affichage(GraphicsContext gc, Image bg)
     {
         //Actualisation de l'arriere plan
 //        gc.setFill(Color.WHITE);
 //        gc.fillRect(0, 0, LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]);
 
-        Image bg = new Image("background2.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
+        //Image bg = new Image("background2.jpg",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible

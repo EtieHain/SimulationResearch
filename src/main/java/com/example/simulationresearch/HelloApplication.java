@@ -10,56 +10,54 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import com.example.simulationresearch.HelloController;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
-import static com.example.simulationresearch.InterfaceController.Situation;
+import static LectureConfig.LectureConfig.agentsCommunicationRange;
+import static LectureConfig.LectureConfig.agentsDetectionRange;
+import static com.example.simulationresearch.InterfaceController.*;
 
 public class HelloApplication extends Application {
-
+    static File file;
+    static int Demarage = 0;
     @Override
-    public void start(Stage stage) throws IOException {
-        LectureConfig.LectureFichier();
-        /*
-        stage.setTitle( "Simulation Research" );
-        Group root = new Group();
-        Scene theScene = new Scene( root );
-        stage.setScene( theScene );
-        Canvas canvas = new Canvas( LectureConfig.dimensionCaneva[0], LectureConfig.dimensionCaneva[1] );
-        root.getChildren().add( canvas );
-         */
+    public void start(Stage stage) throws IOException, InterruptedException {
+
+        file = new File("src/main/resources/configuration.txt");
+        LectureConfig.LectureFichier(file);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
-        //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1100,800);
-        stage.setTitle("CACA");
+        stage.setTitle("Spaceship");
         stage.setScene(scene);
 
         HelloController Ctrl_Global = fxmlLoader.getController();
-        //InterfaceController Ctrl_Interface = fxmlLoader2.getController();
 
         final long startNanoTime = System.nanoTime();
         System.out.println(startNanoTime);
-        GestionObjects.creationObjects(5);
-
+        GestionObjects.creationObjects(5, imageAgent, imageTarget);
+        Ctrl_Global.Afficher(BackGround);
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
-                //int test = Ctrl_Interface.getSituation();
-
+                LectureConfig.LectureFichier(file);
                 if(Situation == 1) {
-
-                    Ctrl_Global.Afficher();
+                    //LectureConfig.LectureFichier(file);
+                    Ctrl_Global.Afficher(BackGround);
                 }
-                else if(Situation == 0){
-
+                else if(Situation == 2){
+                    //LectureConfig.LectureFichier(file);
+                    GestionObjects.creationObjects(5,imageAgent, imageTarget);
+                    Ctrl_Global.Afficher(BackGround);
                 }
                 else{
-                    GestionObjects.creationObjects(5);
-                    Ctrl_Global.Afficher();
+
                 }
             }
         }.start();
