@@ -214,7 +214,21 @@ public class Agent extends ObjectScheme
                 this.oldAngle=this.getAngle();
                 this.setDirection((float) ((ConfigReading.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)), (float) ((ConfigReading.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)));
                 this.newAngle=this.getAngle();
-            }else this.image = this.stopImg;
+            }else
+            {
+                this.image = this.stopImg;
+                double w = ConfigReading.agentSpeed / 100;
+                float X = this.getPosition()[0] - ConfigReading.posCible[0];
+                float Y = this.getPosition()[1] - ConfigReading.posCible[1];
+                float fi = (float) Math.atan(Y/X);
+                float module = (float) Math.hypot(X,Y);
+                if(X < 0)
+                {
+                    fi -= Math.PI;
+                }
+                this.setDirection((float) (-module*Math.cos(fi+w)), (float) (-module*Math.sin(fi+w)));
+                this.changePosition((float) (module*Math.cos(fi+w))+ConfigReading.posCible[0], (float) (module*Math.sin(fi+w))+ConfigReading.posCible[1]);
+            }
         }
     }
 
@@ -227,5 +241,6 @@ public class Agent extends ObjectScheme
     public boolean[] getState(){
         return new boolean[]{this.targetFound,this.isGoingToTarget};
     }
+
 }
 
