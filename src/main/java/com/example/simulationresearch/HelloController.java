@@ -1,7 +1,7 @@
 package com.example.simulationresearch;
 
-import GestionObjects.ObjectsGestion;
-import LectureConfig.ConfigReading;
+import GestionObjects.GestionObjects;
+import LectureConfig.LectureConfig;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,22 +20,22 @@ public class HelloController {
 
 
     public void Afficher(){
-        myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
-        myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);
+        myCanvas.setWidth(LectureConfig.dimensionCaneva[0]);
+        myCanvas.setHeight(LectureConfig.dimensionCaneva[1]);
         myCanvas.setLayoutX((ap.getWidth()-myCanvas.getWidth())/2);
         myCanvas.setLayoutY((ap.getHeight()-myCanvas.getHeight())/2);
 
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
         int NbrFound = 0;
-        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++)
+        for(int idx = 0; idx < GestionObjects.NbrAgent; idx++)
         {
-            if(ObjectsGestion.agents[idx].getState()[0]&&!ObjectsGestion.agents[idx].getState()[1]) ObjectsGestion.testCommunication(idx);
-            else ObjectsGestion.agents[idx].targetDetection();
-            if(!ObjectsGestion.agents[idx].getState()[0]||!ObjectsGestion.agents[idx].getState()[1]) ObjectsGestion.agents[idx].Deplacement();
-            if (ObjectsGestion.agents[idx].getState()[0]) NbrFound++;
+            if(GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]) GestionObjects.testCommunication(idx);
+            else GestionObjects.agents[idx].targetDetection();
+            if(!GestionObjects.agents[idx].getState()[0]||!GestionObjects.agents[idx].getState()[1]) GestionObjects.agents[idx].Deplacement();
+            if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
         }
-        ObjectsGestion.Affichage(gc);
-        if (NbrFound >= ObjectsGestion.NbrObjectif) {
+        GestionObjects.Affichage(gc);
+        if (NbrFound >= GestionObjects.NbrObjectif) {
             InterfaceController.Situation=2;
         }
     }

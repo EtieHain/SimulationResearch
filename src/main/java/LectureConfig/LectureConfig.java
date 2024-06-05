@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ConfigReading
+public class LectureConfig
 {
     public static int[] dimensionCaneva;
     public static float[] posCible;
     public static float agentSpeed;
     public static float agentsDetectionRange;
     public static float agentsCommunicationRange;
-    static public void LectureFichier()
+    static public void LectureFichier(File file)
     {
         //Déclaration du fichier a lire
-        File file = new File("src/main/resources/configuration.txt");
+//        File file = new File("src/main/resources/configuration.txt");
 
         //Création d'une array liste qui va stocker chaque ligne
         ArrayList<String> values = new ArrayList<String>();

@@ -1,7 +1,7 @@
 package Objects;
 
-import GestionObjects.ObjectsGestion;
-import LectureConfig.ConfigReading;
+import GestionObjects.GestionObjects;
+import LectureConfig.LectureConfig;
 import javafx.scene.image.Image;
 
 /**
@@ -31,10 +31,10 @@ public class Agent extends ObjectScheme
     {
         this.positionX = positionX;
         this.positionY = positionY;
-        this.radiusCommunication = ConfigReading.agentsCommunicationRange;
+        this.radiusCommunication = LectureConfig.agentsCommunicationRange;
         this.image = image;
-        this.agentsDetectionRange = ConfigReading.agentsDetectionRange;
-        this.velocityMagnitude = ConfigReading.agentSpeed;
+        this.agentsDetectionRange = LectureConfig.agentsDetectionRange;
+        this.velocityMagnitude = LectureConfig.agentSpeed;
         this.step = Step;
         this.direction = new float[]{0,0};
         this.targetFound=false;
@@ -144,10 +144,10 @@ public class Agent extends ObjectScheme
         if(!this.targetFound && !this.isGoingToTarget && !this.isRotating) {
             int step = this.step;
             int NP = step + 1;
-            if (NP == ObjectsGestion.N) NP = 0;
+            if (NP == GestionObjects.N) NP = 0;
             this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
-            if (Math.hypot(this.getPosition()[0] - ObjectsGestion.posTab[step][0], this.getPosition()[1] - ObjectsGestion.posTab[step][1]) > Math.hypot(ObjectsGestion.posTab[NP][0] - ObjectsGestion.posTab[step][0], ObjectsGestion.posTab[NP][1] - ObjectsGestion.posTab[step][1])) {
-                if (step == ObjectsGestion.N - 1) {
+            if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
+                if (step == GestionObjects.N - 1) {
                     this.setStep(0);
                 } else {
                     this.setStep(step + 1);
@@ -156,14 +156,14 @@ public class Agent extends ObjectScheme
                 this.oldAngle=this.getAngle();
                 step = this.step;
                 NP = step + 1;
-                if (NP == ObjectsGestion.N) NP = 0;
-                this.changePosition(ObjectsGestion.posTab[step][0], ObjectsGestion.posTab[step][1]);
-                this.setDirection((float) ((ObjectsGestion.posTab[NP][0] - ObjectsGestion.posTab[step][0]) / (Math.hypot((ObjectsGestion.posTab[step][0] - ObjectsGestion.posTab[NP][0]), (ObjectsGestion.posTab[NP][1] - ObjectsGestion.posTab[step][1])))), (float) ((ObjectsGestion.posTab[NP][1] - ObjectsGestion.posTab[step][1]) / (Math.hypot((ObjectsGestion.posTab[step][0] - ObjectsGestion.posTab[NP][0]), (ObjectsGestion.posTab[step][1] - ObjectsGestion.posTab[NP][1])))));
+                if (NP == GestionObjects.N) NP = 0;
+                this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+                this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
                 this.newAngle=this.getAngle();
             }
         }else if(this.targetFound && !this.isGoingToTarget && !this.isRotating){
-            if (Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY) < ConfigReading.agentSpeed) {
-                this.changePosition(ConfigReading.dimensionCaneva[0]/2, ConfigReading.dimensionCaneva[1]/2);
+            if (Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY) < LectureConfig.agentSpeed) {
+                this.changePosition(LectureConfig.dimensionCaneva[0]/2, LectureConfig.dimensionCaneva[1]/2);
             } else {
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
             }
@@ -206,13 +206,13 @@ public class Agent extends ObjectScheme
      * Methode de détéction de la cible en fonction de sa distance avec l'agent
      */
     public void targetDetection(){
-        Target target = ObjectsGestion.target;
+        Target target = GestionObjects.target;
         if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
             this.targetFound=true;
             if(!this.isGoingToTarget){
                 this.isRotating=true;
                 this.oldAngle=this.getAngle();
-                this.setDirection((float) ((ConfigReading.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)), (float) ((ConfigReading.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)));
+                this.setDirection((float) ((LectureConfig.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)), (float) ((LectureConfig.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(LectureConfig.dimensionCaneva[0] / 2 - this.positionX, LectureConfig.dimensionCaneva[1] / 2 - this.positionY)));
                 this.newAngle=this.getAngle();
             }else this.image = this.stopImg;
         }

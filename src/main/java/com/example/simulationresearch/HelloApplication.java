@@ -1,24 +1,30 @@
 package com.example.simulationresearch;
 
-import GestionObjects.ObjectsGestion;
-import LectureConfig.ConfigReading;
+import GestionObjects.GestionObjects;
+import LectureConfig.LectureConfig;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 import static com.example.simulationresearch.InterfaceController.Situation;
 
 public class HelloApplication extends Application {
 
+    static File file;
+
     static long startTime;
     static float sum;
     static float n;
     @Override
     public void start(Stage stage) throws IOException {
+        File file = new File("src/main/resources/configuration.txt");
+        LectureConfig.LectureFichier(file);
+
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
         //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1100,800);
@@ -30,7 +36,7 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        ObjectsGestion.creationObjects(5);
+        GestionObjects.creationObjects(5);
 
         new AnimationTimer()
         {
@@ -42,7 +48,7 @@ public class HelloApplication extends Application {
                     Ctrl_Global.Afficher();
                     if(Situation==2){
                         n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed/5);
                         System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
                         sum+=simulationTime;
                         System.out.println("Average time : "+sum/n+" seconds");
@@ -52,10 +58,10 @@ public class HelloApplication extends Application {
 
                 }
                 else{
-                    ObjectsGestion.creationObjects(5);
+                    GestionObjects.creationObjects(5);
 //                    Ctrl_Global.Afficher();
                     startTime=currentNanoTime;
-                    Situation=1;
+//                    Situation=1;
                 }
             }
 
