@@ -23,9 +23,9 @@
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="232.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (0.5 ; 0.5)" />
-      <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="292.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : 0.05" />
-      <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="262.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : 0.05" />
+      <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="232.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (0 ; 0)" />
+      <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="292.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : 0.00" />
+      <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="262.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : 0.00" />
       <Label layoutX="10.0" layoutY="340.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme">
          <font>
             <Font name="Arial" size="25.0" />
