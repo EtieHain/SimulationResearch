@@ -27,7 +27,7 @@
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
+import LectureConfig.ConfigReading;
 import Objects.Agent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,7 +38,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
 
-import static LectureConfig.LectureConfig.*;
+import static LectureConfig.ConfigReading.*;
         import static com.example.simulationresearch.HelloApplication.file;
 
 public class InterfaceController {
@@ -89,7 +89,7 @@ public class InterfaceController {
         FileChooser fichierConfig = new FileChooser();
         file = fichierConfig.showOpenDialog(null);
 
-        LectureConfig.LectureFichier(file);
+        ConfigReading.ConfigReading(file);
 
         lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
         lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);

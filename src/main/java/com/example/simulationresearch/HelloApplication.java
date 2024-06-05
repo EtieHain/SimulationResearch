@@ -1,7 +1,7 @@
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
+import LectureConfig.ConfigReading;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +23,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         File file = new File("src/main/resources/configuration.txt");
-        LectureConfig.LectureFichier(file);
+        ConfigReading.ConfigReading(file);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
         //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
@@ -47,7 +47,7 @@ public class HelloApplication extends Application {
                     Ctrl_Global.Afficher();
                     if(Situation==2){
                         n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed/5);
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
                         System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
                         sum+=simulationTime;
                         System.out.println("Average time : "+sum/n+" seconds");

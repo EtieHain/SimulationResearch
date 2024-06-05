@@ -1,7 +1,7 @@
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
+import LectureConfig.ConfigReading;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -20,8 +20,8 @@ public class HelloController {
 
 
     public void Afficher(){
-        myCanvas.setWidth(LectureConfig.dimensionCaneva[0]);
-        myCanvas.setHeight(LectureConfig.dimensionCaneva[1]);
+        myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
+        myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);
         myCanvas.setLayoutX((ap.getWidth()-myCanvas.getWidth())/2);
         myCanvas.setLayoutY((ap.getHeight()-myCanvas.getHeight())/2);
 
