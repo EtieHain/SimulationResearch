@@ -90,7 +90,7 @@ public class GestionObjects
 //        }
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
-        NbrObjectif = NbrAgents/2+1;
+        NbrObjectif = NbrAgents/2 + 1;
 //        NbrObjectif = NbrAgents+1;
         nbrAgentAvertis = 0;
 
