@@ -44,7 +44,6 @@ public class HelloApplication extends Application {
             public void handle(long currentNanoTime)
             {
                 if(Situation == 1) {
-
                     Ctrl_Global.Afficher();
                     if(Situation==2){
                         n++;
