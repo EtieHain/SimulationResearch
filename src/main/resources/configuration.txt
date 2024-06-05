@@ -1,5 +1,5 @@
-environment_size_W_H 780 780
+environment_size_W_H 800 800
 target_position_x_y 500 500
-agents_speed 500
-agents_detection_range 30
-agents_communication_range 30
+agents_speed 5
+agents_detection_range 80
+agents_communication_range 80

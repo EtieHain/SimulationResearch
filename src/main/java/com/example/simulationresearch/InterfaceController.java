@@ -1,10 +1,6 @@
 package com.example.simulationresearch;
 
-import LectureConfig.LectureConfig;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
-import java.util.Random;
 
 public class InterfaceController {
 

@@ -1,17 +1,12 @@
 package com.example.simulationresearch;
 
-import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
-import Objects.Agent;
+import GestionObjects.ObjectsGestion;
+import LectureConfig.ConfigReading;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import com.example.simulationresearch.HelloController;
 
 import java.io.IOException;
 
@@ -35,7 +30,7 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        GestionObjects.creationObjects(5);
+        ObjectsGestion.creationObjects(5);
 
         new AnimationTimer()
         {
@@ -47,7 +42,7 @@ public class HelloApplication extends Application {
                     Ctrl_Global.Afficher();
                     if(Situation==2){
                         n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed*6/50);
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
                         System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
                         sum+=simulationTime;
                         System.out.println("Average time : "+sum/n+" seconds");
@@ -57,7 +52,7 @@ public class HelloApplication extends Application {
 
                 }
                 else{
-                    GestionObjects.creationObjects(5);
+                    ObjectsGestion.creationObjects(5);
 //                    Ctrl_Global.Afficher();
                     startTime=currentNanoTime;
                     Situation=1;

@@ -1,21 +1,20 @@
 package GestionObjects;
 
-import LectureConfig.LectureConfig;
+import LectureConfig.ConfigReading;
 import Objects.Agent;
-import Objects.Cible;
+import Objects.Target;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import java.lang.Math;
-import java.util.Random;
 
-public class GestionObjects
+import java.lang.Math;
+
+public class ObjectsGestion
 {
     static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
     static public int NbrObjectif;
     static public Agent[] agents;
-    static public Cible cible;
+    static public Target target;
     //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
     static int winSize;
     static int winWidth;
@@ -29,23 +28,24 @@ public class GestionObjects
 
     static public void creationObjects(int NbrAgents)
     {
-        LectureConfig.LectureFichier();
 
-        bg = new Image("bg.png",Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),Math.max(LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1]),false,false);
+        ConfigReading.LectureFichier();
+
+        bg = new Image("bg.png",Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),false,false);
         Image agentImg = new Image( "ship.png");
-        if(LectureConfig.agentsDetectionRange<agentImg.getHeight()*Math.sqrt(2)/2){
-            agentImg = new Image(agentImg.getUrl(),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),2*LectureConfig.agentsDetectionRange/Math.sqrt(2),false,false);
+        if(ConfigReading.agentsDetectionRange<agentImg.getHeight()*Math.sqrt(2)/2){
+            agentImg = new Image(agentImg.getUrl(),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),false,false);
         }
         Image agentStopImg = new Image("shipstop.png",agentImg.getHeight(),agentImg.getWidth(),false,false);
-//        Image target = new Image("target.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
+//        Image target = new Image("heliport.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
 //        Image target = new Image("DetectionCircle.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
-        Image target = new Image("target.png");
-        winWidth = (int) (LectureConfig.dimensionCaneva[0]-(agentImg.getWidth()));
-        winHeight = (int) (LectureConfig.dimensionCaneva[1]-(agentImg.getHeight()));
+        Image target = new Image("alien.png",40,40,false,false);
+        winWidth = (int) (ConfigReading.dimensionCaneva[0]-(agentImg.getWidth()));
+        winHeight = (int) (ConfigReading.dimensionCaneva[1]-(agentImg.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete
         //arrondie au dessus en cas de division pas entière
-        float x = (float) Math.ceil((double) LectureConfig.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(agentImg.getWidth()/2,2))));
-        float y = (float) Math.ceil((double) LectureConfig.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(LectureConfig.agentsDetectionRange,2)-Math.pow(agentImg.getHeight()/2,2))));
+        float x = (float) Math.ceil((double) ConfigReading.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(agentImg.getWidth()/2,2))));
+        float y = (float) Math.ceil((double) ConfigReading.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(agentImg.getHeight()/2,2))));
         //l : distance minimale entre les positions afin de tout couvrir
         float w = ((float) winWidth/2)/x;
         float h = ((float) winHeight/2)/y;
@@ -53,7 +53,7 @@ public class GestionObjects
         // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
         N = (int) (8*(x+y));
         posTab = new float[N][2];
-        float r = (float) (Math.min(LectureConfig.agentsDetectionRange,LectureConfig.agentsCommunicationRange)*0.95);
+        float r = (float) (Math.min(ConfigReading.agentsDetectionRange, ConfigReading.agentsCommunicationRange)*0.95);
         int o = 0;
         int ox = (int) (agentImg.getWidth()/2);
         int oy = (int) (agentImg.getHeight()/2);
@@ -66,23 +66,23 @@ public class GestionObjects
                 posTab[i+1][1] = winHeight+oy;
                 //Calcul des positions intérieures en fonction des position intérieure
                 //position allignée à la position extérieures par rapport au centre
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*x&&i<4*(x+y)) {
                 posTab[i+1][0] = ox;
                 posTab[i+1][1] = winHeight-((i-4*x)/2)*h+oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*(x+y)&&i<4*(2*x+y)) {
                 posTab[i+1][0] = ((i-4*(x+y))/2)*w+ox;
                 posTab[i+1][1] = oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*(2*x+y)) {
                 posTab[i+1][0] = winWidth+ox;
                 posTab[i+1][1] = ((i-(4*(2*x+y)))/2)*h+oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
             }
         }
 //        for(int p = 0;p<N;p++){
@@ -91,7 +91,7 @@ public class GestionObjects
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
         NbrObjectif = NbrAgents/2+1;
-//        NbrObjectif = NbrAgents;
+//        NbrObjectif = NbrAgents+1;
         nbrAgentAvertis = 0;
 
         //Création d'un tableau temporaire d'agents
@@ -114,7 +114,7 @@ public class GestionObjects
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
 
-        cible = new Cible(LectureConfig.posCible[0],LectureConfig.posCible[1],target);
+        ObjectsGestion.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],target);
     }
     static public void Affichage(GraphicsContext gc)
     {
@@ -122,14 +122,14 @@ public class GestionObjects
         gc.drawImage(bg,0,0);
 
         //Affichage de la cible
-        gc.drawImage(cible.getImage(),cible.getPosition()[0]-cible.getImage().getWidth()/2,cible.getPosition()[1]-cible.getImage().getHeight()/2);
+        gc.drawImage(target.getImage(), target.getPosition()[0]- target.getImage().getWidth()/2, target.getPosition()[1]- target.getImage().getHeight()/2);
 
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
             if(agents[idx].isRotating)
             {
-                int rotationSpeed = (int) (LectureConfig.agentSpeed*5);
+                int rotationSpeed = (int) (ConfigReading.agentSpeed*5);
                 if(agents[idx].oldAngle > agents[idx].newAngle)
                 {
                     agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;
@@ -188,13 +188,13 @@ public class GestionObjects
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
+            if(agents[founderIndex].isCommunication(ObjectsGestion.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!ObjectsGestion.agents[idx].getState()[1]&&founderIndex!=idx){
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
 
                 agents[idx].isRotating=true;
                 agents[idx].oldAngle=agents[idx].getAngle();
-                agents[idx].setDirection((float) ((LectureConfig.posCible[0] - agents[idx].getPosition()[0]) / Math.hypot(LectureConfig.posCible[0] - agents[idx].getPosition()[0], LectureConfig.posCible[1] - agents[idx].getPosition()[1])), (float) ((LectureConfig.posCible[1] - agents[idx].getPosition()[1]) / Math.hypot(LectureConfig.posCible[0] - agents[idx].getPosition()[0], LectureConfig.posCible[1] - agents[idx].getPosition()[1])));
+                agents[idx].setDirection((float) ((ConfigReading.posCible[0] - agents[idx].getPosition()[0]) / Math.hypot(ConfigReading.posCible[0] - agents[idx].getPosition()[0], ConfigReading.posCible[1] - agents[idx].getPosition()[1])), (float) ((ConfigReading.posCible[1] - agents[idx].getPosition()[1]) / Math.hypot(ConfigReading.posCible[0] - agents[idx].getPosition()[0], ConfigReading.posCible[1] - agents[idx].getPosition()[1])));
                 agents[idx].newAngle=agents[idx].getAngle();
 
                 nbrAgentAvertis++;
@@ -204,7 +204,7 @@ public class GestionObjects
 
                     agents[founderIndex].isRotating=true;
                     agents[founderIndex].oldAngle=agents[founderIndex].getAngle();
-                    agents[founderIndex].setDirection((float) ((LectureConfig.posCible[0] - agents[founderIndex].getPosition()[0]) / Math.hypot(LectureConfig.posCible[0] - agents[founderIndex].getPosition()[0], LectureConfig.posCible[1] - agents[founderIndex].getPosition()[1])), (float) ((LectureConfig.posCible[1] - agents[founderIndex].getPosition()[1]) / Math.hypot(LectureConfig.posCible[0] - agents[founderIndex].getPosition()[0], LectureConfig.posCible[1] - agents[founderIndex].getPosition()[1])));
+                    agents[founderIndex].setDirection((float) ((ConfigReading.posCible[0] - agents[founderIndex].getPosition()[0]) / Math.hypot(ConfigReading.posCible[0] - agents[founderIndex].getPosition()[0], ConfigReading.posCible[1] - agents[founderIndex].getPosition()[1])), (float) ((ConfigReading.posCible[1] - agents[founderIndex].getPosition()[1]) / Math.hypot(ConfigReading.posCible[0] - agents[founderIndex].getPosition()[0], ConfigReading.posCible[1] - agents[founderIndex].getPosition()[1])));
                     agents[founderIndex].newAngle=agents[founderIndex].getAngle();
                 }
             }

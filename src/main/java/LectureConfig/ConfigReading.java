@@ -1,14 +1,11 @@
 package LectureConfig;
 
-import com.example.simulationresearch.HelloApplication;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-public class LectureConfig
+public class ConfigReading
 {
     public static int[] dimensionCaneva;
     public static float[] posCible;
@@ -66,7 +63,7 @@ public class LectureConfig
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":
-                    agentSpeed = Float.parseFloat(data[1])/60;
+                    agentSpeed = Float.parseFloat(data[1]);
                     break;
                 case "agents_detection_range":
                     agentsDetectionRange = Float.parseFloat(data[1]);
