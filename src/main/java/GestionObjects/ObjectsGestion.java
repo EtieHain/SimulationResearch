@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 
 import java.lang.Math;
 
-public class ObjectsGestion
+public class GestionObjects
 {
     static public int nbrAgentAvertis = 0;
     static public int NbrAgent;
@@ -52,7 +52,6 @@ public class ObjectsGestion
         //N : nombre totale de positions
         // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
         N = (int) (8*(x+y));
-        System.out.println(N);
         posTab = new float[N][2];
         float r = (float) (Math.min(ConfigReading.agentsDetectionRange, ConfigReading.agentsCommunicationRange)*0.95);
         int o = 0;
@@ -67,23 +66,23 @@ public class ObjectsGestion
                 posTab[i+1][1] = winHeight+oy;
                 //Calcul des positions intérieures en fonction des position intérieure
                 //position allignée à la position extérieures par rapport au centre
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*x&&i<4*(x+y)) {
                 posTab[i+1][0] = ox;
                 posTab[i+1][1] = winHeight-((i-4*x)/2)*h+oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*(x+y)&&i<4*(2*x+y)) {
                 posTab[i+1][0] = ((i-4*(x+y))/2)*w+ox;
                 posTab[i+1][1] = oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             } else if (i>=4*(2*x+y)) {
                 posTab[i+1][0] = winWidth+ox;
                 posTab[i+1][1] = ((i-(4*(2*x+y)))/2)*h+oy;
-                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][0]-ox-winWidth/2);
-                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((ObjectsGestion.posTab[i+1][0]-ox-winWidth/2),(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2))))*(ObjectsGestion.posTab[i+1][1]-oy-winHeight/2);
+                posTab[i][0]=ox+winWidth/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][0]-ox-winWidth/2);
+                posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             }
         }
 //        for(int p = 0;p<N;p++){
@@ -92,18 +91,16 @@ public class ObjectsGestion
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
         NbrObjectif = NbrAgents/2 + 1;
-//        NbrObjectif = NbrAgents;
+//        NbrObjectif = NbrAgents+1;
         nbrAgentAvertis = 0;
 
         //Création d'un tableau temporaire d'agents
         Agent[] temp = new Agent[NbrAgents];
-        System.out.println(NbrAgents);
 
         //calcul de l'intervalle de position dans le tableau entre les agent
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
 //        System.out.println(N);
-        float intervalle = (float) Math.ceil(N /NbrAgents);
-        System.out.println(intervalle);
+        float intervalle = (float) Math.ceil((double) N /NbrAgents);
 //        float intervalle = (float) Math.ceil( N /NbrAgents);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
@@ -117,7 +114,7 @@ public class ObjectsGestion
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
 
-        ObjectsGestion.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],target);
+        GestionObjects.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],target);
     }
     static public void Affichage(GraphicsContext gc)
     {
@@ -191,7 +188,7 @@ public class ObjectsGestion
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            if(agents[founderIndex].isCommunication(ObjectsGestion.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!ObjectsGestion.agents[idx].getState()[1]&&founderIndex!=idx){
+            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
 

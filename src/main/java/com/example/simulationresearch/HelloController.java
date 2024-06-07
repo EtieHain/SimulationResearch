@@ -1,6 +1,6 @@
 package com.example.simulationresearch;
 
-import GestionObjects.ObjectsGestion;
+import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -27,16 +27,22 @@ public class HelloController {
 
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
         int NbrFound = 0;
-        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++)
+        for(int idx = 0; idx < GestionObjects.NbrAgent; idx++)
         {
-            if(ObjectsGestion.agents[idx].getState()[0]&&!ObjectsGestion.agents[idx].getState()[1]) ObjectsGestion.testCommunication(idx);
-            else ObjectsGestion.agents[idx].targetDetection();
-            if(!ObjectsGestion.agents[idx].getState()[0]||!ObjectsGestion.agents[idx].getState()[1]) ObjectsGestion.agents[idx].Deplacement();
-            if (ObjectsGestion.agents[idx].getState()[0]) NbrFound++;
+            if(GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]) GestionObjects.testCommunication(idx);
+            else GestionObjects.agents[idx].targetDetection();
+            if(!GestionObjects.agents[idx].getState()[0]||!GestionObjects.agents[idx].getState()[1]) GestionObjects.agents[idx].Deplacement();
+            if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
         }
-        ObjectsGestion.Affichage(gc);
-        if (NbrFound >= ObjectsGestion.NbrObjectif) {
-            InterfaceController.Situation=0;
+        GestionObjects.Affichage(gc);
+        if (NbrFound >= GestionObjects.NbrObjectif) {
+            InterfaceController.Situation=2;
         }
     }
+    public void EspaceVide(){
+        GraphicsContext gc = myCanvas.getGraphicsContext2D();
+        Image space = new Image( "bg.png" );
+        gc.drawImage(space, 0, 0);
+    }
+
 }

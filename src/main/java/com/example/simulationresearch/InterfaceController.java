@@ -26,12 +26,17 @@
 //}
 package com.example.simulationresearch;
 
-import GestionObjects.ObjectsGestion;
+import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
+import Objects.Agent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import static LectureConfig.ConfigReading.*;
         import static com.example.simulationresearch.HelloApplication.file;
@@ -84,7 +89,7 @@ public class InterfaceController {
         FileChooser fichierConfig = new FileChooser();
         file = fichierConfig.showOpenDialog(null);
 
-        ConfigReading.LectureFichier(file);
+        ConfigReading.ConfigReading(file);
 
         lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
         lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
@@ -98,15 +103,15 @@ public class InterfaceController {
     @FXML
     void imgShipeClick(){
         imageAgent = ship;
-        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++){
-            ObjectsGestion.agents[idx].changeImage(ship);
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(ship);
         }
     }
     @FXML
     void imgStarClick(){
         imageAgent = star;
-        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++){
-            ObjectsGestion.agents[idx].changeImage(star);
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(star);
         }
     }
 
@@ -114,12 +119,12 @@ public class InterfaceController {
     @FXML
     void imgAlienClick(){
         imageTarget = alien;
-        ObjectsGestion.target.changeImage(alien);
+        GestionObjects.target.changeImage(alien);
     }
     @FXML
     void imgEarthClick(){
         imageTarget = earth;
-        ObjectsGestion.target.changeImage(earth);
+        GestionObjects.target.changeImage(earth);
     }
 
     //Code des changements des themes prédéfinis
