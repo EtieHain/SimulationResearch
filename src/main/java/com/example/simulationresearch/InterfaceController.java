@@ -103,5 +103,11 @@ public class InterfaceController {
     @FXML
     void imgSpaceClick(){
         BackGround = background2;
+        imageAgent = ship;
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(ship);
+        }
+        imageTarget = alien;
+        GestionObjects.cible.changeImage(alien);
     }
 }
