@@ -26,19 +26,14 @@
 //}
 package com.example.simulationresearch;
 
-import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
-import Objects.Agent;
+import GestionObjects.ObjectsGestion;
+import LectureConfig.ConfigReading;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import static LectureConfig.LectureConfig.*;
+import static LectureConfig.ConfigReading.*;
         import static com.example.simulationresearch.HelloApplication.file;
 
 public class InterfaceController {
@@ -89,7 +84,7 @@ public class InterfaceController {
         FileChooser fichierConfig = new FileChooser();
         file = fichierConfig.showOpenDialog(null);
 
-        LectureConfig.LectureFichier(file);
+        ConfigReading.LectureFichier(file);
 
         lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
         lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
@@ -103,15 +98,15 @@ public class InterfaceController {
     @FXML
     void imgShipeClick(){
         imageAgent = ship;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(ship);
+        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++){
+            ObjectsGestion.agents[idx].changeImage(ship);
         }
     }
     @FXML
     void imgStarClick(){
         imageAgent = star;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(star);
+        for(int idx = 0; idx < ObjectsGestion.NbrAgent; idx++){
+            ObjectsGestion.agents[idx].changeImage(star);
         }
     }
 
@@ -119,12 +114,12 @@ public class InterfaceController {
     @FXML
     void imgAlienClick(){
         imageTarget = alien;
-        GestionObjects.target.changeImage(alien);
+        ObjectsGestion.target.changeImage(alien);
     }
     @FXML
     void imgEarthClick(){
         imageTarget = earth;
-        GestionObjects.target.changeImage(earth);
+        ObjectsGestion.target.changeImage(earth);
     }
 
     //Code des changements des themes prédéfinis

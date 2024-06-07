@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class LectureConfig
+public class ConfigReading
 {
     public static int[] dimensionCaneva;
     public static float[] posCible;

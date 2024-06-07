@@ -1,7 +1,8 @@
 package com.example.simulationresearch;
 
-import GestionObjects.GestionObjects;
-import LectureConfig.LectureConfig;
+import GestionObjects.ObjectsGestion;
+import LectureConfig.ConfigReading;
+import Objects.Agent;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +21,11 @@ public class HelloApplication extends Application {
     static long startTime;
     static float sum;
     static float n;
+    static int AgentNbr = 5;
     @Override
     public void start(Stage stage) throws IOException {
         File file = new File("src/main/resources/configuration.txt");
-        LectureConfig.LectureFichier(file);
+        ConfigReading.LectureFichier(file);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
         //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
@@ -36,7 +38,7 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        GestionObjects.creationObjects(5);
+        ObjectsGestion.creationObjects(AgentNbr);
 
         new AnimationTimer()
         {
@@ -45,19 +47,19 @@ public class HelloApplication extends Application {
             {
                 if(Situation == 1) {
                     Ctrl_Global.Afficher();
-                    if(Situation==2){
+                    if(Situation==0){
                         n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(LectureConfig.agentSpeed/5);
+                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
                         System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
                         sum+=simulationTime;
                         System.out.println("Average time : "+sum/n+" seconds");
                     }
                 }
                 else if(Situation == 0){
-
+                    Ctrl_Global.Afficher();
                 }
                 else{
-                    GestionObjects.creationObjects(5);
+                    ObjectsGestion.creationObjects(AgentNbr);
 //                    Ctrl_Global.Afficher();
                     startTime=currentNanoTime;
 //                    Situation=1;
