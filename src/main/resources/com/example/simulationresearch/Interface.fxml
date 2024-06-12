@@ -18,62 +18,76 @@
          </font>
       </Label>
       <Button fx:id="btnSelectFile" layoutX="100.0" layoutY="150.0" mnemonicParsing="false" onAction="#btnSelectFileClick" prefHeight="30.0" prefWidth="100.0" text="Select " />
+      <Label fx:id="lbl_AgentComm" layoutX="10.0" layoutY="294.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : 0.00" />
       <Label layoutX="10.0" layoutY="202.0" prefHeight="30.0" prefWidth="280.0" text=" Information of the file">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="232.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (0 ; 0)" />
-      <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="292.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : 0.00" />
-      <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="262.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : 0.00" />
+      <Label fx:id="lbl_PositionTarget" layoutX="10.0" layoutY="232.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (0 ; 0)" />
+      <Label fx:id="lbl_TargetComm" layoutX="10.0" layoutY="262.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : 0.00" />
       <Label layoutX="10.0" layoutY="340.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgSpace" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="375.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../background3.jpg" />
-         </image>
-      </ImageView>
+      <ScrollPane layoutX="10.0" layoutY="370.0" prefHeight="65.0" prefWidth="280.0">
+         <HBox prefHeight="50.0" prefWidth="280.0">
+            <ImageView fx:id="imgSpace" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../background3.jpg" />
+            </ImageView>
+            <ImageView fx:id="imgGrassBee" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgGrassBeeClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../grass.png" />
+            </ImageView>
+            <ImageView fx:id="imgGrassHelico" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgGrassHelicoClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../grass.png" />
+            </ImageView>
+         </HBox>
+      </ScrollPane>
       <Label layoutX="10.0" layoutY="447.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgShip" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="490.0" onMouseClicked="#imgShipeClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../ship.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgStar" fitHeight="50.0" fitWidth="50.0" layoutX="200.0" layoutY="490.0" onMouseClicked="#imgStarClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../star.png" />
-         </image>
-      </ImageView>
+      <ScrollPane layoutX="10.0" layoutY="477.0" prefHeight="65.0" prefWidth="280.0">
+         <HBox prefHeight="50.0" prefWidth="280.0">
+            <ImageView fx:id="imgShip" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgShipeClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../ship.png" />
+            </ImageView>
+            <ImageView fx:id="imgBee" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgBeeClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../abeillestop.png" />
+            </ImageView>
+            <ImageView fx:id="imgHelico" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgHelicoClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../helicostop.png" />
+            </ImageView>
+         </HBox>
+      </ScrollPane>
       <Label layoutX="10.0" layoutY="556.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgAlien" fitHeight="50.0" fitWidth="50.0" layoutX="50.0" layoutY="595.0" onMouseClicked="#imgAlienClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../alien.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="imgEarth" fitHeight="50.0" fitWidth="50.0" layoutX="200.0" layoutY="595.0" onMouseClicked="#imgEarthClick" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../earth.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnStart" layoutX="15.0" layoutY="730.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="50.0" prefWidth="80.0" text="Start" />
-      <Button fx:id="btnStop" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnStopClick" prefHeight="50.0" prefWidth="80.0" text="Stop" />
-      <Button fx:id="btnReset" layoutX="205.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="50.0" prefWidth="80.0" text="Reset" />
-      <Label layoutX="10.0" layoutY="657.0" prefHeight="30.0" prefWidth="280.0" text="Timer">
+      <ScrollPane layoutX="10.0" layoutY="586.0" prefHeight="65.0" prefWidth="280.0">
+         <HBox prefHeight="50.0" prefWidth="280.0">
+            <ImageView fx:id="imgAlien" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgAlienClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../alien.png" />
+            </ImageView>
+            <ImageView fx:id="imgTournesol" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgTournesolClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../tournesol.png" />
+            </ImageView>
+            <ImageView fx:id="imgHeliport" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgHeliportClick" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../../heliport.png" />
+            </ImageView>
+         </HBox>
+      </ScrollPane>
+      <Button fx:id="btnStart" disable="true" layoutX="15.0" layoutY="730.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="50.0" prefWidth="80.0" text="Start" />
+      <Button fx:id="btnStop" disable="true" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnStopClick" prefHeight="50.0" prefWidth="80.0" text="Stop" />
+      <Button fx:id="btnReset" disable="true" layoutX="205.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="50.0" prefWidth="80.0" text="Reset" />
+      <Label layoutX="10.0" layoutY="670.0" prefHeight="30.0" prefWidth="280.0" text="Timer">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="687.0" prefWidth="280.0" text="0.00000 secondes" />
+      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="0.00000 secondes" />
    </children>
 </AnchorPane>

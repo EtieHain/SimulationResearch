@@ -27,7 +27,7 @@ public class Target extends ObjectScheme
      * @param image The new image to load
      */
     @Override
-    public void changeImage(Image image)
+    public void changeImage(Image image, Image imageStop)
     {
         this.image = image;
     }

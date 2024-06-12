@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-import static com.example.simulationresearch.InterfaceController.Situation;
+import static com.example.simulationresearch.InterfaceController.*;
 
 public class HelloApplication extends Application {
 
@@ -26,17 +26,15 @@ public class HelloApplication extends Application {
         ConfigReading.ConfigReading(file);
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
-        //FXMLLoader fxmlLoader2 = new FXMLLoader(HelloApplication.class.getResource("Interface.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1100,800);
         stage.setTitle("CACA");
         stage.setScene(scene);
 
         HelloController Ctrl_Global = fxmlLoader.getController();
-        //InterfaceController Ctrl_Interface = fxmlLoader2.getController();
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        GestionObjects.creationObjects(5);
+        GestionObjects.creationObjects(5, imageAgent, imageTarget);
 
         new AnimationTimer()
         {
@@ -44,7 +42,7 @@ public class HelloApplication extends Application {
             public void handle(long currentNanoTime)
             {
                 if(Situation == 1) {
-                    Ctrl_Global.Afficher();
+                    Ctrl_Global.Afficher(BackGround);
                     if(Situation==2){
                         n++;
                         simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
@@ -54,11 +52,11 @@ public class HelloApplication extends Application {
                     }
                 }
                 else if(Situation == 0){
-
+                    Ctrl_Global.AffichageStop(BackGround);
                 }
                 else{
-                    GestionObjects.creationObjects(5);
-//                    Ctrl_Global.Afficher();
+                    GestionObjects.creationObjects(5, imageAgent, imageTarget);
+                    Ctrl_Global.Afficher(BackGround);
                     startTime=currentNanoTime;
 //                    Situation=1;
                 }

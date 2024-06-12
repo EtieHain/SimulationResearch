@@ -26,26 +26,26 @@ public class GestionObjects
 
     public static Image bg;
 
-    static public void creationObjects(int NbrAgents)
+    static public void creationObjects(int NbrAgents, Image ImageAgent, Image ImageTarget)
     {
 
 //        LectureConfig.LectureFichier();
 
-        bg = new Image("grass.png",Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),false,false);
-        Image agentImg = new Image( "abeille.png");
-        if(ConfigReading.agentsDetectionRange<agentImg.getHeight()*Math.sqrt(2)/2){
-            agentImg = new Image(agentImg.getUrl(),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),false,false);
+        //bg = new Image("grass.png",Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),false,false);
+        //Image agentImg = new Image( "abeille.png");
+        if(ConfigReading.agentsDetectionRange<ImageAgent.getHeight()*Math.sqrt(2)/2){
+            ImageAgent = new Image(ImageAgent.getUrl(),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),false,false);
         }
-        Image agentStopImg = new Image("abeillestop.png",agentImg.getHeight(),agentImg.getWidth(),false,false);
+        Image agentStopImg = new Image("abeillestop.png",ImageAgent.getHeight(),ImageAgent.getWidth(),false,false);
 //        Image target = new Image("heliport.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
 //        Image target = new Image("DetectionCircle.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
-        Image target = new Image("tournesol.png",40,40,false,false);
-        winWidth = (int) (ConfigReading.dimensionCaneva[0]-(agentImg.getWidth()));
-        winHeight = (int) (ConfigReading.dimensionCaneva[1]-(agentImg.getHeight()));
+        //Image target = new Image("tournesol.png",40,40,false,false);
+        winWidth = (int) (ConfigReading.dimensionCaneva[0]-(ImageAgent.getWidth()));
+        winHeight = (int) (ConfigReading.dimensionCaneva[1]-(ImageAgent.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete
         //arrondie au dessus en cas de division pas entière
-        float x = (float) Math.ceil((double) ConfigReading.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(agentImg.getWidth()/2,2))));
-        float y = (float) Math.ceil((double) ConfigReading.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(agentImg.getHeight()/2,2))));
+        float x = (float) Math.ceil((double) ConfigReading.dimensionCaneva[0] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(ImageAgent.getWidth()/2,2))));
+        float y = (float) Math.ceil((double) ConfigReading.dimensionCaneva[1] /2/(2*Math.sqrt(Math.pow(ConfigReading.agentsDetectionRange,2)-Math.pow(ImageAgent.getHeight()/2,2))));
         //l : distance minimale entre les positions afin de tout couvrir
         float w = ((float) winWidth/2)/x;
         float h = ((float) winHeight/2)/y;
@@ -55,8 +55,8 @@ public class GestionObjects
         posTab = new float[N][2];
         float r = (float) (Math.min(ConfigReading.agentsDetectionRange, ConfigReading.agentsCommunicationRange)*0.95);
         int o = 0;
-        int ox = (int) (agentImg.getWidth()/2);
-        int oy = (int) (agentImg.getHeight()/2);
+        int ox = (int) (ImageAgent.getWidth()/2);
+        int oy = (int) (ImageAgent.getHeight()/2);
         //boucle de calcul des coordonnée des position
         for(int i =0;i<N;i+=2){
             //algo différent en fonction de l'arrête
@@ -107,16 +107,16 @@ public class GestionObjects
             //position de l'agent en fct de l'offset
             int S = (int) (jj*intervalle);
             //cration de l'objet et calcul de sa direction en fct de sa prochaine position
-            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,agentImg,agentStopImg);
+            temp[jj] = new Agent(posTab[S][0],posTab[S][1],S,ImageAgent,agentStopImg);
             temp[jj].setDirection((float) ((posTab[S+1][0]-posTab[S][0])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S+1][1]-posTab[S][1])))), (float) ((posTab[S+1][1]-posTab[S][1])/(Math.hypot((posTab[S][0]-posTab[S+1][0]),(posTab[S][1]-posTab[S+1][1])))));
         }
 
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
 
-        GestionObjects.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],target);
+        GestionObjects.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],ImageTarget);
     }
-    static public void Affichage(GraphicsContext gc)
+    static public void Affichage(GraphicsContext gc, Image bg)
     {
         //Actualisation de l'arriere plan
         gc.drawImage(bg,0,0);

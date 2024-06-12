@@ -19,30 +19,37 @@ public class HelloController {
     private ScrollPane sp;
 
 
-    public void Afficher(){
+    public void Afficher(Image BackGround) {
         myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
         myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);
-        myCanvas.setLayoutX((ap.getWidth()-myCanvas.getWidth())/2);
-        myCanvas.setLayoutY((ap.getHeight()-myCanvas.getHeight())/2);
+        myCanvas.setLayoutX((ap.getWidth() - myCanvas.getWidth()) / 2);
+        myCanvas.setLayoutY((ap.getHeight() - myCanvas.getHeight()) / 2);
 
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
         int NbrFound = 0;
-        for(int idx = 0; idx < GestionObjects.NbrAgent; idx++)
-        {
-            if(GestionObjects.agents[idx].getState()[0]&&!GestionObjects.agents[idx].getState()[1]) GestionObjects.testCommunication(idx);
+        for (int idx = 0; idx < GestionObjects.NbrAgent; idx++) {
+            if (GestionObjects.agents[idx].getState()[0] && !GestionObjects.agents[idx].getState()[1])
+                GestionObjects.testCommunication(idx);
             else GestionObjects.agents[idx].targetDetection();
-            if(!GestionObjects.agents[idx].getState()[0]||!GestionObjects.agents[idx].getState()[1]) GestionObjects.agents[idx].Deplacement();
+            if (!GestionObjects.agents[idx].getState()[0] || !GestionObjects.agents[idx].getState()[1])
+                GestionObjects.agents[idx].Deplacement();
             if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
         }
-        GestionObjects.Affichage(gc);
+        GestionObjects.Affichage(gc, BackGround);
         if (NbrFound >= GestionObjects.NbrObjectif) {
-            InterfaceController.Situation=2;
+            InterfaceController.Situation = 0;
         }
     }
-    public void EspaceVide(){
+
+    public void AffichageStop (Image BackGround){
+        myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
+        myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);
+        myCanvas.setLayoutX((ap.getWidth() - myCanvas.getWidth()) / 2);
+        myCanvas.setLayoutY((ap.getHeight() - myCanvas.getHeight()) / 2);
+
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
-        Image space = new Image( "bg.png" );
-        gc.drawImage(space, 0, 0);
+
+        GestionObjects.Affichage(gc, BackGround);
     }
 
 }

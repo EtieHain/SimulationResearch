@@ -30,6 +30,7 @@ import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import Objects.Agent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -47,6 +48,7 @@ public class InterfaceController {
     static Image imageAgent = new Image("ship.png",40,40,false,false);
     static Image imageTarget = new Image("alien.png",40,40,false,false);
     static Image BackGround = new Image("bg.png");
+    public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
 //    static Image BackGround = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
 
 
@@ -58,31 +60,52 @@ public class InterfaceController {
     @FXML
     private Label lbl_TargetComm = new Label("Radius communication agent : 0.00");
     @FXML
-    private Label lbl_Timmer;
+    static private Label lbl_Timmer;
+    @FXML
+    public Button btnStart;
+    @FXML
+    public Button btnStop;
+    @FXML
+    public Button btnReset;
 
 
     //Créer toutes les images utilisées pour le backgound, le traget et les agents
     private final Image ship = new Image("ship.png",40,40,false,false);
-    private final Image star = new Image("star.png",40,40,false,false);
+    private final Image shipStop = new Image("shipstop.png",40,40,false,false);
+    private final Image bee = new Image("abeille.png",40,40,false,false);
+    private final Image beeStop = new Image("abeillestop.png",40,40,false,false);
+    private final Image helico = new Image("helico.png",40,40,false,false);
+    private final Image helicoStop = new Image("helicostop.png",40,40,false,false);
     private final Image alien = new Image("alien.png",40,40,false,false);
-    private final Image earth = new Image("earth.png",40,40,false,false);
-    private final Image background2 = new Image("bg.png");
-//    private final Image background2 = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
-    //private final Image background2 = new Image("background.jpg");
+    private final Image tournesol = new Image("tournesol.png",40,40,false,false);
+    private final Image heliport = new Image("heliport.png",40,40,false,false);
+    private final Image space = new Image("bg.png");
+    private final Image grass = new Image("grass.png");
+
 
 
     //Code des actions de tout les boutons
     @FXML
     void btnStartClick(){
         Situation = 1;
+
+        btnStart.setDisable(true);
+        btnStop.setDisable(false);
     }
     @FXML
     void btnStopClick(){
         Situation = 0;
+
+
+        btnStart.setDisable(false);
+        btnStop.setDisable(true);
     }
     @FXML
     void btnResetClick(){
         Situation = 2;
+
+        btnStart.setDisable(false);
+        btnStop.setDisable(true);
     }
     @FXML
     void btnSelectFileClick(){
@@ -97,39 +120,91 @@ public class InterfaceController {
 
         //Force un reset quand nouveau fichier
         Situation = 2;
+
+        btnStart.setDisable(false);
+        //btnStop.setDisable(false);
+        btnReset.setDisable(false);
     }
+
 
     //Code des changement des images des agents
     @FXML
     void imgShipeClick(){
         imageAgent = ship;
         for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(ship);
+            GestionObjects.agents[idx].changeImage(ship, shipStop);
         }
     }
     @FXML
-    void imgStarClick(){
-        imageAgent = star;
+    void imgBeeClick(){
+        imageAgent = bee;
+        //stopImg = helicoStop;
         for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(star);
+            GestionObjects.agents[idx].changeImage(bee, beeStop);
         }
     }
+    @FXML
+    void imgHelicoClick(){
+        imageAgent = helico;
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(helico, helicoStop);
+        }
+    }
+
 
     //Code des changements de l'image du target
     @FXML
     void imgAlienClick(){
         imageTarget = alien;
-        GestionObjects.target.changeImage(alien);
+        GestionObjects.target.changeImage(alien, alien);
     }
     @FXML
-    void imgEarthClick(){
-        imageTarget = earth;
-        GestionObjects.target.changeImage(earth);
+    void imgTournesolClick(){
+        imageTarget = tournesol;
+        GestionObjects.target.changeImage(tournesol, tournesol);
     }
+    @FXML
+    void imgHeliportClick(){
+        imageTarget = heliport;
+        GestionObjects.target.changeImage(heliport, heliport);
+    }
+
 
     //Code des changements des themes prédéfinis
     @FXML
     void imgSpaceClick(){
-        BackGround = background2;
+        BackGround = space;
+
+        imageAgent = ship;
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(ship, shipStop);
+        }
+
+        imageTarget = alien;
+        GestionObjects.target.changeImage(alien, alien);
+    }
+    @FXML
+    void imgGrassBeeClick(){
+        BackGround = grass;
+
+        imageAgent = bee;
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(bee, beeStop);
+        }
+
+        imageTarget = tournesol;
+        GestionObjects.target.changeImage(tournesol, tournesol);
+    }
+    @FXML
+    void imgGrassHelicoClick(){
+        BackGround = grass;
+
+        imageAgent = helico;
+        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
+            GestionObjects.agents[idx].changeImage(helico, helicoStop);
+        }
+
+        imageTarget = heliport;
+        GestionObjects.target.changeImage(heliport, heliport);
     }
 }

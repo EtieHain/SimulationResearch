@@ -19,7 +19,7 @@ public abstract class ObjectScheme {
      * Change the object image.
      * @param image The new image to load
      */
-    public abstract void changeImage(Image image);
+    public abstract void changeImage(Image image, Image imageStop);
 
     /**
      * Change the object position (x,y).

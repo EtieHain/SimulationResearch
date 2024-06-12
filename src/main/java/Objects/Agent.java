@@ -4,6 +4,8 @@ import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import javafx.scene.image.Image;
 
+import static com.example.simulationresearch.InterfaceController.stopImg;
+
 /**
  * Classe représentant les agents
  */
@@ -16,7 +18,7 @@ public class Agent extends ObjectScheme
     public float newAngle;
     public float oldAngle;
     public boolean isRotating;
-    public Image stopImg;
+    //public Image stopImg;
 
     /**
      * Constructeur de la classe Agent
@@ -40,7 +42,7 @@ public class Agent extends ObjectScheme
         this.targetFound=false;
         this.isGoingToTarget=false;
         this.isRotating=false;
-        this.stopImg =stopImg;
+        //this.stopImg =stopImg;
     }
 
     /**
@@ -49,8 +51,9 @@ public class Agent extends ObjectScheme
      * @param image The new image to load
      */
     @Override
-    public void changeImage(Image image) {
+    public void changeImage(Image image, Image imageStop) {
         this.image=image;
+        stopImg = imageStop;
     }
 
     /**
@@ -216,7 +219,7 @@ public class Agent extends ObjectScheme
                 this.newAngle=this.getAngle();
             }else
             {
-                this.image = this.stopImg;
+                this.image = stopImg;
                 double w = ConfigReading.agentSpeed / 100;
                 float X = this.getPosition()[0] - ConfigReading.posCible[0];
                 float Y = this.getPosition()[1] - ConfigReading.posCible[1];
