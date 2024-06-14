@@ -15,6 +15,7 @@ import static com.example.simulationresearch.InterfaceController.*;
 
 public class HelloApplication extends Application {
 
+
     private int NbrAgent = 5;
     static File file;
 
@@ -32,34 +33,35 @@ public class HelloApplication extends Application {
         stage.setTitle("Simulation research");
         stage.setScene(scene);
 
+        //Créer un objet de la class HelloController
         HelloController Ctrl_Global = fxmlLoader.getController();
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
         GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
 
+        //Boucle d'affichage
         new AnimationTimer()
         {
-            //static float simulationTime=0;
             public void handle(long currentNanoTime)
             {
+                //Code l'état de fonctionement de la simulation
                 if(Situation == 1) {
                     Ctrl_Global.Afficher(BackGround);
                     simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
 
                 }
+                //Code l'état de pause de la simulation
                 else if(Situation == 3){
                     Ctrl_Global.AffichageStop(BackGround);
-
                 }
+                //Code l'état de redémarrage de la simulation
                 else if(Situation == 2){
                     GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
                     Ctrl_Global.AffichageStop(BackGround);
                     startTime=currentNanoTime;
-//                    Situation=1;
                 }
             }
-
         }.start();
         stage.show();
     }

@@ -17,9 +17,9 @@ import static com.example.simulationresearch.HelloApplication.*;
 
 public class HelloController {
     @FXML
-    private Canvas myCanvas;
+    private Canvas myCanvas;                //Variable du canvas ou serra affiché la simulation
     @FXML
-    private Label lbl_Timmer;
+    private Label lbl_Timmer;               //Variable qui affichera le temps de simulation (valeur du Timmer)
     @FXML
     private AnchorPane ap;
     @FXML
@@ -42,24 +42,22 @@ public class HelloController {
                 GestionObjects.agents[idx].Deplacement();
             if (GestionObjects.agents[idx].getState()[0]) NbrFound++;
         }
+
         GestionObjects.Affichage(gc, BackGround);
         if (NbrFound >= GestionObjects.NbrObjectif) {
             InterfaceController.Situation = 3;
         }
 
-        float RescherchTime = 0.00f;
+        //Code qui affiche la valeur du Timmer dans son label
+        float RescherchTime = 0.00f;            //Créer une variable float
+        //Stock la variable du Timmer arrondie à deux dixième dans la variable créer avant
         RescherchTime = Math.round(simulationTime*100.0f)/100.0f;
-
+        //Change le texte du label avec la valeur du Timmer
         lbl_Timmer.setText(String.valueOf("Target found in " + RescherchTime));
-        simulationTime = 0.00f;
     }
 
-    public void AffichageStop (Image BackGround){
-        myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
-        myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);
-        myCanvas.setLayoutX((ap.getWidth() - myCanvas.getWidth()) / 2);
-        myCanvas.setLayoutY((ap.getHeight() - myCanvas.getHeight()) / 2);
 
+    public void AffichageStop (Image BackGround){
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
 
         GestionObjects.Affichage(gc, BackGround);
