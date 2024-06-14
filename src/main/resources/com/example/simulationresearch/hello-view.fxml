@@ -11,5 +11,6 @@
 
     <AnchorPane prefHeight="800.0" prefWidth="300.0">
         <fx:include source="Interface.fxml" />
+      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="Traget found in 0.00 secondes" />
     </AnchorPane>
 </SplitPane>

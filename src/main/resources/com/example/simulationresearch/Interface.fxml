@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -7,6 +8,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.InterfaceController">
    <children>
+      <Canvas fx:id="canvasInterface" height="800.0" width="300.0" />
       <Label fx:id="lbl_Titre" layoutX="50.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" text="Spaceship">
          <font>
             <Font name="Perpetua" size="55.0" />
@@ -88,6 +90,5 @@
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="0.00000 secondes" />
    </children>
 </AnchorPane>

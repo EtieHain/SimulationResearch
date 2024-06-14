@@ -28,27 +28,24 @@ package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
-import Objects.Agent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
-
-import java.io.File;
-import java.util.ArrayList;
 
 import static LectureConfig.ConfigReading.*;
         import static com.example.simulationresearch.HelloApplication.file;
 
 public class InterfaceController {
 
-    static int Situation = 0;
-    static Image imageAgent = new Image("ship.png",40,40,false,false);
-    static Image imageTarget = new Image("alien.png",40,40,false,false);
-    static Image BackGround = new Image("bg.png");
-    public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
+    public static int Situation = 0;
+    public static Image imageAgent = new Image("ship.png",40,40,false,false);
+    public static Image imageTarget = new Image("alien.png",40,40,false,false);
+    public static Image BackGround = new Image("bg.png");
+     public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
 //    static Image BackGround = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
 
 
@@ -60,13 +57,15 @@ public class InterfaceController {
     @FXML
     private Label lbl_TargetComm = new Label("Radius communication agent : 0.00");
     @FXML
-    static private Label lbl_Timmer;
-    @FXML
     public Button btnStart;
     @FXML
     public Button btnStop;
     @FXML
     public Button btnReset;
+    @FXML
+    public Canvas canvasInterface;
+
+
 
 
     //Créer toutes les images utilisées pour le backgound, le traget et les agents
@@ -94,7 +93,7 @@ public class InterfaceController {
     }
     @FXML
     void btnStopClick(){
-        Situation = 0;
+        Situation = 3;
 
 
         btnStart.setDisable(false);
@@ -112,20 +111,24 @@ public class InterfaceController {
         FileChooser fichierConfig = new FileChooser();
         file = fichierConfig.showOpenDialog(null);
 
-        ConfigReading.ConfigReading(file);
+        if(file != null) {
 
-        lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
-        lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
-        lbl_AgentComm.setText("Radius communication agent : " + agentsCommunicationRange);
+            ConfigReading.ConfigReading(file);
 
-        //Force un reset quand nouveau fichier
-        Situation = 2;
+            lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
+            lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
+            lbl_AgentComm.setText("Radius communication agent : " + agentsCommunicationRange);
 
-        btnStart.setDisable(false);
-        //btnStop.setDisable(false);
-        btnReset.setDisable(false);
+            //Force un reset quand nouveau fichier
+            Situation = 2;
+
+            GestionObjects.creationObjects(5, imageAgent, imageTarget);
+
+            btnStart.setDisable(false);
+            //btnStop.setDisable(false);
+            btnReset.setDisable(false);
+        }
     }
-
 
     //Code des changement des images des agents
     @FXML
@@ -182,6 +185,9 @@ public class InterfaceController {
 
         imageTarget = alien;
         GestionObjects.target.changeImage(alien, alien);
+
+        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
+        gcInterface.drawImage(space,0,0);
     }
     @FXML
     void imgGrassBeeClick(){
@@ -194,6 +200,9 @@ public class InterfaceController {
 
         imageTarget = tournesol;
         GestionObjects.target.changeImage(tournesol, tournesol);
+
+        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
+        gcInterface.drawImage(grass,0,0);
     }
     @FXML
     void imgGrassHelicoClick(){
@@ -206,5 +215,8 @@ public class InterfaceController {
 
         imageTarget = heliport;
         GestionObjects.target.changeImage(heliport, heliport);
+
+        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
+        gcInterface.drawImage(grass,0,0);
     }
 }
