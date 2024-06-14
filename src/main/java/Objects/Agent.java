@@ -290,7 +290,7 @@ public class Agent extends ObjectScheme
 
                 if(distance < this.image.getHeight())//Test si la distance est plus petite que la grandeur de l'image
                 {
-                    if(!this.isGoingBackward)//Test si l'agent va en arrière
+                    if(!this.isGoingBackward && !this.targetFound)//Test si l'agent va en arrière
                     {
                         //Inversion de la direction et set l'état isGoingBackward a true
                         this.isGoingBackward = true;
