@@ -53,7 +53,7 @@ public class HelloApplication extends Application {
 
                 }
                 else if(Situation == 2){
-                    GestionObjects.creationObjects(5, imageAgent, imageTarget);
+                    GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
                     Ctrl_Global.AffichageStop(BackGround);
                     startTime=currentNanoTime;
 //                    Situation=1;

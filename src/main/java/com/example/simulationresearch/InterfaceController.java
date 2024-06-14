@@ -36,6 +36,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
+import java.io.File;
+
 import static LectureConfig.ConfigReading.*;
         import static com.example.simulationresearch.HelloApplication.file;
 
