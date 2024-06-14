@@ -188,7 +188,7 @@ public class Agent extends ObjectScheme
             {
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
                 this.deplacementBackward--;
-                if(deplacementBackward == 0)
+                if(deplacementBackward == 0 || this.targetFound)
                 {
                     this.isGoingBackward = false;
                     this.direction[0] = -this.direction[0];
