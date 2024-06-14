@@ -2,6 +2,7 @@ package LectureConfig;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ConfigReading
@@ -56,6 +57,9 @@ public class ConfigReading
                 case "target_position_x_y":
                     float x1 = Float.parseFloat(data[1]);
                     float y1 = Float.parseFloat(data[2]);
+                    Random rand2 = new Random();
+                    //x1 = rand2.nextInt(dimensionCaneva[0]+1);
+                    //y1 = rand2.nextInt(dimensionCaneva[1]+1);
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":

@@ -4,7 +4,7 @@ import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import javafx.scene.image.Image;
 
-import static com.example.simulationresearch.InterfaceController.stopImg;
+import static com.example.simulationresearch.InterfaceController.*;
 
 /**
  * Classe représentant les agents

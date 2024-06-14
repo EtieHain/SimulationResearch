@@ -17,9 +17,11 @@ public class HelloApplication extends Application {
 
     private int NbrAgent = 5;
     static File file;
+
     static long startTime;
-    static float sum;
-    static float n;
+    static float simulationTime = 0.00f;
+
+
     @Override
     public void start(Stage stage) throws IOException {
         File file = new File("src/main/resources/configuration.txt");
@@ -38,25 +40,21 @@ public class HelloApplication extends Application {
 
         new AnimationTimer()
         {
-            float simulationTime=0;
+            //static float simulationTime=0;
             public void handle(long currentNanoTime)
             {
                 if(Situation == 1) {
                     Ctrl_Global.Afficher(BackGround);
-                    if(Situation==2){
-                        n++;
-                        simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
-                        System.out.println("Test n° "+n+" - Target found in " +simulationTime + " seconds");
-                        sum+=simulationTime;
-                        System.out.println("Average time : "+sum/n+" seconds");
-                    }
+                    simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
+
                 }
-                else if(Situation == 0){
+                else if(Situation == 3){
                     Ctrl_Global.AffichageStop(BackGround);
+
                 }
-                else{
-                    GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
-                    Ctrl_Global.Afficher(BackGround);
+                else if(Situation == 2){
+                    GestionObjects.creationObjects(5, imageAgent, imageTarget);
+                    Ctrl_Global.AffichageStop(BackGround);
                     startTime=currentNanoTime;
 //                    Situation=1;
                 }
