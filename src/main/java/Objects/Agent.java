@@ -18,6 +18,8 @@ public class Agent extends ObjectScheme
     public float newAngle;
     public float oldAngle;
     public boolean isRotating;
+    public int deplacementBackward;
+    public boolean isGoingBackward;
     //public Image stopImg;
 
     /**
@@ -42,6 +44,8 @@ public class Agent extends ObjectScheme
         this.targetFound=false;
         this.isGoingToTarget=false;
         this.isRotating=false;
+        this.deplacementBackward = 0;
+        this.isGoingBackward = false;
         //this.stopImg =stopImg;
     }
 
@@ -144,35 +148,53 @@ public class Agent extends ObjectScheme
      * (recherche, cible trouvée, aller à la cible)
      */
     public void Deplacement() {
-        if(!this.targetFound && !this.isGoingToTarget && !this.isRotating) {
-            int step = this.step;
-            int NP = step + 1;
-            if (NP == GestionObjects.N) NP = 0;
-            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
-            if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
-                if (step == GestionObjects.N - 1) {
-                    this.setStep(0);
-                } else {
-                    this.setStep(step + 1);
-                }
-                this.isRotating=true;
-                this.oldAngle=this.getAngle();
-                step = this.step;
-                NP = step + 1;
+        if(!this.Collision() && !this.isGoingBackward)
+        {
+
+            if(!this.targetFound && !this.isGoingToTarget && !this.isRotating) {
+                int step = this.step;
+                int NP = step + 1;
                 if (NP == GestionObjects.N) NP = 0;
-                this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
-                this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
-                this.newAngle=this.getAngle();
+                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
+                    if (step == GestionObjects.N - 1) {
+                        this.setStep(0);
+                    } else {
+                        this.setStep(step + 1);
+                    }
+                    this.isRotating=true;
+                    this.oldAngle=this.getAngle();
+                    step = this.step;
+                    NP = step + 1;
+                    if (NP == GestionObjects.N) NP = 0;
+                    this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+                    this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
+                    this.newAngle=this.getAngle();
+                }
+            }else if(this.targetFound && !this.isGoingToTarget && !this.isRotating){
+                if (Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY) < ConfigReading.agentSpeed) {
+                    this.changePosition(ConfigReading.dimensionCaneva[0]/2, ConfigReading.dimensionCaneva[1]/2);
+                } else {
+                    this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                }
             }
-        }else if(this.targetFound && !this.isGoingToTarget && !this.isRotating){
-            if (Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY) < ConfigReading.agentSpeed) {
-                this.changePosition(ConfigReading.dimensionCaneva[0]/2, ConfigReading.dimensionCaneva[1]/2);
-            } else {
+            else if(!this.targetFound && !this.isRotating){
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
             }
         }
-        else if(!this.targetFound && !this.isRotating){
-            this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+        else
+        {
+            if(isGoingBackward)
+            {
+                this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                this.deplacementBackward--;
+                if(deplacementBackward == 0)
+                {
+                    this.isGoingBackward = false;
+                    this.direction[0] = -this.direction[0];
+                    this.direction[1] = -this.direction[1];
+                }
+            }
         }
     }
 
@@ -245,5 +267,31 @@ public class Agent extends ObjectScheme
         return new boolean[]{this.targetFound,this.isGoingToTarget};
     }
 
+    public  boolean Collision()
+    {
+        for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
+        {
+            float tempX =(this.positionX + this.direction[0]*ConfigReading.agentSpeed);
+            float tempY =(this.positionY + this.direction[1]*ConfigReading.agentSpeed);
+            if(this != GestionObjects.agents[idx])
+            {
+                float deltaX = GestionObjects.agents[idx].positionX - tempX;
+                float deltaY = GestionObjects.agents[idx].positionY - tempY;
+                double distance = Math.hypot(deltaX,deltaY);
+                if(distance < this.image.getHeight())
+                {
+                    if(!this.isGoingBackward)
+                    {
+                        this.isGoingBackward = true;
+                        this.deplacementBackward = 5;
+                        this.direction[0] = -this.direction[0];
+                        this.direction[1] = -this.direction[1];
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 

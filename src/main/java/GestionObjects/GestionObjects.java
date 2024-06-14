@@ -52,6 +52,7 @@ public class GestionObjects
         //N : nombre totale de positions
         // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
         N = (int) (8*(x+y));
+        System.out.println(N);
         posTab = new float[N][2];
         float r = (float) (Math.min(ConfigReading.agentsDetectionRange, ConfigReading.agentsCommunicationRange)*0.95);
         int o = 0;
@@ -99,9 +100,8 @@ public class GestionObjects
 
         //calcul de l'intervalle de position dans le tableau entre les agent
         //ex : 4 agent 16 position -> 1 agent toute les 4 positions
-//        System.out.println(N);
         float intervalle = (float) Math.ceil((double) N /NbrAgents);
-//        float intervalle = (float) Math.ceil( N /NbrAgents);
+        //float intervalle = (float) Math.ceil( N /NbrAgents);
         //boucle de création des agents
         for(int jj = 0;jj<NbrAgent;jj++){
             //position de l'agent en fct de l'offset
@@ -150,7 +150,15 @@ public class GestionObjects
             }
             else
             {
-                drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+                if(agents[idx].isGoingBackward)
+                {
+                    float angle = agents[idx].getAngle();
+                    drawImage(gc,agents[idx].getImage(),agents[idx].getAngle() + 180,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+                }
+                else
+                {
+                    drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
+                }
             }
         }
     }

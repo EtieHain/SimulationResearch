@@ -109,7 +109,12 @@ public class InterfaceController {
     }
     @FXML
     void btnSelectFileClick(){
+
         FileChooser fichierConfig = new FileChooser();
+        File initialDirectory = new File("src/main/resources");
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fichierConfig.setInitialDirectory(initialDirectory);
+        }
         file = fichierConfig.showOpenDialog(null);
 
         ConfigReading.ConfigReading(file);

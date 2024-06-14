@@ -15,8 +15,8 @@ import static com.example.simulationresearch.InterfaceController.*;
 
 public class HelloApplication extends Application {
 
+    private int NbrAgent = 5;
     static File file;
-
     static long startTime;
     static float sum;
     static float n;
@@ -27,14 +27,14 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1100,800);
-        stage.setTitle("CACA");
+        stage.setTitle("Simulation research");
         stage.setScene(scene);
 
         HelloController Ctrl_Global = fxmlLoader.getController();
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        GestionObjects.creationObjects(5, imageAgent, imageTarget);
+        GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
 
         new AnimationTimer()
         {
@@ -55,7 +55,7 @@ public class HelloApplication extends Application {
                     Ctrl_Global.AffichageStop(BackGround);
                 }
                 else{
-                    GestionObjects.creationObjects(5, imageAgent, imageTarget);
+                    GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
                     Ctrl_Global.Afficher(BackGround);
                     startTime=currentNanoTime;
 //                    Situation=1;
