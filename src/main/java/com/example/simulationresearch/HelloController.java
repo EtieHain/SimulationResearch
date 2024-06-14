@@ -3,16 +3,23 @@ package com.example.simulationresearch;
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+
+import static com.example.simulationresearch.InterfaceController.*;
+import static com.example.simulationresearch.HelloApplication.*;
 
 
 public class HelloController {
     @FXML
     private Canvas myCanvas;
+    @FXML
+    private Label lbl_Timmer;
     @FXML
     private AnchorPane ap;
     @FXML
@@ -37,8 +44,14 @@ public class HelloController {
         }
         GestionObjects.Affichage(gc, BackGround);
         if (NbrFound >= GestionObjects.NbrObjectif) {
-            InterfaceController.Situation = 0;
+            InterfaceController.Situation = 3;
         }
+
+        float RescherchTime = 0.00f;
+        RescherchTime = Math.round(simulationTime*100.0f)/100.0f;
+
+        lbl_Timmer.setText(String.valueOf("Target found in " + RescherchTime));
+        simulationTime = 0.00f;
     }
 
     public void AffichageStop (Image BackGround){
@@ -51,5 +64,4 @@ public class HelloController {
 
         GestionObjects.Affichage(gc, BackGround);
     }
-
 }
