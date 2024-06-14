@@ -1,29 +1,3 @@
-//package com.example.simulationresearch;
-//
-//import javafx.fxml.FXML;
-//import javafx.scene.control.Label;
-//import javafx.scene.image.Image;
-//import javafx.stage.FileChooser;
-//
-//import static com.example.simulationresearch.HelloApplication.file;
-//
-//public class InterfaceController {
-//
-//    static int Situation = 1;
-//
-//    @FXML
-//    void btnStartClick(){
-//        Situation = 1;
-//    }
-//    @FXML
-//    void btnStopClick(){
-//        Situation = 0;
-//    }
-//    @FXML
-//    void btnResetClick(){
-//        Situation = 2;
-//    }
-//}
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
@@ -39,38 +13,48 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 import static LectureConfig.ConfigReading.*;
-        import static com.example.simulationresearch.HelloApplication.file;
+import static com.example.simulationresearch.HelloApplication.file;
+
 
 public class InterfaceController {
 
-    public static int Situation = 0;
+    public static int Situation = 0;        //Variables qui définira l'état du code
+    //Créer la variable image de l'agent par default
     public static Image imageAgent = new Image("ship.png",40,40,false,false);
+    //Créer la variable image de l'agent quand il est arrivé au target par default
+    public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
+    //Créer la variable image du target par default
     public static Image imageTarget = new Image("alien.png",40,40,false,false);
+    //Créer la variable image du background par default
     public static Image BackGround = new Image("bg.png");
-     public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
-//    static Image BackGround = new Image("bg.png",LectureConfig.dimensionCaneva[0],LectureConfig.dimensionCaneva[1],false,false);
 
 
-    //Configurations des labels
+    //Créer les labels qui afficheront les valeurs du fichier de configurations
     @FXML
     public Label lbl_PositionTarget = new Label("Position of the target : (0;0)");
     @FXML
     private Label lbl_AgentComm = new Label("Radius communication target : 0.00");
     @FXML
     private Label lbl_TargetComm = new Label("Radius communication agent : 0.00");
+
+
+    //Créer les différents boutons pour changer l'état du code
     @FXML
-    public Button btnStart;
+    public Button btnStart;         //Bouton qui démarre la simulation
     @FXML
-    public Button btnStop;
+    public Button btnStop;          //Bouton qui met en pause la simulation
     @FXML
-    public Button btnReset;
+    public Button btnReset;         //Bouton qui redemarrer la simulation
+    @FXML
+    public Button btnSelectFile;    //Bouton qui active la sélection d'un fichier de config
+
+
+    //Créer le canvas de l'arrière plan de l'interface
     @FXML
     public Canvas canvasInterface;
 
 
-
-
-    //Créer toutes les images utilisées pour le backgound, le traget et les agents
+    //Créer toutes les images utilisées pour les agents, le target et le background
     private final Image ship = new Image("ship.png",40,40,false,false);
     private final Image shipStop = new Image("shipstop.png",40,40,false,false);
     private final Image bee = new Image("abeille.png",40,40,false,false);
@@ -84,30 +68,39 @@ public class InterfaceController {
     private final Image grass = new Image("grass.png");
 
 
-
-    //Code des actions de tout les boutons
+    //Code l'action du bouton de démarrage
     @FXML
     void btnStartClick(){
-        Situation = 1;
+        Situation = 1;                          //Met le code en état de fonctionnement
 
-        btnStart.setDisable(true);
-        btnStop.setDisable(false);
+        btnStart.setDisable(true);              //Désactive le bouton Start
+        btnStop.setDisable(false);              //Active le bouton Stop
     }
+    //Code l'action du bouton de mise en pause
     @FXML
     void btnStopClick(){
-        Situation = 3;
-
-
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
+        //Test si le code est déja en état stop
+        if(Situation == 3) {
+            //Si oui
+            btnStart.setDisable(true);          //Désactive le bouton Start
+            btnStop.setDisable(true);           //Désactive le bouton Stop
+        }
+        else{
+            //Si non
+            btnStart.setDisable(true);          //Désactive le bouton Start
+            btnStop.setDisable(false);          //Active le bouton Start
+            Situation = 3;                      //Met le code en état Stop
+        }
     }
+    //Code l'action du bouton de redémarrage
     @FXML
     void btnResetClick(){
-        Situation = 2;
+        Situation = 2;                          //Met le code en état Reset
 
-        btnStart.setDisable(false);
-        btnStop.setDisable(true);
+        btnStart.setDisable(false);             //Active le bouton Start
+        btnStop.setDisable(true);               //Désactive le bouton Start
     }
+    //Code l'action du bouton de lecture de fichier
     @FXML
     void btnSelectFileClick(){
 
@@ -132,10 +125,10 @@ public class InterfaceController {
             GestionObjects.creationObjects(5, imageAgent, imageTarget);
 
             btnStart.setDisable(false);
-            //btnStop.setDisable(false);
             btnReset.setDisable(false);
         }
     }
+
 
     //Code des changement des images des agents
     @FXML
@@ -180,7 +173,7 @@ public class InterfaceController {
     }
 
 
-    //Code des changements des themes prédéfinis
+    //Code des changements des themes prédéfinis (Change image background, agents et target)
     @FXML
     void imgSpaceClick(){
         BackGround = space;
