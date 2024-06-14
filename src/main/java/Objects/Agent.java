@@ -267,21 +267,32 @@ public class Agent extends ObjectScheme
         return new boolean[]{this.targetFound,this.isGoingToTarget};
     }
 
+    /**
+     * Methode de test de colision avec un autre agent
+     *
+     * @return if the agent is colliding with another agent
+     */
     public  boolean Collision()
     {
+        //Boucle pour passer dans tout le tableau agent
         for(int idx = 0;idx < GestionObjects.NbrAgent;idx++)
         {
-            float tempX =(this.positionX + this.direction[0]*ConfigReading.agentSpeed);
-            float tempY =(this.positionY + this.direction[1]*ConfigReading.agentSpeed);
-            if(this != GestionObjects.agents[idx])
+            if(this != GestionObjects.agents[idx]) //Test pour pas que l'agent test les collision avec lui même
             {
+                //Calcul de la nouvelle position de l'agent
+                float tempX =(this.positionX + this.direction[0]*ConfigReading.agentSpeed);
+                float tempY =(this.positionY + this.direction[1]*ConfigReading.agentSpeed);
+
+                //Calcul de la distance entre les deux agents
                 float deltaX = GestionObjects.agents[idx].positionX - tempX;
                 float deltaY = GestionObjects.agents[idx].positionY - tempY;
                 double distance = Math.hypot(deltaX,deltaY);
-                if(distance < this.image.getHeight())
+
+                if(distance < this.image.getHeight())//Test si la distance est plus petite que la grandeur de l'image
                 {
-                    if(!this.isGoingBackward)
+                    if(!this.isGoingBackward)//Test si l'agent va en arrière
                     {
+                        //Inversion de la direction et set l'état isGoingBackward a true
                         this.isGoingBackward = true;
                         this.deplacementBackward = 5;
                         this.direction[0] = -this.direction[0];

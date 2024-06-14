@@ -8,6 +8,10 @@ import javafx.scene.image.Image;
 
 import java.lang.Math;
 
+/**
+ *GestionObjects
+ * A class that will create and manage all the objects
+ */
 public class GestionObjects
 {
     static public int nbrAgentAvertis = 0;
@@ -26,6 +30,13 @@ public class GestionObjects
 
     public static Image bg;
 
+    /**
+     * Méthode qui s'occupe de créer les agents et la cible
+     *
+     * @param NbrAgents nombre d'agents que l'on souhaite créer
+     * @param ImageAgent image de l'agent
+     * @param ImageTarget image de la cible
+     */
     static public void creationObjects(int NbrAgents, Image ImageAgent, Image ImageTarget)
     {
 
@@ -116,6 +127,12 @@ public class GestionObjects
 
         GestionObjects.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],ImageTarget);
     }
+
+    /**
+     *
+     * @param gc contexte graphique du canvas sur lequel on va afficher nos agents
+     * @param bg image de fond du canvas
+     */
     static public void Affichage(GraphicsContext gc, Image bg)
     {
         //Actualisation de l'arriere plan
@@ -127,41 +144,65 @@ public class GestionObjects
         //Affichage de agents
         for(int idx = 0;idx < NbrAgent;idx++)
         {
+            //Si l'agent est en train de tourner
             if(agents[idx].isRotating)
             {
+                //Calcul de la vitesse de rotation
                 int rotationSpeed = (int) (ConfigReading.agentSpeed*5);
+
+                //test si l'angle a atteindre est plus petit que l'angle actuel
                 if(agents[idx].oldAngle > agents[idx].newAngle)
                 {
+                    //Calcul du nouvel angle
                     agents[idx].oldAngle = agents[idx].oldAngle -rotationSpeed;
+
+                    //test si l'angle est atteint
                     if(agents[idx].oldAngle < agents[idx].newAngle)
                     {
                         agents[idx].isRotating = false;
                     }
                 }
+                // si l'angle a atteindre est plus grand que l'angle actuel
                 else
                 {
+                    //Calcul du nouvel angle
                     agents[idx].oldAngle = agents[idx].oldAngle +rotationSpeed;
+
+                    //Si l'angle a été atteint
                     if(agents[idx].oldAngle > agents[idx].newAngle)
                     {
                         agents[idx].isRotating = false;
                     }
                 }
+
+                //Affichage de l'agent
                 drawImage(gc,agents[idx].getImage(),agents[idx].oldAngle,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
             }
-            else
+            else //Quand l'agent ne tourne pas
             {
-                if(agents[idx].isGoingBackward)
+                if(agents[idx].isGoingBackward) //Si l'agent va en arrière
                 {
-                    float angle = agents[idx].getAngle();
+                    //Affichage de l'agent avec un offset de 180° sur son angle
                     drawImage(gc,agents[idx].getImage(),agents[idx].getAngle() + 180,agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
                 }
-                else
+                else //Si l'agent va en avant
                 {
+                    //Affichage de l'agent
                     drawImage(gc,agents[idx].getImage(),agents[idx].getAngle(),agents[idx].getPosition()[0],agents[idx].getPosition()[1]);
                 }
             }
         }
     }
+
+    /**
+     * Méthode qui permet d'afficher un agent a une position donnée, avec un rotation donnée
+     *
+     * @param gc contexte graphique du canvas sur lequel on va afficher nos agents
+     * @param image image de l'agent qui sera affichée
+     * @param angle angle de rotation de l'agent
+     * @param positionX position x de l'agent
+     * @param positionY position y de l'agent
+     */
     static private void drawImage(GraphicsContext gc, Image image, double angle,float positionX,float positionY) {
 
         //Acquisition de la position de l'image
@@ -192,6 +233,10 @@ public class GestionObjects
 
     }
 
+    /**
+     *
+     * @param founderIndex
+     */
     public static void testCommunication(int founderIndex)
     {
         for(int idx = 0;idx < NbrAgent;idx++)

@@ -12,6 +12,12 @@ public class ConfigReading
     public static float agentSpeed = 5f;
     public static float agentsDetectionRange = 50f;
     public static float agentsCommunicationRange = 50f;
+
+    /**
+     * Methode de lecture du fichier de configuration
+     *
+     * @param file the config file that you want to read
+     */
     static public void ConfigReading(File file)
     {
         //Déclaration du fichier a lire

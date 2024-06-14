@@ -9,9 +9,9 @@
 <AnchorPane prefHeight="800.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.InterfaceController">
    <children>
       <Canvas fx:id="canvasInterface" height="800.0" width="300.0" />
-      <Label fx:id="lbl_Titre" layoutX="50.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" text="Spaceship">
+      <Label fx:id="lbl_Titre" alignment="CENTER" contentDisplay="CENTER" layoutX="50.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0" text="Spaceship" textAlignment="CENTER">
          <font>
-            <Font name="Perpetua" size="55.0" />
+            <Font name="Arial" size="38.0" />
          </font>
       </Label>
       <Label layoutX="10.0" layoutY="100.0" prefHeight="30.0" prefWidth="280.0" text="Choose File">
