@@ -63,7 +63,6 @@ public class GestionObjects
         //N : nombre totale de positions
         // 2 moitié sur 4 arrete et *2 pour les positions intérieures -> 2*4*2=16
         N = (int) (8*(x+y));
-        System.out.println(N);
         posTab = new float[N][2];
         float r = (float) (Math.min(ConfigReading.agentsDetectionRange, ConfigReading.agentsCommunicationRange)*0.95);
         int o = 0;

@@ -48,8 +48,8 @@ public class HelloApplication extends Application {
                 //Code l'état de fonctionement de la simulation
                 if(Situation == 1) {
                     Ctrl_Global.Afficher(BackGround);
-                    simulationTime = ((currentNanoTime-startTime)/1000000000f)*(ConfigReading.agentSpeed/5);
-
+//                    simulationTime = ((currentNanoTime-startTime)/1000000000f)/**(ConfigReading.agentSpeed/5)*/;
+                    simulationTime++;
                 }
                 //Code l'état de pause de la simulation
                 else if(Situation == 3){
@@ -59,7 +59,8 @@ public class HelloApplication extends Application {
                 else if(Situation == 2){
                     GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
                     Ctrl_Global.AffichageStop(BackGround);
-                    startTime=currentNanoTime;
+//                    startTime=currentNanoTime;
+                    simulationTime=0;
                 }
             }
         }.start();

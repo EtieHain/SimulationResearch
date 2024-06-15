@@ -2,6 +2,8 @@ package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,6 +29,8 @@ public class InterfaceController {
     public static Image imageTarget = new Image("alien.png",40,40,false,false);
     //Créer la variable image du background par default
     public static Image BackGround = new Image("bg.png");
+
+    public static boolean isOn = false;
 
 
     //Créer les labels qui afficheront les valeurs du fichier de configurations
@@ -71,10 +75,20 @@ public class InterfaceController {
     //Code l'action du bouton de démarrage
     @FXML
     void btnStartClick(){
-        Situation = 1;                          //Met le code en état de fonctionnement
+        if(isOn){
+            btnStart.setText("Start");
+            isOn = false;
+            Situation = 3;
+        }else{
+            btnStart.setText("Stop");
+            isOn = true;
+            Situation = 1;
+        }
 
-        btnStart.setDisable(true);              //Désactive le bouton Start
-        btnStop.setDisable(false);              //Active le bouton Stop
+//        Situation = 1;                          //Met le code en état de fonctionnement
+//
+//        btnStart.setDisable(true);              //Désactive le bouton Start
+//        btnStop.setDisable(false);              //Active le bouton Stop
     }
     //Code l'action du bouton de mise en pause
     @FXML
@@ -95,10 +109,12 @@ public class InterfaceController {
     //Code l'action du bouton de redémarrage
     @FXML
     void btnResetClick(){
+        btnStart.setText("Start");
+        isOn = false;
         Situation = 2;                          //Met le code en état Reset
 
-        btnStart.setDisable(false);             //Active le bouton Start
-        btnStop.setDisable(true);               //Désactive le bouton Start
+//        btnStart.setDisable(false);             //Active le bouton Start
+//        btnStop.setDisable(true);               //Désactive le bouton Start
     }
     //Code l'action du bouton de lecture de fichier
     @FXML
