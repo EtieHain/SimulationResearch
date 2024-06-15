@@ -25,11 +25,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        File file = new File("src/main/resources/configuration.txt");
-        ConfigReading.ConfigReading(file);
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1100,800);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Simulation research");
         stage.setScene(scene);
 
@@ -38,7 +35,6 @@ public class HelloApplication extends Application {
 
         final long startNanoTime = System.nanoTime();
         startTime = startNanoTime;
-        GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
 
         //Boucle d'affichage
         new AnimationTimer()

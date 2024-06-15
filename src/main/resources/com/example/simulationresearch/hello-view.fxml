@@ -4,13 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
+<SplitPane dividerPositions="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
     <AnchorPane fx:id="ap" prefHeight="800.0" prefWidth="800.0">
         <Canvas fx:id="myCanvas" height="800.0" width="800.0" />
     </AnchorPane>
 
     <AnchorPane prefHeight="800.0" prefWidth="300.0">
         <fx:include source="Interface.fxml" />
-      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="Traget found in 0.00 secondes" />
+      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="Traget found in 0.00 secondes" textFill="WHITE" />
     </AnchorPane>
 </SplitPane>

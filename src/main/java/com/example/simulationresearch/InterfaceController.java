@@ -2,8 +2,6 @@ package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,18 +26,19 @@ public class InterfaceController {
     //Créer la variable image du target par default
     public static Image imageTarget = new Image("alien.png",40,40,false,false);
     //Créer la variable image du background par default
-    public static Image BackGround = new Image("bg.png");
+    public static Image BackGround = new Image("bcg.png",0,1000,true,false);
+
 
     public static boolean isOn = false;
 
 
     //Créer les labels qui afficheront les valeurs du fichier de configurations
     @FXML
-    public Label lbl_PositionTarget = new Label("Position of the target : (0;0)");
+    public Label lbl_PositionTarget;
     @FXML
-    private Label lbl_AgentComm = new Label("Radius communication target : 0.00");
+    private Label lbl_AgentComm;
     @FXML
-    private Label lbl_TargetComm = new Label("Radius communication agent : 0.00");
+    private Label lbl_TargetComm;
 
 
     //Créer les différents boutons pour changer l'état du code
@@ -60,15 +59,24 @@ public class InterfaceController {
     //Créer toutes les images utilisées pour les agents, le target et le background
     private final Image ship = new Image("ship.png",40,40,false,false);
     private final Image shipStop = new Image("shipstop.png",40,40,false,false);
+    private final Image alien = new Image("alien.png",40,40,false,false);
+    private final Image space = new Image("bg.png");
+    private final Image screen = new Image("ibg.png");
+    private final Image[] spaceTheme = {ship,shipStop,alien,space,screen};
+
     private final Image bee = new Image("abeille.png",40,40,false,false);
     private final Image beeStop = new Image("abeillestop.png",40,40,false,false);
+    private final Image tournesol = new Image("tournesol.png",40,40,false,false);
+    private final Image grass = new Image("grass.png");
+    private final Image hive = new Image("hive.png");
+    private final Image[] hiveTheme = {bee,beeStop,tournesol,grass,hive};
+
     private final Image helico = new Image("helico.png",40,40,false,false);
     private final Image helicoStop = new Image("helicostop.png",40,40,false,false);
-    private final Image alien = new Image("alien.png",40,40,false,false);
-    private final Image tournesol = new Image("tournesol.png",40,40,false,false);
     private final Image heliport = new Image("heliport.png",40,40,false,false);
-    private final Image space = new Image("bg.png");
-    private final Image grass = new Image("grass.png");
+    private final Image roofs = new Image("bgh.png");
+    private final Image brick = new Image("brick.png");
+    private final Image[] cityTheme = {helico,helicoStop,heliport,roofs,brick};
 
 
     //Code l'action du bouton de démarrage
@@ -88,7 +96,7 @@ public class InterfaceController {
     @FXML
     void btnExportClick(){
         //Code d'exportation
-        System.out.println("CACA");
+
     }
 
     //Code l'action du bouton de redémarrage
@@ -101,7 +109,6 @@ public class InterfaceController {
     //Code l'action du bouton de lecture de fichier
     @FXML
     void btnSelectFileClick(){
-
         FileChooser fichierConfig = new FileChooser();
         File initialDirectory = new File("src/main/resources");
         if (initialDirectory.exists() && initialDirectory.isDirectory()) {
@@ -110,20 +117,21 @@ public class InterfaceController {
         file = fichierConfig.showOpenDialog(null);
 
         if(file != null) {
-
             ConfigReading.ConfigReading(file);
 
-            lbl_PositionTarget.setText("Position of the target : (" + posCible[0] + ";" + posCible[1] + ")");
+            BackGround = new Image(BackGround.getUrl(),0, dimensionCaneva[1],true,false);
+            lbl_PositionTarget.setText("Position of the target : ( " + posCible[0] + " ; " + posCible[1] + " )");
             lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
             lbl_AgentComm.setText("Radius communication agent : " + agentsCommunicationRange);
 
             //Force un reset quand nouveau fichier
             Situation = 2;
 
-            GestionObjects.creationObjects(5, imageAgent, imageTarget);
-
             btnStart.setDisable(false);
             btnReset.setDisable(false);
+
+            btnStart.setText("Start");
+            isOn = false;
         }
     }
 
@@ -185,7 +193,7 @@ public class InterfaceController {
         GestionObjects.target.changeImage(alien, alien);
 
         GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
-        gcInterface.drawImage(space,0,0);
+        gcInterface.drawImage(screen,0,0);
     }
     @FXML
     void imgGrassBeeClick(){
@@ -216,5 +224,10 @@ public class InterfaceController {
 
         GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
         gcInterface.drawImage(grass,0,0);
+    }
+
+    @FXML
+    void spaceThemeClick(){
+
     }
 }

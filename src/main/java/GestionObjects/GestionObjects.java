@@ -19,7 +19,6 @@ public class GestionObjects
     static public int NbrObjectif;
     static public Agent[] agents;
     static public Target target;
-    //Algo de calcul des position en fonctione de la fenetre et des parametres de l'agent
     static int winSize;
     static int winWidth;
     static int winHeight;
@@ -27,8 +26,6 @@ public class GestionObjects
     //déclaration du tableau de position
     //N cellule avec 2 coordonnée (x,y)
     public static float[][] posTab;
-
-    public static Image bg;
 
     /**
      * Méthode qui s'occupe de créer les agents et la cible
@@ -40,17 +37,10 @@ public class GestionObjects
     static public void creationObjects(int NbrAgents, Image ImageAgent, Image ImageTarget)
     {
 
-//        LectureConfig.LectureFichier();
-
-        //bg = new Image("grass.png",Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),Math.max(ConfigReading.dimensionCaneva[0], ConfigReading.dimensionCaneva[1]),false,false);
-        //Image agentImg = new Image( "abeille.png");
         if(ConfigReading.agentsDetectionRange<ImageAgent.getHeight()*Math.sqrt(2)/2){
             ImageAgent = new Image(ImageAgent.getUrl(),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),false,false);
         }
         Image agentStopImg = new Image("abeillestop.png",ImageAgent.getHeight(),ImageAgent.getWidth(),false,false);
-//        Image target = new Image("heliport.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
-//        Image target = new Image("DetectionCircle.png",2*LectureConfig.agentsDetectionRange-agentImg.getWidth(),2*LectureConfig.agentsDetectionRange-agentImg.getHeight(),false,false);
-        //Image target = new Image("tournesol.png",40,40,false,false);
         winWidth = (int) (ConfigReading.dimensionCaneva[0]-(ImageAgent.getWidth()));
         winHeight = (int) (ConfigReading.dimensionCaneva[1]-(ImageAgent.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete
