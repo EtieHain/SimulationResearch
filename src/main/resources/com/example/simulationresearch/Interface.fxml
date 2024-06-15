@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.InterfaceController">
    <children>
-      <ImageView fitHeight="800.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="interfaceBG" fitHeight="800.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../ibg.png" />
          </image>
@@ -18,30 +18,34 @@
             <Font name="Arial" size="38.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="68.0" prefHeight="30.0" prefWidth="280.0" text="Select Config File" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="10.0" layoutY="64.0" prefHeight="30.0" prefWidth="280.0" text="Select Config File" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="btnSelectFile" layoutX="100.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnSelectFileClick" prefHeight="30.0" prefWidth="100.0" text="Select " />
-      <Label fx:id="lbl_AgentComm" layoutX="10.0" layoutY="218.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : -" textFill="WHITE" />
-      <Label alignment="CENTER" layoutX="10.0" layoutY="128.0" prefHeight="30.0" prefWidth="280.0" text="Information of the file" textFill="WHITE" AnchorPane.rightAnchor="10.0">
+      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="127.0" layoutY="94.0" onMouseClicked="#btnSelectFileClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../fileImportIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lbl_AgentComm" layoutX="10.0" layoutY="229.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : -" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="139.0" prefHeight="30.0" prefWidth="280.0" text="Information of the file" textFill="WHITE" AnchorPane.rightAnchor="10.0">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_PositionTarget" layoutX="10.0" layoutY="158.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (- ; -)" textFill="WHITE" />
-      <Label fx:id="lbl_TargetComm" layoutX="10.0" layoutY="188.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : -" textFill="WHITE" />
-      <Label alignment="CENTER" layoutX="10.0" layoutY="248.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme" textFill="WHITE">
+      <Label fx:id="lbl_PositionTarget" layoutX="10.0" layoutY="169.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (- ; -)" textFill="WHITE" />
+      <Label fx:id="lbl_TargetComm" layoutX="10.0" layoutY="199.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : -" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="10.0" layoutY="259.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="22.0" layoutY="287.0" prefHeight="76.0" prefWidth="255.0">
+      <ScrollPane fx:id="themeList" disable="true" layoutX="22.0" layoutY="288.0" prefHeight="76.0" prefWidth="255.0">
          <content>
             <HBox prefHeight="50.0" prefWidth="280.0">
                <children>
-                  <ImageView fx:id="thSpace" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thSpace" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#spaceThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/space.png" />
                      </image>
@@ -49,7 +53,7 @@
                         <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="thHive" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="15.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thHive" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="15.0" onMouseClicked="#hiveThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/hive.png" />
                      </image>
@@ -57,7 +61,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="ThHelico" fitHeight="40.0" fitWidth="40.0" layoutX="64.0" layoutY="15.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ThHelico" fitHeight="40.0" fitWidth="40.0" layoutX="64.0" layoutY="15.0" onMouseClicked="#cityThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/helico.png" />
                      </image>
@@ -65,7 +69,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="thPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#policeThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/police.png" />
                      </image>
@@ -73,7 +77,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="ThShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ThShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#sharkThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/shark.png" />
                      </image>
@@ -81,7 +85,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="thDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#dragonThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/dragon.png" />
                      </image>
@@ -89,7 +93,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="thLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#luffyThemeClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/luffy.png" />
                      </image>
@@ -109,12 +113,12 @@
             </HBox>
          </content>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="408.0" prefHeight="30.0" prefWidth="280.0" text="Choose background" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="10.0" layoutY="364.0" prefHeight="30.0" prefWidth="280.0" text="Choose background" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="10.0" layoutY="439.0" prefHeight="65.0" prefWidth="280.0">
+      <ScrollPane layoutX="25.0" layoutY="394.0" prefHeight="65.0" prefWidth="255.0">
          <HBox prefHeight="50.0" prefWidth="280.0">
             <ImageView fx:id="imgSpace" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../../background3.jpg" />
@@ -127,12 +131,12 @@
             </ImageView>
          </HBox>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="505.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="10.0" layoutY="459.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="10.0" layoutY="536.0" prefHeight="65.0" prefWidth="280.0">
+      <ScrollPane layoutX="22.0" layoutY="490.0" prefHeight="65.0" prefWidth="255.0">
          <HBox prefHeight="50.0" prefWidth="280.0">
             <ImageView fx:id="imgShip" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgShipeClick" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../../ship.png" />
@@ -145,13 +149,13 @@
             </ImageView>
          </HBox>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="602.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="10.0" layoutY="557.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="10.0" layoutY="633.0" prefHeight="65.0" prefWidth="280.0">
-         <HBox prefHeight="50.0" prefWidth="280.0">
+      <ScrollPane layoutX="22.0" layoutY="587.0" prefHeight="65.0" prefWidth="255.0">
+         <HBox prefHeight="50.0" prefWidth="377.0">
             <ImageView fx:id="imgAlien" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgAlienClick" pickOnBounds="true" preserveRatio="true">
                <Image url="@../../../alien.png" />
             </ImageView>
@@ -170,6 +174,6 @@
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="btnExport" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnExportClick" prefHeight="50.0" prefWidth="80.0" text="Export Mp4" />
+      <Button fx:id="btnExport" disable="true" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnExportClick" prefHeight="50.0" prefWidth="80.0" text="Export Mp4" />
    </children>
 </AnchorPane>

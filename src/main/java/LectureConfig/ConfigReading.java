@@ -51,7 +51,7 @@ public class ConfigReading
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
-            alert.setContentText("Fichier vide ou invalide !");
+            alert.setContentText("Invalid or empty File ! \n\nDefault parameters applied");
             alert.showAndWait();
         }
         //Pour chaque ligne de l'array list

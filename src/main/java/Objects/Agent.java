@@ -57,7 +57,7 @@ public class Agent extends ObjectScheme
     @Override
     public void changeImage(Image image, Image imageStop) {
         this.image=image;
-        stopImg = imageStop;
+        activeTheme[1] = imageStop;
     }
 
     /**
@@ -241,7 +241,7 @@ public class Agent extends ObjectScheme
                 this.newAngle=this.getAngle();
             }else
             {
-                this.image = stopImg;
+                this.image = activeTheme[1];
                 double w = ConfigReading.agentSpeed / 100;
                 float X = this.getPosition()[0] - ConfigReading.posCible[0];
                 float Y = this.getPosition()[1] - ConfigReading.posCible[1];

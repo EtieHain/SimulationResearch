@@ -51,7 +51,7 @@ public class HelloController {
 
         //Code qui affiche la valeur du Timer dans son label
         //Stock la variable du Timmer arrondie à deux dixième dans la variable créer avant
-        ResearchTime = Math.round((simulationTime/60)*100.0f)/100.0f;
+        ResearchTime = Math.round(((float) frameCount /60)*100.0f)/100.0f;
         //Change le texte du label avec la valeur du Timmer
         lbl_Timmer.setText(String.valueOf(ResearchTime));
 
@@ -61,7 +61,7 @@ public class HelloController {
         }
 
         //Test si 3 frames sont passées
-        if(simulationTime - lastTime > 1)
+        if(frameCount - lastTime > 2)
         {
             // Créer une WritableImage pour capturer le contenu du Canvas
             WritableImage writableImage = new WritableImage((int) myCanvas.getWidth(), (int) myCanvas.getHeight());
@@ -92,7 +92,7 @@ public class HelloController {
 
             // Exécuter le Task dans un autre thread
             new Thread(createImageTask).start();
-            lastTime = simulationTime;
+            lastTime = frameCount;
         }
     }
 

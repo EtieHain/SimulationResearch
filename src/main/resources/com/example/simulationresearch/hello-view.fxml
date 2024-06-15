@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
+<SplitPane dividerPositions="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
     <AnchorPane fx:id="ap" prefHeight="800.0" prefWidth="800.0">
-        <Canvas fx:id="myCanvas" height="800.0" width="800.0" />
+        <Canvas fx:id="myCanvas" height="800.0" layoutX="6.0" width="800.0" />
     </AnchorPane>
 
     <AnchorPane prefHeight="800.0" prefWidth="300.0">

@@ -1,7 +1,6 @@
 package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
-import LectureConfig.ConfigReading;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +18,7 @@ public class HelloApplication extends Application {
     private int NbrAgent = 5;
     static File file;
 
-    static long startTime;
-    static float simulationTime = 0.00f;
+    static int frameCount = 0;
 
 
     @Override
@@ -34,7 +32,6 @@ public class HelloApplication extends Application {
         HelloController Ctrl_Global = fxmlLoader.getController();
 
         final long startNanoTime = System.nanoTime();
-        startTime = startNanoTime;
 
         //Boucle d'affichage
         new AnimationTimer()
@@ -43,20 +40,18 @@ public class HelloApplication extends Application {
             {
                 //Code l'état de fonctionement de la simulation
                 if(Situation == 1) {
-                    Ctrl_Global.Afficher(BackGround);
-//                    simulationTime = ((currentNanoTime-startTime)/1000000000f)/**(ConfigReading.agentSpeed/5)*/;
-                    simulationTime++;
+                    Ctrl_Global.Afficher(activeTheme[3]);
+                    frameCount++;
                 }
                 //Code l'état de pause de la simulation
                 else if(Situation == 3){
-                    Ctrl_Global.AffichageStop(BackGround);
+                    Ctrl_Global.AffichageStop(activeTheme[3]);
                 }
                 //Code l'état de redémarrage de la simulation
                 else if(Situation == 2){
-                    GestionObjects.creationObjects(NbrAgent, imageAgent, imageTarget);
-                    Ctrl_Global.AffichageStop(BackGround);
-//                    startTime=currentNanoTime;
-                    simulationTime=0;
+                    GestionObjects.creationObjects(NbrAgent, activeTheme[0], activeTheme[2]);
+                    Ctrl_Global.AffichageStop(activeTheme[3]);
+                    frameCount =0;
                 }
             }
         }.start();
