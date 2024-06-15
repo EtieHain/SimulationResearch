@@ -175,7 +175,7 @@ public class HelloController {
                 e.printStackTrace();
                 System.err.println("Erreur lors de l'arrêt de l'enregistreur.");
             }
-            int a  = 0;
+            int a = 0;
         }
     }
 }
