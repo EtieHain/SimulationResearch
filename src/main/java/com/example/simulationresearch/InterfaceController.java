@@ -46,12 +46,11 @@ public class InterfaceController {
     @FXML
     public Button btnStart;         //Bouton qui démarre la simulation
     @FXML
-    public Button btnStop;          //Bouton qui met en pause la simulation
-    @FXML
     public Button btnReset;         //Bouton qui redemarrer la simulation
     @FXML
     public Button btnSelectFile;    //Bouton qui active la sélection d'un fichier de config
-
+    @FXML
+    public Button btnExport;    //Bouton d'expportation en Mp4 de la simulation
 
     //Créer le canvas de l'arrière plan de l'interface
     @FXML
@@ -85,31 +84,19 @@ public class InterfaceController {
             Situation = 1;
         }
     }
-    //Code l'action du bouton de mise en pause
+
     @FXML
-    void btnStopClick(){
-        //Test si le code est déja en état stop
-        if(Situation == 3) {
-            //Si oui
-            btnStart.setDisable(true);          //Désactive le bouton Start
-            btnStop.setDisable(true);           //Désactive le bouton Stop
-        }
-        else{
-            //Si non
-            btnStart.setDisable(true);          //Désactive le bouton Start
-            btnStop.setDisable(false);          //Active le bouton Start
-            Situation = 3;                      //Met le code en état Stop
-        }
+    void btnExportClick(){
+        //Code d'exportation
+        System.out.println("CACA");
     }
+
     //Code l'action du bouton de redémarrage
     @FXML
     void btnResetClick(){
         btnStart.setText("Start");
         isOn = false;
         Situation = 2;                          //Met le code en état Reset
-
-//        btnStart.setDisable(false);             //Active le bouton Start
-//        btnStop.setDisable(true);               //Désactive le bouton Start
     }
     //Code l'action du bouton de lecture de fichier
     @FXML

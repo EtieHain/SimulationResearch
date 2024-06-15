@@ -89,5 +89,6 @@
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
+      <Button fx:id="btnExport" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnExportClick" prefHeight="50.0" prefWidth="80.0" text="Export Mp4" />
    </children>
 </AnchorPane>
