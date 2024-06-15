@@ -1,6 +1,10 @@
 module com.example.simulationresearch {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.bytedeco.ffmpeg;
+    requires org.bytedeco.javacv;
+    requires org.bytedeco.opencv;
+    requires java.desktop;
 
 
     opens com.example.simulationresearch to javafx.fxml;
