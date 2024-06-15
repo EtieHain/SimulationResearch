@@ -121,7 +121,7 @@ public class InterfaceController {
         int frameRate = (int) (nbrImg / ResearchTime);            //Créer une variable float; // Frames per second
 
         // Creation et configuration d'une instance de FFMpeg
-        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, 800, 800);
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, dimensionCaneva[0], dimensionCaneva[1]);
         recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
         recorder.setFormat("mp4");
         recorder.setFrameRate(frameRate);
