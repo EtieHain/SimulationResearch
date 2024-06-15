@@ -1,5 +1,7 @@
 package LectureConfig;
 
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,6 +45,15 @@ public class ConfigReading
             e.printStackTrace();
         }
 
+        if(values.size() == 0)
+        {
+            // Afficher une alerte ou mettre à jour l'interface utilisateur après une erreur
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Fichier vide ou invalide !");
+            alert.showAndWait();
+        }
         //Pour chaque ligne de l'array list
         for(int idx = 0;idx < values.size();idx++)
         {
