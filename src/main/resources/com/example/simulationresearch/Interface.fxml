@@ -83,7 +83,6 @@
          </HBox>
       </ScrollPane>
       <Button fx:id="btnStart" disable="true" layoutX="15.0" layoutY="730.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="50.0" prefWidth="80.0" text="Start" />
-      <Button fx:id="btnStop" disable="true" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnStopClick" prefHeight="50.0" prefWidth="80.0" text="Stop" />
       <Button fx:id="btnReset" disable="true" layoutX="205.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="50.0" prefWidth="80.0" text="Reset" />
       <Label layoutX="10.0" layoutY="670.0" prefHeight="30.0" prefWidth="280.0" text="Timer">
          <font>

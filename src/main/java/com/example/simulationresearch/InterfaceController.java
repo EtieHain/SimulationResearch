@@ -84,11 +84,6 @@ public class InterfaceController {
             isOn = true;
             Situation = 1;
         }
-
-//        Situation = 1;                          //Met le code en état de fonctionnement
-//
-//        btnStart.setDisable(true);              //Désactive le bouton Start
-//        btnStop.setDisable(false);              //Active le bouton Stop
     }
     //Code l'action du bouton de mise en pause
     @FXML

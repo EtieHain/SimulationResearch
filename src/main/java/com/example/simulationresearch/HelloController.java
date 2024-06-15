@@ -49,10 +49,8 @@ public class HelloController {
 
         if (NbrFound >= GestionObjects.NbrObjectif) {
             InterfaceController.Situation = 3;
-//            InterfaceController.btnStart.setDisable(true);
             lbl_Timmer.setText(String.valueOf("Target found in " + RescherchTime));
         }
-
     }
 
 
