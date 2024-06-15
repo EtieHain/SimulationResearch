@@ -11,9 +11,11 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 
 import static LectureConfig.ConfigReading.*;
 import static com.example.simulationresearch.HelloApplication.file;
+import static com.example.simulationresearch.HelloApplication.simulationTime;
 
 
 public class InterfaceController {
@@ -70,7 +72,18 @@ public class InterfaceController {
 
     //Code l'action du bouton de démarrage
     @FXML
-    void btnStartClick(){
+    void btnStartClick()
+    {
+        if(simulationTime == 0 )
+        {
+            File file = new File("Images");
+            deleteDirectory(file);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         Situation = 1;                          //Met le code en état de fonctionnement
 
         btnStart.setDisable(true);              //Désactive le bouton Start
@@ -218,5 +231,21 @@ public class InterfaceController {
 
         GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
         gcInterface.drawImage(grass,0,0);
+    }
+
+    public static boolean deleteDirectory(File directory) {
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    // Supprimer le fichier
+                    if (!file.delete()) {
+                        System.err.println("Échec de la suppression du fichier : " + file.getAbsolutePath());
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

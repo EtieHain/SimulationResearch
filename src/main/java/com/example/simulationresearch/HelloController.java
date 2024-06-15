@@ -47,6 +47,7 @@ public class HelloController {
     private ScrollPane sp;
     private int nbrImg = 0;
     private float lastTime = 0f;
+    private File[] files;
 
 
     public void Afficher(Image BackGround) {
@@ -78,7 +79,7 @@ public class HelloController {
         System.out.println(simulationTime);
         //Change le texte du label avec la valeur du Timmer
         lbl_Timmer.setText(String.valueOf("Target found in " + ResearchTime));
-        if(simulationTime - lastTime > 0.032f)
+        if(simulationTime - lastTime > 0.02f)
         {
             // Créer une WritableImage pour capturer le contenu du Canvas
             WritableImage writableImage = new WritableImage((int) myCanvas.getWidth(), (int) myCanvas.getHeight());
@@ -90,7 +91,7 @@ public class HelloController {
                 protected Void call() {
 
                     // Enregistrer l'image dans un fichier
-                    File file = new File( String.format("%04d",nbrImg) + ".png");
+                    File file = new File(  "Images/" +String.format("%04d",nbrImg) + ".png");
                     nbrImg++;
                     try {
                         ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
@@ -122,7 +123,7 @@ public class HelloController {
         if(simulationTime > 1)
         {
             String outputFilePath = "output.mp4";
-            int frameRate = 30; // Frames per second
+            int frameRate = (int) (nbrImg / simulationTime); // Frames per second
 
             // Create a FFmpegFrameRecorder instance
             FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, 800, 800);
@@ -139,11 +140,10 @@ public class HelloController {
                 System.err.println("Erreur lors du démarrage de l'enregistreur.");
                 return;
             }
-
             OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
 
             // Directory containing images
-            File dir = new File("C:/Users/Etienne/IdeaProjects/SimulationResearch");
+            File dir = new File("Images");
             File[] files = dir.listFiles((d, name) -> name.endsWith(".png") || name.endsWith(".jpg"));
 
             if (files != null) {
@@ -178,5 +178,4 @@ public class HelloController {
             int a  = 0;
         }
     }
-
 }
