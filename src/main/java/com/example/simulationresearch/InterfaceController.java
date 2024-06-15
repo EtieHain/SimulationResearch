@@ -101,6 +101,7 @@ public class InterfaceController {
             Situation = 1;
             if(simulationTime == 0 )
             {
+                nbrImg = 0;
                 lastTime = 0;
                 //Supprime les images
                 File file = new File("Images");
@@ -183,6 +184,7 @@ public class InterfaceController {
 
         //Supprime les images
         File file = new File("Images");
+        nbrImg = 0;
         deleteDirectory(file);
         try {
             file.createNewFile();

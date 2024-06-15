@@ -4,8 +4,6 @@ import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -18,9 +16,7 @@ import SwingFXUtils.SwingFXUtils;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputFilter;
 
-import static com.example.simulationresearch.InterfaceController.*;
 import static com.example.simulationresearch.HelloApplication.*;
 
 
@@ -65,7 +61,7 @@ public class HelloController {
         }
 
         //Test si 3 frames sont passées
-        if(simulationTime - lastTime > 2)
+        if(simulationTime - lastTime > 1)
         {
             // Créer une WritableImage pour capturer le contenu du Canvas
             WritableImage writableImage = new WritableImage((int) myCanvas.getWidth(), (int) myCanvas.getHeight());
