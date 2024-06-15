@@ -9,11 +9,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import org.bytedeco.ffmpeg.global.avcodec;
+import org.bytedeco.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.OpenCVFrameConverter;
+import org.bytedeco.opencv.global.opencv_imgcodecs;
+import org.bytedeco.opencv.opencv_core.IplImage;
 
 import java.io.File;
+import java.io.IOException;
 
 import static LectureConfig.ConfigReading.*;
 import static com.example.simulationresearch.HelloApplication.file;
+import static com.example.simulationresearch.HelloApplication.simulationTime;
+import static com.example.simulationresearch.HelloController.*;
 
 
 public class InterfaceController {
@@ -90,13 +99,79 @@ public class InterfaceController {
             btnStart.setText("Stop");
             isOn = true;
             Situation = 1;
+            if(simulationTime == 0 )
+            {
+                lastTime = 0;
+                //Supprime les images
+                File file = new File("Images");
+                deleteDirectory(file);
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 
     @FXML
     void btnExportClick(){
         //Code d'exportation
+        String outputFilePath = "output.mp4";
+        int frameRate = (int) (nbrImg / ResearchTime);            //Créer une variable float; // Frames per second
 
+        // Creation et configuration d'une instance de FFMpeg
+        FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, 800, 800);
+        recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
+        recorder.setFormat("mp4");
+        recorder.setFrameRate(frameRate);
+        recorder.setVideoBitrate(10 * 1024 * 1024);
+
+        // Démarage du recoder
+        try {
+            recorder.startUnsafe();
+        } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors du démarrage de l'enregistreur.");
+            return;
+        }
+        //Conversion
+        OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
+
+        // Création d'un tableau d'image avec toutes les images
+        File dir = new File("Images");
+        File[] files = dir.listFiles((d, name) -> name.endsWith(".png") || name.endsWith(".jpg"));
+
+        if (files != null) {
+            //Boucle qui passe image par image
+            for (File file : files) {
+                // Read the image file
+                IplImage image = opencv_imgcodecs.cvLoadImage(file.getAbsolutePath());
+
+                // Conversion de l'image en frame
+                Frame frame = converter.convert(image);
+
+                // Record la frame
+                try {
+                    recorder.record(frame);
+                } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+                    e.printStackTrace();
+                    System.err.println("Erreur lors de l'enregistrement du cadre : " + file.getName());
+                }
+
+                // Release l'image
+                image.release();
+            }
+        }
+
+        // Stop le recorder
+        try {
+            recorder.stop();
+            recorder.release();
+        } catch (org.bytedeco.javacv.FrameRecorder.Exception e) {
+            e.printStackTrace();
+            System.err.println("Erreur lors de l'arrêt de l'enregistreur.");
+        }
     }
 
     //Code l'action du bouton de redémarrage
@@ -105,6 +180,16 @@ public class InterfaceController {
         btnStart.setText("Start");
         isOn = false;
         Situation = 2;                          //Met le code en état Reset
+
+        //Supprime les images
+        File file = new File("Images");
+        deleteDirectory(file);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     //Code l'action du bouton de lecture de fichier
     @FXML
@@ -226,8 +311,24 @@ public class InterfaceController {
         gcInterface.drawImage(grass,0,0);
     }
 
+
+    public static boolean deleteDirectory(File directory) {
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    // Supprimer le fichier
+                    if (!file.delete()) {
+                        System.err.println("Échec de la suppression du fichier : " + file.getAbsolutePath());
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     @FXML
     void spaceThemeClick(){
-
     }
 }
