@@ -230,7 +230,7 @@ public class GestionObjects
     {
         for(int idx = 0;idx < NbrAgent;idx++)
         {
-            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])/*&&!GestionObjects.agents[idx].getState()[0]*/&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
+            if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
 

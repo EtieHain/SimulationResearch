@@ -134,13 +134,9 @@ public class Agent extends ObjectScheme
      */
     public float getAngle()
     {
-        float temp;
-        temp = (float) Math.toDegrees(Math.atan(direction[1]/direction[0]));
-        if(direction[0] < 0)
-        {
-            temp -= 180;
-        }
-        return temp + 90;
+        float angle;
+        angle = (float) Math.toDegrees(Math.atan2(direction[1],direction[0]));
+        return angle + 90;
     }
 
     /**
@@ -148,10 +144,11 @@ public class Agent extends ObjectScheme
      * (recherche, cible trouvée, aller à la cible)
      */
     public void Deplacement() {
-        if(!this.Collision() && !this.isGoingBackward)
+        if(!this.Collision() && !this.isGoingBackward) //si l'agent ne detecte pas de colision et qu'il ne va pas en arrière
         {
-
-            if(!this.targetFound && !this.isGoingToTarget && !this.isRotating) {
+            //Si l'agent n'a pas trouvé la cible, qu'il ne va pas en direction de la cible et qu'il ne tourne pas
+            if(!this.targetFound && !this.isGoingToTarget && !this.isRotating)
+            {
                 int step = this.step;
                 int NP = step + 1;
                 if (NP == GestionObjects.N) NP = 0;
@@ -171,25 +168,42 @@ public class Agent extends ObjectScheme
                     this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
                     this.newAngle=this.getAngle();
                 }
-            }else if(this.targetFound && !this.isGoingToTarget && !this.isRotating){
-                if (Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY) < ConfigReading.agentSpeed) {
+            }
+            //Si l'agent a trouvé la cible ne va pas en direction de la cible et qu'il ne tourne pas
+            else if(this.targetFound && !this.isGoingToTarget && !this.isRotating)
+            {
+                //Si l'agent a atteint le centre du canvas
+                if (Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY) < ConfigReading.agentSpeed)
+                {
+                    //Set la position de l'agent au centre du canvas
                     this.changePosition(ConfigReading.dimensionCaneva[0]/2, ConfigReading.dimensionCaneva[1]/2);
-                } else {
+                }
+                else
+                {
+                    //Déplace l'agent en direction du centre du canvas
                     this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
                 }
             }
-            else if(!this.targetFound && !this.isRotating){
+            //Si l'agent n'a pas trouvé la cible et qu'il ne tourne pas
+            else if(!this.targetFound && !this.isRotating)
+            {
+                //Change la position de l'agent en fonction de sa vitesse et de sa direction
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
             }
         }
-        else
+        else //Si l'agent a détecté une colision et ou qu'il ne va pas en arrière
         {
+            //Test si l'agent va en arrière
             if(isGoingBackward)
             {
+                //Changment de la position de l'agent
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                //Décrémente le nombre de coup que l'agent doit encore aller en arrière
                 this.deplacementBackward--;
+                //Si l'agent ne doit plus aller en arrière
                 if(deplacementBackward == 0 || this.targetFound)
                 {
+                    //Remet la direction pour que l'agent aille en avant
                     this.isGoingBackward = false;
                     this.direction[0] = -this.direction[0];
                     this.direction[1] = -this.direction[1];
@@ -213,7 +227,8 @@ public class Agent extends ObjectScheme
      * @param dirX the new direction component in x
      * @param dirY the new direction component in y
      */
-    public void setDirection(float dirX, float dirY){
+    public void setDirection(float dirX, float dirY)
+    {
         this.direction[0] = dirX;
         this.direction[1] = dirY;
     }
@@ -230,27 +245,30 @@ public class Agent extends ObjectScheme
     /**
      * Methode de détéction de la cible en fonction de sa distance avec l'agent
      */
-    public void targetDetection(){
+    public void targetDetection()
+    {
         Target target = GestionObjects.target;
+        //Test si la distance entre la cible et l'agent est plus petite que la detection range
         if(Math.hypot(this.positionX-target.getPosition()[0],this.positionY-target.getPosition()[1])<=this.agentsDetectionRange){
             this.targetFound=true;
-            if(!this.isGoingToTarget){
+            if(!this.isGoingToTarget)
+            {
+                //Changement de direction pour aller au centre du canvas et mis en rotation de l'agent
                 this.isRotating=true;
                 this.oldAngle=this.getAngle();
                 this.setDirection((float) ((ConfigReading.dimensionCaneva[0] / 2 - this.positionX) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)), (float) ((ConfigReading.dimensionCaneva[1] / 2 - this.positionY) / Math.hypot(ConfigReading.dimensionCaneva[0] / 2 - this.positionX, ConfigReading.dimensionCaneva[1] / 2 - this.positionY)));
                 this.newAngle=this.getAngle();
-            }else
+            }
+            else
             {
+                //Changement d'image de l'agent
                 this.image = activeTheme[1];
+                //Calculs pour faire tourner l'image autour de la cible
                 double w = ConfigReading.agentSpeed / 100;
                 float X = this.getPosition()[0] - ConfigReading.posCible[0];
                 float Y = this.getPosition()[1] - ConfigReading.posCible[1];
-                float fi = (float) Math.atan(Y/X);
+                float fi = (float) Math.atan2(Y,X);
                 float module = (float) Math.hypot(X,Y);
-                if(X < 0)
-                {
-                    fi -= Math.PI;
-                }
                 this.setDirection((float) (-module*Math.cos(fi+w)), (float) (-module*Math.sin(fi+w)));
                 this.changePosition((float) (module*Math.cos(fi+w))+ConfigReading.posCible[0], (float) (module*Math.sin(fi+w))+ConfigReading.posCible[1]);
             }

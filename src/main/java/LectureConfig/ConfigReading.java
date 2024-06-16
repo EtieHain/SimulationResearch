@@ -4,7 +4,6 @@ import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ConfigReading
@@ -22,9 +21,6 @@ public class ConfigReading
      */
     static public void ConfigReading(File file)
     {
-        //Déclaration du fichier a lire
-//        File file = new File("src/main/resources/configuration.txt");
-
         //Création d'une array liste qui va stocker chaque ligne
         ArrayList<String> values = new ArrayList<String>();
         try {
@@ -40,7 +36,8 @@ public class ConfigReading
                 values.add(filereader.next());
             }
             filereader.close();
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -66,17 +63,11 @@ public class ConfigReading
                 case "environment_size_W_H":
                     int x = Integer.parseInt(data[1]);
                     int y = Integer.parseInt(data[2]);
-//                    Random rand = new Random();
-//                    x = rand.nextInt(500+1)+200;
-//                    y = rand.nextInt(500+1)+200;
                     dimensionCaneva = new int[]{x,y};
                     break;
                 case "target_position_x_y":
                     float x1 = Float.parseFloat(data[1]);
                     float y1 = Float.parseFloat(data[2]);
-//                    Random rand2 = new Random();
-                    //x1 = rand2.nextInt(dimensionCaneva[0]+1);
-                    //y1 = rand2.nextInt(dimensionCaneva[1]+1);
                     posCible= new float[]{x1,y1};
                     break;
                 case "agents_speed":
