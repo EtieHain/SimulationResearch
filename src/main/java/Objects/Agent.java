@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import static com.example.simulationresearch.InterfaceController.*;
 
 /**
- * Classe représentant les agents
+ * Classe representing the agent
  */
 public class Agent extends ObjectScheme
 {
@@ -22,13 +22,13 @@ public class Agent extends ObjectScheme
     public boolean isGoingBackward;
 
     /**
-     * Constructeur de la classe Agent
+     * Constructor of the Agent class
      *
-     * @param positionX position en x de l'agent
-     * @param positionY position en y de l'agent
-     * @param Step étape de l'agent dans la liste de position
-     * @param image image par défaut de l'agent
-     * @param stopImg image de l'agent lorsque la clibe est trouvée
+     * @param positionX x coordinates of the agent
+     * @param positionY y coordinates of the agent
+     * @param Step position of the agent in the list of position
+     * @param image default image of the agent
+     * @param stopImg stopped image of the agent
      */
     public Agent(float positionX,float positionY,int Step,Image image,Image stopImg)
     {
@@ -45,11 +45,11 @@ public class Agent extends ObjectScheme
         this.isRotating=false;
         this.deplacementBackward = 0;
         this.isGoingBackward = false;
-        //this.stopImg =stopImg;
+//        this.stopImg =stopImg;
     }
 
     /**
-     * Methode de changement de l'image de l'agent
+     * change agent image
      *
      * @param image The new image to load
      */
@@ -60,7 +60,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de changement de la position de l'agent
+     * change agent position
      *
      * @param positionX The new position in the x-axis
      * @param positionY The new position in the y-axis
@@ -73,7 +73,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de changement du rayon de communication (pas utilisée)
+     * change communication radius (unused)
      *
      * @param radius The new radius value
      */
@@ -83,7 +83,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de la position de l'agent
+     * This method return the position of the agent
      *
      * @return the agent coordinates in an Array
      */
@@ -94,7 +94,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de récupération du rayon de communication
+     * This method returns the communication radius
      *
      * @return the agent communication radius
      */
@@ -104,7 +104,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de l'image de la cible
+     * This Method returns the image of the target
      *
      * @return the agent image
      */
@@ -114,8 +114,8 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de vérification de la possible communication avec un autre Objet de la classe Object Scheme
-     * en fonction de la distance avec cet objet
+     * This method checks if the communication between the object and another Object Scheme object is possible (unused)
+     * depending of the distance with this object
      *
      * @param object The other ObjectScheme
      *
@@ -127,7 +127,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de calcul de l'angle en fonction de sa direction
+     * This method calculate and return the agent angle
      *
      * @return the agent angle
      */
@@ -139,8 +139,8 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de calcul du déplacement de l'agent en fonction de son état
-     * (recherche, cible trouvée, aller à la cible)
+     * This method calculate the agent movement depending on his state
+     * (research, target found, go to target)
      */
     public void Deplacement() {
         if(!this.Collision() && !this.isGoingBackward) //si l'agent ne detecte pas de colision et qu'il ne va pas en arrière

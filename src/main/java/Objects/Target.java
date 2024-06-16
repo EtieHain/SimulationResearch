@@ -3,16 +3,16 @@ package Objects;
 import javafx.scene.image.Image;
 
 /**
- * Classe représentant la cible
+ * Class representing the target
  */
 public class Target extends ObjectScheme
 {
     /**
-     * Constructeur de la classe Target
+     * Constructor of the Target class
      *
-     * @param positionX position en x de la cible
-     * @param positionY position en y de la cible
-     * @param image image de la cible
+     * @param positionX x coordinates of the target
+     * @param positionY y coordinates of the target
+     * @param image image of the target
      */
     public Target(float positionX, float positionY, Image image)
     {
@@ -22,7 +22,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de changement de l'image de la cible
+     * change target image
      *
      * @param image The new image to load
      */
@@ -33,7 +33,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de changement de la position de la cible
+     * change target position
      *
      * @param positionX The new position in the x-axis
      * @param positionY The new position in the y-axis
@@ -46,7 +46,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de changement du rayon de communication (pas utilisée)
+     * change communication radius (unused)
      *
      * @param radius The new radius value
      */
@@ -57,7 +57,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de la position de la cible
+     * This method return the position of the target
      *
      * @return the target coordinates in an Array
      */
@@ -68,7 +68,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de récupération du rayon de communication (pas utilisée)
+     * This method returns the communication radius (unused)
      *
      * @return the agent communication radius
      */
@@ -78,7 +78,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de l'image de la cible
+     * This Method returns the image of the target
      *
      * @return the agent image
      */
@@ -88,7 +88,7 @@ public class Target extends ObjectScheme
     }
 
     /**
-     * Methode de vérification de la possible communication avec un autre Objet de la classe Object Scheme (pas utilisée)
+     * This method checks if the communication between the object and another Object Scheme object is possible (unused)
      *
      * @param object The other ObjectScheme
      *
