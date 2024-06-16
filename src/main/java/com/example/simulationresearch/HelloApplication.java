@@ -12,14 +12,13 @@ import java.io.IOException;
 
 import static com.example.simulationresearch.InterfaceController.*;
 
+/**
+ * Class representing our app extends for Application
+ */
 public class HelloApplication extends Application {
-
-
-    private int NbrAgent = 5;
-    static File file;
-
-    static int frameCount = 0;
-
+    private int NbrAgent = 5; //consigne du nombre d'agent
+    static File file; //variable de chamin vers le fichier de config
+    static int frameCount = 0; //variable de comptage des frame
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -47,14 +46,14 @@ public class HelloApplication extends Application {
                 else if(Situation == 3){
                     Ctrl_Global.AffichageStop(activeTheme[3]);
                 }
-                //Code l'état de redémarrage de la simulation
+                //Code l'état de reset de la simulation
                 else if(Situation == 2){
                     GestionObjects.creationObjects(NbrAgent, activeTheme[0], activeTheme[2]);
                     Ctrl_Global.AffichageStop(activeTheme[3]);
                     frameCount =0;
                 }
             }
-        }.start();
+        }.start(); //start la boucle
         stage.show();
     }
 

@@ -148,23 +148,37 @@ public class Agent extends ObjectScheme
             //Si l'agent n'a pas trouvé la cible, qu'il ne va pas en direction de la cible et qu'il ne tourne pas
             if(!this.targetFound && !this.isGoingToTarget && !this.isRotating)
             {
+                //récup de la step
                 int step = this.step;
+                //récup de l'objectif
                 int NP = step + 1;
+                //check si fin de tableau
                 if (NP == GestionObjects.N) NP = 0;
+                //changer la position
                 this.changePosition(this.getPosition()[0] + this.velocityMagnitude * this.getDirection()[0], this.getPosition()[1] + this.velocityMagnitude * this.getDirection()[1]);
+                //si position atteinte
                 if (Math.hypot(this.getPosition()[0] - GestionObjects.posTab[step][0], this.getPosition()[1] - GestionObjects.posTab[step][1]) > Math.hypot(GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0], GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])) {
+                    //incrémenter la step et check si fin de tableau
                     if (step == GestionObjects.N - 1) {
                         this.setStep(0);
                     } else {
                         this.setStep(step + 1);
                     }
+                    //engagement de la rotation
                     this.isRotating=true;
+                    //stock de l'angle de départ
                     this.oldAngle=this.getAngle();
+                    //récup de la nouvelle step
                     step = this.step;
+                    //calcul prochain objectif
                     NP = step + 1;
+                    //check si fin de tableau
                     if (NP == GestionObjects.N) NP = 0;
+                    //ajustement la position au pixel près
                     this.changePosition(GestionObjects.posTab[step][0], GestionObjects.posTab[step][1]);
+                    //calcul du nouveau vecteur de direction
                     this.setDirection((float) ((GestionObjects.posTab[NP][0] - GestionObjects.posTab[step][0]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1])))), (float) ((GestionObjects.posTab[NP][1] - GestionObjects.posTab[step][1]) / (Math.hypot((GestionObjects.posTab[step][0] - GestionObjects.posTab[NP][0]), (GestionObjects.posTab[step][1] - GestionObjects.posTab[NP][1])))));
+                    //stock du nouvel angle
                     this.newAngle=this.getAngle();
                 }
             }
@@ -212,7 +226,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de la direction de l'agent
+     * this method returns the agent direction vector
      *
      * @return the agent direction in an array
      */
@@ -221,7 +235,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de changement de la direction de l'agent
+     * change the agent direction
      *
      * @param dirX the new direction component in x
      * @param dirY the new direction component in y
@@ -233,7 +247,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de changement de l'étape de l'agent dans le tableau de position
+     * change the agent step in the position list
      *
      * @param step the new position step
      */
@@ -242,7 +256,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de détéction de la cible en fonction de sa distance avec l'agent
+     * this method detect the target if it is close enough
      */
     public void targetDetection()
     {
@@ -275,7 +289,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de récupération de l'étape de l'agent dans le tableau de position
+     * this method return the state of the agent
      *
      * @return the two state variable of the agent in an array
      * +
@@ -285,7 +299,7 @@ public class Agent extends ObjectScheme
     }
 
     /**
-     * Methode de test de colision avec un autre agent
+     * this method checks if it's colliding if another agent.
      *
      * @return if the agent is colliding with another agent
      */

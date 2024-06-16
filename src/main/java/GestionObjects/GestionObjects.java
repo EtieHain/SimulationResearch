@@ -9,26 +9,25 @@ import javafx.scene.image.Image;
 import java.lang.Math;
 
 /**
- *GestionObjects
+ * GestionObjects
  * A class that will create and manage all the objects
  */
 public class GestionObjects
 {
-    static public int nbrAgentAvertis = 0;
-    static public int NbrAgent;
-    static public int NbrObjectif;
-    static public Agent[] agents;
-    static public Target target;
-    static int winSize;
-    static int winWidth;
-    static int winHeight;
-    static public int N;
+    static public int nbrAgentAvertis = 0; //nombre d'agent ayant trouvé
+    static public int NbrAgent; //ndr d'agent
+    static public int NbrObjectif; //nbr d'agent qui doivent trouver la cible
+    static public Agent[] agents; //liste s'agent
+    static public Target target; //objet cible
+    static int winWidth; //largeur fenetre
+    static int winHeight; //hauteur fenetre
+    static public int N; //nombre de position
     //déclaration du tableau de position
     //N cellule avec 2 coordonnée (x,y)
     public static float[][] posTab;
 
     /**
-     * Méthode qui s'occupe de créer les agents et la cible
+     * This Method creates all the objects and calculate the position list
      *
      * @param NbrAgents nombre d'agents que l'on souhaite créer
      * @param ImageAgent image de l'agent
@@ -37,10 +36,11 @@ public class GestionObjects
     static public void creationObjects(int NbrAgents, Image ImageAgent, Image ImageTarget)
     {
 
+        //adaptation de la taille de l'image
         if(ConfigReading.agentsDetectionRange<ImageAgent.getHeight()*Math.sqrt(2)/2){
             ImageAgent = new Image(ImageAgent.getUrl(),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),2* ConfigReading.agentsDetectionRange/Math.sqrt(2),false,false);
         }
-        Image agentStopImg = new Image("abeillestop.png",ImageAgent.getHeight(),ImageAgent.getWidth(),false,false);
+        Image agentStopImg = new Image("shipstop.png",ImageAgent.getHeight(),ImageAgent.getWidth(),false,false);
         winWidth = (int) (ConfigReading.dimensionCaneva[0]-(ImageAgent.getWidth()));
         winHeight = (int) (ConfigReading.dimensionCaneva[1]-(ImageAgent.getHeight()));
         //x : nombre de position minimale sur la moitié d'une arrete
@@ -86,13 +86,11 @@ public class GestionObjects
                 posTab[i][1]=oy+winHeight/2 + (r/((float) Math.hypot((GestionObjects.posTab[i+1][0]-ox-winWidth/2),(GestionObjects.posTab[i+1][1]-oy-winHeight/2))))*(GestionObjects.posTab[i+1][1]-oy-winHeight/2);
             }
         }
-//        for(int p = 0;p<N;p++){
-//            System.out.println(posTab[p][0]+" "+posTab[p][1]);
-//        }
         //Stock dans la classe le nombre d'agents
         NbrAgent = NbrAgents;
+        //calcul le nombre objectif
         NbrObjectif = NbrAgents/2 + 1;
-//        NbrObjectif = NbrAgents+1;
+        //reset de nombre ayabt trouvé
         nbrAgentAvertis = 0;
 
         //Création d'un tableau temporaire d'agents
@@ -113,11 +111,12 @@ public class GestionObjects
 
         //Attribution du tableau temporaire au tableau d'agents de la classe
         agents = temp;
-
+        //création target
         GestionObjects.target = new Target(ConfigReading.posCible[0], ConfigReading.posCible[1],ImageTarget);
     }
 
     /**
+     * This Method display all the element
      *
      * @param gc contexte graphique du canvas sur lequel on va afficher nos agents
      * @param bg image de fond du canvas
@@ -223,14 +222,18 @@ public class GestionObjects
     }
 
     /**
+     * This Method make the communication between the agent
      *
      * @param founderIndex
      */
     public static void testCommunication(int founderIndex)
     {
+        //check de la comm avec chaque agent
         for(int idx = 0;idx < NbrAgent;idx++)
         {
+            //si com possible
             if(agents[founderIndex].isCommunication(GestionObjects.agents[idx])&&!GestionObjects.agents[idx].getState()[1]&&founderIndex!=idx){
+                //avertir l'agent
                 agents[idx].isGoingToTarget=true;
                 agents[idx].targetFound=false;
 
@@ -240,7 +243,9 @@ public class GestionObjects
                 agents[idx].newAngle=agents[idx].getAngle();
 
                 nbrAgentAvertis++;
+                //si assez d'agent sont aveertis
                 if(nbrAgentAvertis>=NbrObjectif-1){
+                    //aller a la cible
                     agents[founderIndex].isGoingToTarget=true;
                     agents[founderIndex].targetFound=false;
 

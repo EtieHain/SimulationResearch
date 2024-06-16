@@ -19,23 +19,28 @@ import java.io.IOException;
 
 import static com.example.simulationresearch.HelloApplication.*;
 
-
+/**
+ * Controller class of our application
+ */
 public class HelloController {
     @FXML
     public Canvas myCanvas;                //Variable du canvas ou serra affiché la simulation
     @FXML
     private Label lbl_Timmer;               //Variable qui affichera le temps de simulation (valeur du Timmer)
     @FXML
-    private AnchorPane ap;
-    @FXML
-    private ScrollPane sp;
-    static public int nbrImg = 0;
-    static public float lastTime = 0f;
-    private File[] files;
-    static public float ResearchTime = 0.00f;
-    static boolean SimulationDone = false;
+    private AnchorPane ap;                 //pane contenant les élément
 
+    static public int nbrImg = 0; //variable serant a lexport
+    static public float lastTime = 0f; //variable servant a lexport
+    private File[] files; //variable servant à lexport
 
+    static public float ResearchTime = 0.00f; //variable de calcul du temps de simul en fonction du nbr de frame
+    static boolean SimulationDone = false; //variabel d'état de la simul
+
+    /**
+     * This Method displays the elements on the canvas and make the element move
+     * @param BackGround
+     */
     public void Afficher(Image BackGround) {
         GraphicsContext gc = myCanvas.getGraphicsContext2D();
         int NbrFound = 0;
@@ -56,11 +61,14 @@ public class HelloController {
         //Change le texte du label avec la valeur du Timmer
         lbl_Timmer.setText(String.valueOf(ResearchTime));
 
+        //test de fin de simul si cible trouvée
         if (NbrFound >= GestionObjects.NbrObjectif) {
             SimulationDone = true;
             InterfaceController.Situation = 3;
             lbl_Timmer.setText(String.valueOf("Found in " + ResearchTime + " sec."));
-        } else if (ResearchTime>=60){
+        }
+        //condition si temnps écoulé
+        else if (ResearchTime>=60){
             SimulationDone = true;
             InterfaceController.Situation = 3;
             lbl_Timmer.setText(String.valueOf("Target not found !"));
@@ -102,7 +110,10 @@ public class HelloController {
         }
     }
 
-
+    /**
+     * this method is called to display the elements when nothing has to move (pause or finished)
+     * @param BackGround
+     */
     public void AffichageStop (Image BackGround){
         myCanvas.setWidth(ConfigReading.dimensionCaneva[0]);
         myCanvas.setHeight(ConfigReading.dimensionCaneva[1]);

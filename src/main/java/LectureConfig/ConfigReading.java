@@ -6,16 +6,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * class to read the configuration file
+ */
 public class ConfigReading
 {
-    public static int[] dimensionCaneva = new int[]{800,800};
-    public static float[] posCible = new float[]{400f,400f};
-    public static float agentSpeed = 5f;
-    public static float agentsDetectionRange = 50f;
-    public static float agentsCommunicationRange = 50f;
+    public static int[] dimensionCaneva = new int[]{800,800}; //dimension simul
+    public static float[] posCible = new float[]{400f,400f}; //position cible
+    public static float agentSpeed = 5f; //vitesse des agents
+    public static float agentsDetectionRange = 50f; //rayon de detection
+    public static float agentsCommunicationRange = 50f; //rayon de comm
 
     /**
-     * Methode de lecture du fichier de configuration
+     * this method reads the configuration file
      *
      * @param file the config file that you want to read
      */

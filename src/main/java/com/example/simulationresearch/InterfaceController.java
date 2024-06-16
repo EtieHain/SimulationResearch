@@ -24,20 +24,22 @@ import static com.example.simulationresearch.HelloApplication.file;
 import static com.example.simulationresearch.HelloApplication.frameCount;
 import static com.example.simulationresearch.HelloController.*;
 
-
+/**
+ * Controller class of the interface
+ */
 public class InterfaceController {
 
     public static int Situation = 0;        //Variables qui définira l'état du code
     //Créer la variable image de l'agent par default
 
-    public static boolean isOn = false;
+    public static boolean isOn = false; //variable d'état du btn paly/pause
 
     @FXML
-    public ImageView interfaceBG;
+    public ImageView interfaceBG; //background de l'interface
     @FXML
-    public ImageView btnPlayPause;
+    public ImageView btnPlayPause; //btn play/pause
     @FXML
-    public ImageView btnReset;         //Bouton qui redemarrer la simulation
+    public ImageView btnReset;         //Bouton de reset de la simulation
     @FXML
     public ImageView btnExport;    //Bouton d'expportation en Mp4 de la simulation
     @FXML
@@ -45,36 +47,38 @@ public class InterfaceController {
 
     //Créer les labels qui afficheront les valeurs du fichier de configurations
     @FXML
-    public Label lbl_PositionTarget;
+    public Label lbl_PositionTarget; //position de la target
     @FXML
-    private Label lbl_AgentComm;
+    private Label lbl_AgentComm; //radius de comm
     @FXML
-    private Label lbl_TargetComm;
+    private Label lbl_TargetComm; //radius de detec
     @FXML
-    private Label bgLBL;
+    private Label bgLBL; //titre du choix des background
     @FXML
-    private Label agentLBL;
+    private Label agentLBL; //titre du choix des agent
     @FXML
-    private Label targetLBL;
+    private Label targetLBL; //titre du choix de la target
 
     @FXML
-    public ScrollPane themeList;
+    public ScrollPane themeList; //liste des theme
     @FXML
-    public ScrollPane bgSP;
+    public ScrollPane bgSP; //liste de background
     @FXML
-    public ScrollPane agentSP;
+    public ScrollPane agentSP; //liste des agents
     @FXML
-    public ScrollPane targetSP;
+    public ScrollPane targetSP; //liste des cibles
 
+    //images du btn play/pause
     private final Image playIcon = new Image("playIcon.png");
     private final Image pauseIcon = new Image("pauseIcon.png");
 
-    //Créer toutes les images utilisées pour les agents, le target et le background
+    //Créer toutes les images utilisées pour les agents, la target et le background
     private static final Image ship = new Image("ship.png",40,40,false,false);
     private static final Image shipStop = new Image("shipstop.png",40,40,false,false);
     private static final Image alien = new Image("alien.png",40,40,false,false);
     private static final Image space = new Image("space.png",0,800,true,false);
     private static final Image screen = new Image("ibg.png");
+    //enregistrement des image dans un theme
     private static final Image[] spaceTheme = {ship,shipStop,alien,space,screen};
 
     private static final Image bee = new Image("abeille.png",40,40,false,false);
@@ -119,20 +123,28 @@ public class InterfaceController {
     private static final Image planks = new Image("planks.png");
     private static final Image[] luffyTheme = {merry,merryStop,op,sea,planks};
 
+    //appliquage du theme au démarrage
     public static Image[] activeTheme = spaceTheme.clone();
 
-    //Code l'action du bouton de démarrage
+    /**
+     * This method is called when the play/pause button is pressed
+     */
     @FXML
     void btnStartClick(){
+        //si la simul est en marche
         if(!SimulationDone) {
+            //inversion de l'état du btn
             if (isOn) {
+                //pause
                 btnPlayPause.setImage(playIcon);
                 isOn = false;
                 Situation = 3;
             } else {
+                //play
                 btnPlayPause.setImage(pauseIcon);
                 isOn = true;
                 Situation = 1;
+                //suppréssion des images au démarrage
                 if (frameCount == 0) {
                     nbrImg = 0;
                     lastTime = 0;
@@ -149,6 +161,9 @@ public class InterfaceController {
         }
     }
 
+    /**
+     * this method exports the MP4 video of the simulation
+     */
     @FXML
     void btnExportClick(){
         //Code d'exportation
@@ -217,9 +232,12 @@ public class InterfaceController {
         alert.showAndWait();
     }
 
-    //Code l'action du bouton de redémarrage
+    /**
+     * this method is called when the reset button is pressed
+     */
     @FXML
     void btnResetClick(){
+        //set l'état du btn play/pause
         btnPlayPause.setImage(playIcon);
         SimulationDone =false;
         isOn = false;
@@ -236,9 +254,13 @@ public class InterfaceController {
         }
 
     }
-    //Code l'action du bouton de lecture de fichier
+
+    /**
+     * this method is called when the select file button is called
+     */
     @FXML
     void btnSelectFileClick(){
+        //séléction du fichier
         FileChooser fichierConfig = new FileChooser();
         File initialDirectory = new File("src/main/resources");
         if (initialDirectory.exists() && initialDirectory.isDirectory()) {
@@ -246,9 +268,12 @@ public class InterfaceController {
         }
         file = fichierConfig.showOpenDialog(null);
 
+        //si fichier valide
         if(file != null) {
+            //appel de la fontion de lecture
             ConfigReading.ConfigReading(file);
 
+            //affichage des paramètres
             activeTheme[3] = new Image(activeTheme[3].getUrl(),dimensionCaneva[0], dimensionCaneva[1],false,false);
             lbl_PositionTarget.setText("Position of the target : ( " + posCible[0] + " ; " + posCible[1] + " )");
             lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
@@ -257,6 +282,7 @@ public class InterfaceController {
             //Force un reset quand nouveau fichier
             btnResetClick();
 
+            //active les btn
             btnPlayPause.setDisable(false);
             btnPlayPause.setOpacity(1);
             btnReset.setDisable(false);
@@ -265,6 +291,7 @@ public class InterfaceController {
             btnExport.setOpacity(1);
             themeList.setDisable(false);
 
+            //set l'état du btn play/pause
             isOn = false;
         }
         else
@@ -279,6 +306,7 @@ public class InterfaceController {
     }
 
     /**
+     * This method deletes all the images saved during the simulation
      *
      * @param directory :dossier dans lequel tous les fichier seront supprimés
      */
@@ -313,57 +341,82 @@ public class InterfaceController {
         }
     }
 
+    /**
+     * this method will update the theme of the simulation
+     */
     void updateTheme(){
+        //update le background de l'interface
         interfaceBG.setImage(activeTheme[4]);
+        //update les images des agents
         for(int i = 0; i < GestionObjects.NbrAgent;i++){
             GestionObjects.agents[i].changeImage(activeTheme[0], activeTheme[1]);
         }
+        //update de background de la simul
         activeTheme[3]=new Image(activeTheme[3].getUrl(), dimensionCaneva[1],dimensionCaneva[1],false,false );
+        //update l'image de la target
         GestionObjects.target.changeImage(activeTheme[2],null);
     }
 
+    /**
+     * this method selects the space theme
+     */
     @FXML
     void spaceThemeClick(){
+        //application du theme
         activeTheme = spaceTheme.clone();
+        //update du theme
         updateTheme();
+        //désactivation du theme custom
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the hive theme
+     */
     @FXML
     void hiveThemeClick(){
         activeTheme = hiveTheme.clone();
         updateTheme();
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the city theme
+     */
     @FXML
     void cityThemeClick(){
         activeTheme = cityTheme.clone();
         updateTheme();
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the police theme
+     */
     @FXML
     void policeThemeClick(){
         activeTheme = policeTheme.clone();
         updateTheme();
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the shark theme
+     */
     @FXML
     void sharkThemeClick(){
         activeTheme = sharkTheme.clone();
         updateTheme();
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the dragon theme
+     */
     @FXML
     void dragonThemeClick(){
         activeTheme = dragonTheme.clone();
         updateTheme();
         disableCustomChoice();
     }
-
+    /**
+     * this method selects the luffy theme
+     */
     @FXML
     void luffyThemeClick(){
         activeTheme = luffyTheme.clone();
@@ -371,62 +424,93 @@ public class InterfaceController {
         disableCustomChoice();
     }
 
+    /**
+     * this method enable the customization of the theme
+     */
     @FXML
     void customThemeClicked(){
+        //afficher les liste d'images
         bgSP.setVisible(true);
         agentSP.setVisible(true);
         targetSP.setVisible(true);
-
+        //afficher les titres correspondant
         bgLBL.setVisible(true);
         agentLBL.setVisible(true);
         targetLBL.setVisible(true);
     }
+    /**
+     * this method disable the customization of the theme
+     */
     void disableCustomChoice(){
+        //cacher les liste d'images
         bgSP.setVisible(false);
         agentSP.setVisible(false);
         targetSP.setVisible(false);
-
+        //cacher les titres correspondant
         bgLBL.setVisible(false);
         agentLBL.setVisible(false);
         targetLBL.setVisible(false);
     }
 
+    /**
+     * this method selects the background of the space theme
+     */
     @FXML
     void bgSpaceClicked(){
+        //changement des background
         activeTheme[3]=spaceTheme[3];
         activeTheme[4]=spaceTheme[4];
+        //update
         updateTheme();
     }
+    /**
+     * this method selects the background of the hive theme
+     */
     @FXML
     void bgHiveClicked(){
         activeTheme[3]=hiveTheme[3];
         activeTheme[4]=hiveTheme[4];
         updateTheme();
     }
+    /**
+     * this method selects the background of the city theme
+     */
     @FXML
     void bgCityClicked(){
         activeTheme[3]=cityTheme[3];
         activeTheme[4]=cityTheme[4];
         updateTheme();
     }
+    /**
+     * this method selects the background of the police theme
+     */
     @FXML
     void bgPoliceClicked(){
         activeTheme[3]=policeTheme[3];
         activeTheme[4]=policeTheme[4];
         updateTheme();
     }
+    /**
+     * this method selects the background of the shark theme
+     */
     @FXML
     void bgSharkClicked(){
         activeTheme[3]=sharkTheme[3];
         activeTheme[4]=sharkTheme[4];
         updateTheme();
     }
+    /**
+     * this method selects the background of the dragon theme
+     */
     @FXML
     void bgDragonClicked(){
         activeTheme[3]=dragonTheme[3];
         activeTheme[4]=dragonTheme[4];
         updateTheme();
     }
+    /**
+     * this method selects the background of the luffy theme
+     */
     @FXML
     void bgLuffyClicked(){
         activeTheme[3]=luffyTheme[3];
@@ -434,42 +518,65 @@ public class InterfaceController {
         updateTheme();
     }
 
+    /**
+     * this method selects the agent of the space theme
+     */
     @FXML
     void agentSpaceClicked(){
+        //changement de l'image de l'agent
         activeTheme[0]=spaceTheme[0];
         activeTheme[1]=spaceTheme[1];
+        //update
         updateTheme();
     }
+    /**
+     * this method selects the agent of the hive theme
+     */
     @FXML
     void agentHiveClicked(){
         activeTheme[0]=hiveTheme[0];
         activeTheme[1]=hiveTheme[1];
         updateTheme();
     }
+    /**
+     * this method selects the agent of the city theme
+     */
     @FXML
     void agentCityClicked(){
         activeTheme[0]=cityTheme[0];
         activeTheme[1]=cityTheme[1];
         updateTheme();
     }
+    /**
+     * this method selects the agent of the police theme
+     */
     @FXML
     void agentPoliceClicked(){
         activeTheme[0]=policeTheme[0];
         activeTheme[1]=policeTheme[1];
         updateTheme();
     }
+    /**
+     * this method selects the agent of the shark theme
+     */
     @FXML
     void agentSharkClicked(){
         activeTheme[0]=sharkTheme[0];
         activeTheme[1]=sharkTheme[1];
         updateTheme();
     }
+    /**
+     * this method selects the agent of the dragon theme
+     */
     @FXML
     void agentDragonClicked(){
         activeTheme[0]=dragonTheme[0];
         activeTheme[1]=dragonTheme[1];
         updateTheme();
     }
+    /**
+     * this method selects the agent of the luffy theme
+     */
     @FXML
     void agentLuffyClicked(){
         activeTheme[0]=luffyTheme[0];
@@ -477,57 +584,91 @@ public class InterfaceController {
         updateTheme();
     }
 
+    /**
+     * this method selects the target of the space theme
+     */
     @FXML
     void targetSpaceClicked(){
+        //changement de la cible
         activeTheme[2]=spaceTheme[2];
+        //update
         updateTheme();
     }
+    /**
+     * this method selects the target of the hive theme
+     */
     @FXML
     void targetHiveClicked(){
         activeTheme[2]=hiveTheme[2];
         updateTheme();
     }
+    /**
+     * this method selects the target of the city theme
+     */
     @FXML
     void targetCityClicked(){
         activeTheme[2]=cityTheme[2];
         updateTheme();
     }
+    /**
+     * this method selects the target of the police theme
+     */
     @FXML
     void targetPoliceClicked(){
         activeTheme[2]=policeTheme[2];
         updateTheme();
     }
+    /**
+     * this method selects the target of the shark theme
+     */
     @FXML
     void targetSharkClicked(){
         activeTheme[2]=sharkTheme[2];
         updateTheme();
     }
+    /**
+     * this method selects the target of the dragon theme
+     */
     @FXML
     void targetDragonClicked(){
         activeTheme[2]=dragonTheme[2];
         updateTheme();
     }
+    /**
+     * this method selects the target of the luffy theme
+     */
     @FXML
     void targetLuffyClicked(){
         activeTheme[2]=luffyTheme[2];
         updateTheme();
     }
 
+    /**
+     * this method make the select file button bigger when the mouse is on it
+     */
     @FXML
     void onFileMouseIn(){
-            btnSelectFile.setFitHeight(46);
-            btnSelectFile.setFitWidth(46);
-            btnSelectFile.setLayoutX(127);
-            btnSelectFile.setLayoutY(94);
+        //set la taille et la position du btn
+        btnSelectFile.setFitHeight(46);
+        btnSelectFile.setFitWidth(46);
+        btnSelectFile.setLayoutX(127);
+        btnSelectFile.setLayoutY(94);
     }
+    /**
+     * this method make the select file button smaller when the mouse is not on it
+     */
     @FXML
     void onFileMouseOut(){
+        //set la taille et la position du btn
         btnSelectFile.setFitHeight(40);
         btnSelectFile.setFitWidth(40);
         btnSelectFile.setLayoutX(130);
         btnSelectFile.setLayoutY(97);
     }
 
+    /**
+     * this method make the play/pause file button bigger when the mouse is on it
+     */
     @FXML
     void onPlayPauseMouseIn(){
         if(!SimulationDone) {
@@ -542,6 +683,9 @@ public class InterfaceController {
             btnPlayPause.setLayoutY(693);
         }
     }
+    /**
+     * this method make the play/pause file button smaller when the mouse is not on it
+     */
     @FXML
     void onPlayPauseMouseOut(){
         btnPlayPause.setFitHeight(50);
@@ -550,6 +694,9 @@ public class InterfaceController {
         btnPlayPause.setLayoutY(693);
     }
 
+    /**
+     * this method make the reset button bigger when the mouse is on it
+     */
     @FXML
     void onResetMouseIn(){
         btnReset.setFitHeight(58);
@@ -557,6 +704,9 @@ public class InterfaceController {
         btnReset.setLayoutX(40);
         btnReset.setLayoutY(689);
     }
+    /**
+     * this method make the reset button smaller when the mouse is not on it
+     */
     @FXML
     void onResetMouseOut(){
         btnReset.setFitHeight(50);
@@ -565,6 +715,9 @@ public class InterfaceController {
         btnReset.setLayoutY(693);
     }
 
+    /**
+     * this method make the export button bigger when the mouse is on it
+     */
     @FXML
     void onExportMouseIn(){
         btnExport.setFitHeight(66);
@@ -572,6 +725,9 @@ public class InterfaceController {
         btnExport.setLayoutX(208);
         btnExport.setLayoutY(685);
     }
+    /**
+     * this method make the export button smaller when the mouse is not on it
+     */
     @FXML
     void onExportMouseOut(){
         btnExport.setFitHeight(56);
