@@ -2,12 +2,8 @@ package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
-import Objects.Target;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -22,7 +18,6 @@ import org.bytedeco.opencv.opencv_core.IplImage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import static LectureConfig.ConfigReading.*;
 import static com.example.simulationresearch.HelloApplication.file;
@@ -157,8 +152,9 @@ public class InterfaceController {
     @FXML
     void btnExportClick(){
         //Code d'exportation
-        String outputFilePath = "output.mp4";
-        int frameRate = (int) (nbrImg / ResearchTime);            //Créer une variable float; // Frames per second
+
+        String outputFilePath = "output.mp4";   //Nom du fichier vidéo de sortie
+        int frameRate = (int) (nbrImg / ResearchTime); // Frames per second
 
         // Creation et configuration d'une instance de FFMpeg
         FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(outputFilePath, dimensionCaneva[0], dimensionCaneva[1]);
@@ -212,6 +208,13 @@ public class InterfaceController {
             e.printStackTrace();
             System.err.println("Erreur lors de l'arrêt de l'enregistreur.");
         }
+        // Affiche une fenêtre indiquant le répertoire de la vidéo
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        File video = new File(outputFilePath);
+        alert.setContentText("Fichier vidéo créé dans le répértoire : \n" + video.getAbsoluteFile());
+        alert.showAndWait();
     }
 
     //Code l'action du bouton de redémarrage
@@ -275,26 +278,39 @@ public class InterfaceController {
         }
     }
 
-    public static boolean deleteDirectory(File directory) {
-        if (directory.exists()) {
+    /**
+     *
+     * @param directory :dossier dans lequel tous les fichier seront supprimés
+     */
+    public static void deleteDirectory(File directory) {
+        //Vérifie que le dossier existe
+        if (directory.exists())
+        {
+            //Fait une liste de tous le fichier dans le dossier
             File[] files = directory.listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    // Supprimer le fichier
+            //Si le dossier n'est pas vide
+            if (files != null)
+            {
+                //Boucle qui passe par tous les fichier du dossier
+                for (File file : files)
+                {
+                    //Boucle qui essaye de supprimer le fichier jusqu'a ce qu'elle réussisse
                     while(!file.delete())
                     {
-                        try {
+                        try
+                        {
+                            //Si la suppression ne marche pas on attent 10ms avant de rééssayer
                             Thread.sleep(10);
-                        } catch (InterruptedException e) {
+                        }
+                        catch (InterruptedException e)
+                        {
                             Thread.currentThread().interrupt();
                             System.err.println("Le thread a été interrompu.");
-                            return false;
                         }
                     }
                 }
             }
         }
-        return true;
     }
 
     void updateTheme(){
