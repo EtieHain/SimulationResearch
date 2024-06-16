@@ -3,6 +3,7 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <SplitPane dividerPositions="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.simulationresearch.HelloController">
     <AnchorPane fx:id="ap" prefHeight="800.0" prefWidth="800.0">
@@ -11,6 +12,9 @@
 
     <AnchorPane prefHeight="800.0" prefWidth="300.0">
         <fx:include source="Interface.fxml" />
-      <Label fx:id="lbl_Timmer" layoutX="10.0" layoutY="700.0" prefWidth="280.0" text="Traget found in 0.00 secondes" textFill="WHITE" />
+      <Label fx:id="lbl_Timmer" layoutX="109.0" layoutY="750.0" prefHeight="30.0" prefWidth="185.0" text="--.-" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font></Label>
     </AnchorPane>
 </SplitPane>

@@ -23,25 +23,25 @@
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="127.0" layoutY="94.0" onMouseClicked="#btnSelectFileClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="btnSelectFile" fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="97.0" onMouseClicked="#btnSelectFileClick" onMouseEntered="#onFileMouseIn" onMouseExited="#onFileMouseOut" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../fileImportIcon.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbl_AgentComm" layoutX="10.0" layoutY="229.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : -" textFill="WHITE" />
+      <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="229.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : -" textFill="WHITE" />
       <Label alignment="CENTER" layoutX="10.0" layoutY="139.0" prefHeight="30.0" prefWidth="280.0" text="Information of the file" textFill="WHITE" AnchorPane.rightAnchor="10.0">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_PositionTarget" layoutX="10.0" layoutY="169.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (- ; -)" textFill="WHITE" />
-      <Label fx:id="lbl_TargetComm" layoutX="10.0" layoutY="199.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : -" textFill="WHITE" />
+      <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="169.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (- ; -)" textFill="WHITE" />
+      <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="199.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : -" textFill="WHITE" />
       <Label alignment="CENTER" layoutX="10.0" layoutY="259.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="themeList" disable="true" layoutX="22.0" layoutY="288.0" prefHeight="76.0" prefWidth="255.0">
+      <ScrollPane fx:id="themeList" disable="true" layoutX="22.0" layoutY="288.0" prefHeight="76.0" prefWidth="256.0">
          <content>
             <HBox prefHeight="50.0" prefWidth="280.0">
                <children>
@@ -101,7 +101,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </HBox.margin>
                   </ImageView>
-                  <ImageView fx:id="thCustom" fitHeight="40.0" fitWidth="40.0" layoutX="318.0" layoutY="15.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="thCustom" fitHeight="40.0" fitWidth="40.0" layoutX="318.0" layoutY="15.0" onMouseClicked="#customThemeClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../iconeTheme/custom.png" />
                      </image>
@@ -113,67 +113,231 @@
             </HBox>
          </content>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="364.0" prefHeight="30.0" prefWidth="280.0" text="Choose background" textFill="WHITE">
+      <Label fx:id="bgLBL" alignment="CENTER" layoutX="10.0" layoutY="364.0" prefHeight="30.0" prefWidth="280.0" text="Choose background" textFill="WHITE" visible="false">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="25.0" layoutY="394.0" prefHeight="65.0" prefWidth="255.0">
-         <HBox prefHeight="50.0" prefWidth="280.0">
-            <ImageView fx:id="imgSpace" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgSpaceClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../background3.jpg" />
-            </ImageView>
-            <ImageView fx:id="imgGrassBee" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgGrassBeeClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../grass.png" />
-            </ImageView>
-            <ImageView fx:id="imgGrassHelico" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgGrassHelicoClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../grass.png" />
-            </ImageView>
-         </HBox>
+      <ScrollPane fx:id="bgSP" layoutX="22.0" layoutY="394.0" prefHeight="76.0" prefWidth="256.0" visible="false">
+         <content>
+            <HBox prefHeight="50.0" prefWidth="280.0">
+               <children>
+                  <ImageView fx:id="bgSpace" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#bgSpaceClicked" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../space.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgHive" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="15.0" onMouseClicked="#bgHiveClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../grass.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgHelico" fitHeight="40.0" fitWidth="40.0" layoutX="64.0" layoutY="15.0" onMouseClicked="#bgCityClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../bgh.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#bgPoliceClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../iconeTheme/police.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#bgSharkClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../iconeTheme/shark.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#bgDragonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../iconeTheme/dragon.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="bgLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#bgLuffyClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../iconeTheme/luffy.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </content>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="459.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent" textFill="WHITE">
+      <Label fx:id="agentLBL" alignment="CENTER" layoutX="10.0" layoutY="470.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent" textFill="WHITE" visible="false">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="22.0" layoutY="490.0" prefHeight="65.0" prefWidth="255.0">
-         <HBox prefHeight="50.0" prefWidth="280.0">
-            <ImageView fx:id="imgShip" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgShipeClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../ship.png" />
-            </ImageView>
-            <ImageView fx:id="imgBee" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgBeeClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../abeillestop.png" />
-            </ImageView>
-            <ImageView fx:id="imgHelico" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgHelicoClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../helicostop.png" />
-            </ImageView>
-         </HBox>
+      <ScrollPane fx:id="agentSP" layoutX="22.0" layoutY="500.0" prefHeight="76.0" prefWidth="256.0" visible="false">
+         <content>
+            <HBox prefHeight="50.0" prefWidth="280.0">
+               <children>
+                  <ImageView fx:id="agentSpace" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#agentSpaceClicked" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../shipstop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentHive" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="15.0" onMouseClicked="#agentHiveClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../abeillestop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentHelico" fitHeight="40.0" fitWidth="40.0" layoutX="64.0" layoutY="15.0" onMouseClicked="#agentCityClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../helicostop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#agentPoliceClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../PoliceStop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#agentSharkClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../sharkStop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#agentDragonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../dragonStop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="agentLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#agentLuffyClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../sharkStop.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </content>
       </ScrollPane>
-      <Label alignment="CENTER" layoutX="10.0" layoutY="557.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target" textFill="WHITE">
+      <Label fx:id="targetLBL" alignment="CENTER" layoutX="10.0" layoutY="577.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target" textFill="WHITE" visible="false">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="22.0" layoutY="587.0" prefHeight="65.0" prefWidth="255.0">
-         <HBox prefHeight="50.0" prefWidth="377.0">
-            <ImageView fx:id="imgAlien" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgAlienClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../alien.png" />
-            </ImageView>
-            <ImageView fx:id="imgTournesol" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgTournesolClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../tournesol.png" />
-            </ImageView>
-            <ImageView fx:id="imgHeliport" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#imgHeliportClick" pickOnBounds="true" preserveRatio="true">
-               <Image url="@../../../heliport.png" />
-            </ImageView>
-         </HBox>
+      <ScrollPane fx:id="targetSP" layoutX="22.0" layoutY="607.0" prefHeight="76.0" prefWidth="256.0" visible="false">
+         <content>
+            <HBox prefHeight="50.0" prefWidth="280.0">
+               <children>
+                  <ImageView fx:id="targetSpace" fitHeight="40.0" fitWidth="40.0" onMouseClicked="#targetSpaceClicked" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../alien.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetHive" fitHeight="40.0" fitWidth="40.0" layoutX="15.0" layoutY="15.0" onMouseClicked="#targetHiveClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../tournesol.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetHelico" fitHeight="40.0" fitWidth="40.0" layoutX="64.0" layoutY="15.0" onMouseClicked="#targetCityClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../heliport.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#targetPoliceClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../money.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#targetSharkClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../turtle.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#targetDragonClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../nest.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="targetLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#targetLuffyClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../turtle.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </content>
       </ScrollPane>
-      <Button fx:id="btnStart" disable="true" layoutX="15.0" layoutY="730.0" maxWidth="100.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="50.0" prefWidth="80.0" text="Start" />
-      <Button fx:id="btnReset" disable="true" layoutX="205.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnResetClick" prefHeight="50.0" prefWidth="80.0" text="Reset" />
-      <Label layoutX="117.0" layoutY="698.0" prefHeight="30.0" prefWidth="69.0" text="Timer" textFill="WHITE">
+      <ImageView fx:id="btnPlayPause" disable="true" fitHeight="50.0" fitWidth="50.0" layoutX="128.0" layoutY="693.0" onMouseClicked="#btnStartClick" onMouseEntered="#onPlayPauseMouseIn" onMouseExited="#onPlayPauseMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../playIcon.png" />
+         </image></ImageView>
+      <ImageView fx:id="btnReset" disable="true" fitHeight="50.0" fitWidth="50.0" layoutX="44.0" layoutY="693.0" onMouseClicked="#btnResetClick" onMouseEntered="#onResetMouseIn" onMouseExited="#onResetMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../resetIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnExport" disable="true" fitHeight="56.0" fitWidth="56.0" layoutX="213.0" layoutY="690.0" onMouseClicked="#btnExportClick" onMouseEntered="#onExportMouseIn" onMouseExited="#onExportMouseOut" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../exportIcon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="20.0" layoutY="750.0" prefHeight="30.0" prefWidth="88.0" text="Timer :" textFill="WHITE">
          <font>
             <Font name="Arial" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="btnExport" disable="true" layoutX="110.0" layoutY="730.0" mnemonicParsing="false" onAction="#btnExportClick" prefHeight="50.0" prefWidth="80.0" text="Export Mp4" />
    </children>
 </AnchorPane>

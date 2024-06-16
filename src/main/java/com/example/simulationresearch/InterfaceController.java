@@ -2,6 +2,7 @@ package com.example.simulationresearch;
 
 import GestionObjects.GestionObjects;
 import LectureConfig.ConfigReading;
+import Objects.Target;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,6 +22,7 @@ import org.bytedeco.opencv.opencv_core.IplImage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import static LectureConfig.ConfigReading.*;
 import static com.example.simulationresearch.HelloApplication.file;
@@ -33,11 +35,18 @@ public class InterfaceController {
     public static int Situation = 0;        //Variables qui définira l'état du code
     //Créer la variable image de l'agent par default
 
-
     public static boolean isOn = false;
 
     @FXML
     public ImageView interfaceBG;
+    @FXML
+    public ImageView btnPlayPause;
+    @FXML
+    public ImageView btnReset;         //Bouton qui redemarrer la simulation
+    @FXML
+    public ImageView btnExport;    //Bouton d'expportation en Mp4 de la simulation
+    @FXML
+    public ImageView btnSelectFile;    //Bouton qui active la sélection d'un fichier de config
 
     //Créer les labels qui afficheront les valeurs du fichier de configurations
     @FXML
@@ -46,24 +55,24 @@ public class InterfaceController {
     private Label lbl_AgentComm;
     @FXML
     private Label lbl_TargetComm;
-
-
-    //Créer les différents boutons pour changer l'état du code
     @FXML
-    public Button btnStart;         //Bouton qui démarre la simulation
+    private Label bgLBL;
     @FXML
-    public Button btnReset;         //Bouton qui redemarrer la simulation
+    private Label agentLBL;
     @FXML
-    public Button btnSelectFile;    //Bouton qui active la sélection d'un fichier de config
-    @FXML
-    public Button btnExport;    //Bouton d'expportation en Mp4 de la simulation
-
-    //Créer le canvas de l'arrière plan de l'interface
-    @FXML
-    public Canvas canvasInterface;
+    private Label targetLBL;
 
     @FXML
     public ScrollPane themeList;
+    @FXML
+    public ScrollPane bgSP;
+    @FXML
+    public ScrollPane agentSP;
+    @FXML
+    public ScrollPane targetSP;
+
+    private final Image playIcon = new Image("playIcon.png");
+    private final Image pauseIcon = new Image("pauseIcon.png");
 
     //Créer toutes les images utilisées pour les agents, le target et le background
     private static final Image ship = new Image("ship.png",40,40,false,false);
@@ -115,38 +124,31 @@ public class InterfaceController {
     private static final Image planks = new Image("brick.png");
     private static final Image[] luffyTheme = {merry,merryStop,op,sea,planks};
 
-    public static Image[] activeTheme = spaceTheme;
-
-    public static Image imageAgent = new Image("ship.png",40,40,false,false);
-    //Créer la variable image de l'agent quand il est arrivé au target par default
-    public static Image stopImg = new Image ("shipstop.png",40,40,false,false);
-    //Créer la variable image du target par default
-    public static Image targetImg = new Image("alien.png",40,40,false,false);
-    //Créer la variable image du background par default
-    public static Image BackGround = new Image("space.png",0,1000,true,false);
+    public static Image[] activeTheme = spaceTheme.clone();
 
     //Code l'action du bouton de démarrage
     @FXML
     void btnStartClick(){
-        if(isOn){
-            btnStart.setText("Start");
-            isOn = false;
-            Situation = 3;
-        }else{
-            btnStart.setText("Stop");
-            isOn = true;
-            Situation = 1;
-            if(frameCount == 0 )
-            {
-                nbrImg = 0;
-                lastTime = 0;
-                //Supprime les images
-                File file = new File("Images");
-                deleteDirectory(file);
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        if(!TargetFound) {
+            if (isOn) {
+                btnPlayPause.setImage(playIcon);
+                isOn = false;
+                Situation = 3;
+            } else {
+                btnPlayPause.setImage(pauseIcon);
+                isOn = true;
+                Situation = 1;
+                if (frameCount == 0) {
+                    nbrImg = 0;
+                    lastTime = 0;
+                    //Supprime les images
+                    File file = new File("Images");
+                    deleteDirectory(file);
+                    try {
+                        file.createNewFile();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         }
@@ -215,7 +217,8 @@ public class InterfaceController {
     //Code l'action du bouton de redémarrage
     @FXML
     void btnResetClick(){
-        btnStart.setText("Start");
+        btnPlayPause.setImage(playIcon);
+        TargetFound=false;
         isOn = false;
         Situation = 2;                          //Met le code en état Reset
 
@@ -243,20 +246,22 @@ public class InterfaceController {
         if(file != null) {
             ConfigReading.ConfigReading(file);
 
-            BackGround = new Image(BackGround.getUrl(),0, dimensionCaneva[1],true,false);
+            activeTheme[3] = new Image(activeTheme[3].getUrl(),dimensionCaneva[0], dimensionCaneva[1],false,false);
             lbl_PositionTarget.setText("Position of the target : ( " + posCible[0] + " ; " + posCible[1] + " )");
             lbl_TargetComm.setText("Radius communication target : " + agentsDetectionRange);
             lbl_AgentComm.setText("Radius communication agent : " + agentsCommunicationRange);
 
             //Force un reset quand nouveau fichier
-            Situation = 2;
+            btnResetClick();
 
-            btnStart.setDisable(false);
+            btnPlayPause.setDisable(false);
+            btnPlayPause.setOpacity(1);
             btnReset.setDisable(false);
+            btnReset.setOpacity(1);
             btnExport.setDisable(false);
+            btnExport.setOpacity(1);
             themeList.setDisable(false);
 
-            btnStart.setText("Start");
             isOn = false;
         }
         else
@@ -270,107 +275,21 @@ public class InterfaceController {
         }
     }
 
-
-    //Code des changement des images des agents
-    @FXML
-    void imgShipeClick(){
-        imageAgent = ship;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(ship, shipStop);
-        }
-    }
-    @FXML
-    void imgBeeClick(){
-        imageAgent = bee;
-        //stopImg = helicoStop;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(bee, beeStop);
-        }
-    }
-    @FXML
-    void imgHelicoClick(){
-        imageAgent = helico;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(helico, helicoStop);
-        }
-    }
-
-
-    //Code des changements de l'image du target
-    @FXML
-    void imgAlienClick(){
-        targetImg = alien;
-        GestionObjects.target.changeImage(alien, alien);
-    }
-    @FXML
-    void imgTournesolClick(){
-        targetImg = tournesol;
-        GestionObjects.target.changeImage(tournesol, tournesol);
-    }
-    @FXML
-    void imgHeliportClick(){
-        targetImg = heliport;
-        GestionObjects.target.changeImage(heliport, heliport);
-    }
-
-
-    //Code des changements des themes prédéfinis (Change image background, agents et target)
-    @FXML
-    void imgSpaceClick(){
-        BackGround = space;
-
-        imageAgent = ship;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(ship, shipStop);
-        }
-
-        targetImg = alien;
-        GestionObjects.target.changeImage(alien, alien);
-
-        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
-        gcInterface.drawImage(screen,0,0);
-    }
-    @FXML
-    void imgGrassBeeClick(){
-        BackGround = grass;
-
-        imageAgent = bee;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(bee, beeStop);
-        }
-
-        targetImg = tournesol;
-        GestionObjects.target.changeImage(tournesol, tournesol);
-
-        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
-        gcInterface.drawImage(grass,0,0);
-    }
-    @FXML
-    void imgGrassHelicoClick(){
-        BackGround = grass;
-
-        imageAgent = helico;
-        for(int idx = 0; idx < GestionObjects.NbrAgent;idx++){
-            GestionObjects.agents[idx].changeImage(helico, helicoStop);
-        }
-
-        targetImg = heliport;
-        GestionObjects.target.changeImage(heliport, heliport);
-
-        GraphicsContext gcInterface = canvasInterface.getGraphicsContext2D();
-        gcInterface.drawImage(grass,0,0);
-    }
-
-
     public static boolean deleteDirectory(File directory) {
         if (directory.exists()) {
             File[] files = directory.listFiles();
             if (files != null) {
                 for (File file : files) {
                     // Supprimer le fichier
-                    if (!file.delete()) {
-                        System.err.println("Échec de la suppression du fichier : " + file.getAbsolutePath());
-                        return false;
+                    while(!file.delete())
+                    {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                            System.err.println("Le thread a été interrompu.");
+                            return false;
+                        }
                     }
                 }
             }
@@ -383,54 +302,271 @@ public class InterfaceController {
         for(int i = 0; i < GestionObjects.NbrAgent;i++){
             GestionObjects.agents[i].changeImage(activeTheme[0], activeTheme[1]);
         }
-        activeTheme[3]=new Image(activeTheme[3].getUrl(), 0,dimensionCaneva[1],true,false );
+        activeTheme[3]=new Image(activeTheme[3].getUrl(), dimensionCaneva[1],dimensionCaneva[1],false,false );
         GestionObjects.target.changeImage(activeTheme[2],null);
+        System.out.println(activeTheme[0].getUrl());
+        System.out.println(activeTheme[1].getUrl());
+        System.out.println(activeTheme[2].getUrl());
+        System.out.println(activeTheme[3].getUrl());
+        System.out.println(activeTheme[4].getUrl());
+        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
     }
 
     @FXML
     void spaceThemeClick(){
-        activeTheme = spaceTheme;
+        activeTheme = spaceTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void hiveThemeClick(){
-        activeTheme = hiveTheme;
+        activeTheme = hiveTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void cityThemeClick(){
-        activeTheme = cityTheme;
+        activeTheme = cityTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void policeThemeClick(){
-        activeTheme = policeTheme;
+        activeTheme = policeTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void sharkThemeClick(){
-        activeTheme = sharkTheme;
+        activeTheme = sharkTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void dragonThemeClick(){
-        activeTheme = dragonTheme;
+        activeTheme = dragonTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void luffyThemeClick(){
-        activeTheme = luffyTheme;
+        activeTheme = luffyTheme.clone();
         updateTheme();
+        disableCustomChoice();
     }
 
     @FXML
     void customThemeClicked(){
+        bgSP.setVisible(true);
+        agentSP.setVisible(true);
+        targetSP.setVisible(true);
 
+        bgLBL.setVisible(true);
+        agentLBL.setVisible(true);
+        targetLBL.setVisible(true);
+    }
+    void disableCustomChoice(){
+        bgSP.setVisible(false);
+        agentSP.setVisible(false);
+        targetSP.setVisible(false);
+
+        bgLBL.setVisible(false);
+        agentLBL.setVisible(false);
+        targetLBL.setVisible(false);
+    }
+
+    @FXML
+    void bgSpaceClicked(){
+        activeTheme[3]=spaceTheme[3];
+        activeTheme[4]=spaceTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgHiveClicked(){
+        activeTheme[3]=hiveTheme[3];
+        activeTheme[4]=hiveTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgCityClicked(){
+        activeTheme[3]=cityTheme[3];
+        activeTheme[4]=cityTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgPoliceClicked(){
+        activeTheme[3]=policeTheme[3];
+        activeTheme[4]=policeTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgSharkClicked(){
+        activeTheme[3]=sharkTheme[3];
+        activeTheme[4]=sharkTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgDragonClicked(){
+        activeTheme[3]=dragonTheme[3];
+        activeTheme[4]=dragonTheme[4];
+        updateTheme();
+    }
+    @FXML
+    void bgLuffyClicked(){
+        activeTheme[3]=luffyTheme[3];
+        activeTheme[4]=luffyTheme[4];
+        updateTheme();
+    }
+
+    @FXML
+    void agentSpaceClicked(){
+        activeTheme[0]=spaceTheme[0];
+        activeTheme[1]=spaceTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentHiveClicked(){
+        activeTheme[0]=hiveTheme[0];
+        activeTheme[1]=hiveTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentCityClicked(){
+        activeTheme[0]=cityTheme[0];
+        activeTheme[1]=cityTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentPoliceClicked(){
+        activeTheme[0]=policeTheme[0];
+        activeTheme[1]=policeTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentSharkClicked(){
+        activeTheme[0]=sharkTheme[0];
+        activeTheme[1]=sharkTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentDragonClicked(){
+        activeTheme[0]=dragonTheme[0];
+        activeTheme[1]=dragonTheme[1];
+        updateTheme();
+    }
+    @FXML
+    void agentLuffyClicked(){
+        activeTheme[0]=luffyTheme[0];
+        activeTheme[1]=luffyTheme[1];
+        updateTheme();
+    }
+
+    @FXML
+    void targetSpaceClicked(){
+        activeTheme[2]=spaceTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetHiveClicked(){
+        activeTheme[2]=hiveTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetCityClicked(){
+        activeTheme[2]=cityTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetPoliceClicked(){
+        activeTheme[2]=policeTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetSharkClicked(){
+        activeTheme[2]=sharkTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetDragonClicked(){
+        activeTheme[2]=dragonTheme[2];
+        updateTheme();
+    }
+    @FXML
+    void targetLuffyClicked(){
+        activeTheme[2]=luffyTheme[2];
+        updateTheme();
+    }
+
+    @FXML
+    void onFileMouseIn(){
+            btnSelectFile.setFitHeight(46);
+            btnSelectFile.setFitWidth(46);
+            btnSelectFile.setLayoutX(127);
+            btnSelectFile.setLayoutY(94);
+    }
+    @FXML
+    void onFileMouseOut(){
+        btnSelectFile.setFitHeight(40);
+        btnSelectFile.setFitWidth(40);
+        btnSelectFile.setLayoutX(130);
+        btnSelectFile.setLayoutY(97);
+    }
+
+    @FXML
+    void onPlayPauseMouseIn(){
+        if(!TargetFound) {
+            btnPlayPause.setFitHeight(58);
+            btnPlayPause.setFitWidth(58);
+            btnPlayPause.setLayoutX(124);
+            btnPlayPause.setLayoutY(689);
+        }else{
+            btnPlayPause.setFitHeight(50);
+            btnPlayPause.setFitWidth(50);
+            btnPlayPause.setLayoutX(128);
+            btnPlayPause.setLayoutY(693);
+        }
+    }
+    @FXML
+    void onPlayPauseMouseOut(){
+        btnPlayPause.setFitHeight(50);
+        btnPlayPause.setFitWidth(50);
+        btnPlayPause.setLayoutX(128);
+        btnPlayPause.setLayoutY(693);
+    }
+
+    @FXML
+    void onResetMouseIn(){
+        btnReset.setFitHeight(58);
+        btnReset.setFitWidth(58);
+        btnReset.setLayoutX(40);
+        btnReset.setLayoutY(689);
+    }
+    @FXML
+    void onResetMouseOut(){
+        btnReset.setFitHeight(50);
+        btnReset.setFitWidth(50);
+        btnReset.setLayoutX(44);
+        btnReset.setLayoutY(693);
+    }
+
+    @FXML
+    void onExportMouseIn(){
+        btnExport.setFitHeight(66);
+        btnExport.setFitWidth(66);
+        btnExport.setLayoutX(208);
+        btnExport.setLayoutY(685);
+    }
+    @FXML
+    void onExportMouseOut(){
+        btnExport.setFitHeight(56);
+        btnExport.setFitWidth(56);
+        btnExport.setLayoutX(213);
+        btnExport.setLayoutY(690);
     }
 }
