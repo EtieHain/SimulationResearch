@@ -106,22 +106,22 @@ public class InterfaceController {
     private static final Image shark = new Image("shark.png",40,40,false,false);
     private static final Image sharkStop = new Image("sharkstop.png",40,40,false,false);
     private static final Image turtle = new Image("turtle.png",40,40,false,false);
-    private static final Image floor = new Image("bgh.png");
-    private static final Image bubble = new Image("brick.png");
+    private static final Image floor = new Image("floor.png");
+    private static final Image bubble = new Image("bubbles.png");
     private static final Image[] sharkTheme = {shark,sharkStop,turtle,floor,bubble};
 
     private static final Image dragon = new Image("dragon.png",40,40,false,false);
     private static final Image dragonStop = new Image("dragonStop.png",40,40,false,false);
     private static final Image nest = new Image("nest.png",40,40,false,false);
-    private static final Image lava = new Image("grass.png");
-    private static final Image scale = new Image("brick.png");
-    private static final Image[] dragonTheme = {dragon,dragonStop,nest,lava,scale};
+    private static final Image rocks = new Image("rocks.png");
+    private static final Image scale = new Image("scales.png");
+    private static final Image[] dragonTheme = {dragon,dragonStop,nest,rocks,scale};
 
-    private static final Image merry = new Image("shark.png",40,40,false,false);
-    private static final Image merryStop = new Image("sharkstop.png",40,40,false,false);
-    private static final Image op = new Image("turtle.png",40,40,false,false);
-    private static final Image sea = new Image("bgh.png");
-    private static final Image planks = new Image("brick.png");
+    private static final Image merry = new Image("merry.png",40,40,false,false);
+    private static final Image merryStop = new Image("merrystop.png",40,40,false,false);
+    private static final Image op = new Image("op.png",40,40,false,false);
+    private static final Image sea = new Image("sea.png");
+    private static final Image planks = new Image("planks.png");
     private static final Image[] luffyTheme = {merry,merryStop,op,sea,planks};
 
     public static Image[] activeTheme = spaceTheme.clone();
@@ -304,12 +304,6 @@ public class InterfaceController {
         }
         activeTheme[3]=new Image(activeTheme[3].getUrl(), dimensionCaneva[1],dimensionCaneva[1],false,false );
         GestionObjects.target.changeImage(activeTheme[2],null);
-        System.out.println(activeTheme[0].getUrl());
-        System.out.println(activeTheme[1].getUrl());
-        System.out.println(activeTheme[2].getUrl());
-        System.out.println(activeTheme[3].getUrl());
-        System.out.println(activeTheme[4].getUrl());
-        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
     }
 
     @FXML

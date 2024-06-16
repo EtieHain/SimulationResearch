@@ -156,7 +156,7 @@
                   </ImageView>
                   <ImageView fx:id="bgShark" fitHeight="40.0" fitWidth="40.0" layoutX="149.0" layoutY="10.0" onMouseClicked="#bgSharkClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../iconeTheme/shark.png" />
+                        <Image url="@../../../floor.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -164,7 +164,7 @@
                   </ImageView>
                   <ImageView fx:id="bgDragon" fitHeight="40.0" fitWidth="40.0" layoutX="189.0" layoutY="10.0" onMouseClicked="#bgDragonClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../iconeTheme/dragon.png" />
+                        <Image url="@../../../rocks.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -172,7 +172,7 @@
                   </ImageView>
                   <ImageView fx:id="bgLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#bgLuffyClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../iconeTheme/luffy.png" />
+                        <Image url="@../../../sea.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
@@ -241,7 +241,7 @@
                   </ImageView>
                   <ImageView fx:id="agentLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#agentLuffyClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../sharkStop.png" />
+                        <Image url="@../../../merrystop.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
@@ -310,7 +310,7 @@
                   </ImageView>
                   <ImageView fx:id="targetLuffy" fitHeight="40.0" fitWidth="40.0" layoutX="229.0" layoutY="10.0" onMouseClicked="#targetLuffyClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../turtle.png" />
+                        <Image url="@../../../op.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />
