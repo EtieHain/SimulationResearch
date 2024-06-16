@@ -20,7 +20,6 @@ public class Agent extends ObjectScheme
     public boolean isRotating;
     public int deplacementBackward;
     public boolean isGoingBackward;
-    //public Image stopImg;
 
     /**
      * Constructeur de la classe Agent

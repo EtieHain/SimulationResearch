@@ -13,14 +13,14 @@
             <Image url="@../../../ibg.png" />
          </image>
       </ImageView>
-      <Label fx:id="lbl_Titre" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="50.0" prefWidth="255.0" text="Control Pannel" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="lbl_Titre" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="50.0" prefWidth="271.0" text="Control Pannel" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="Arial" size="38.0" />
+            <Font name="Arial Bold" size="35.0" />
          </font>
       </Label>
       <Label alignment="CENTER" layoutX="10.0" layoutY="64.0" prefHeight="30.0" prefWidth="280.0" text="Select Config File" textFill="WHITE">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
       <ImageView fx:id="btnSelectFile" fitHeight="40.0" fitWidth="40.0" layoutX="130.0" layoutY="97.0" onMouseClicked="#btnSelectFileClick" onMouseEntered="#onFileMouseIn" onMouseExited="#onFileMouseOut" pickOnBounds="true" preserveRatio="true">
@@ -31,14 +31,14 @@
       <Label fx:id="lbl_AgentComm" layoutX="20.0" layoutY="229.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication agent : -" textFill="WHITE" />
       <Label alignment="CENTER" layoutX="10.0" layoutY="139.0" prefHeight="30.0" prefWidth="280.0" text="Information of the file" textFill="WHITE" AnchorPane.rightAnchor="10.0">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial" size="22.0" />
          </font>
       </Label>
       <Label fx:id="lbl_PositionTarget" layoutX="20.0" layoutY="169.0" prefHeight="30.0" prefWidth="280.0" text="Position of the target : (- ; -)" textFill="WHITE" />
       <Label fx:id="lbl_TargetComm" layoutX="20.0" layoutY="199.0" prefHeight="30.0" prefWidth="280.0" text="Radius communication target : -" textFill="WHITE" />
       <Label alignment="CENTER" layoutX="10.0" layoutY="259.0" prefHeight="30.0" prefWidth="280.0" text="Choose theme" textFill="WHITE">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
       <ScrollPane fx:id="themeList" disable="true" layoutX="22.0" layoutY="288.0" prefHeight="76.0" prefWidth="256.0">
@@ -115,7 +115,7 @@
       </ScrollPane>
       <Label fx:id="bgLBL" alignment="CENTER" layoutX="10.0" layoutY="364.0" prefHeight="30.0" prefWidth="280.0" text="Choose background" textFill="WHITE" visible="false">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
       <ScrollPane fx:id="bgSP" layoutX="22.0" layoutY="394.0" prefHeight="76.0" prefWidth="256.0" visible="false">
@@ -148,7 +148,7 @@
                   </ImageView>
                   <ImageView fx:id="bgPolice" fitHeight="40.0" fitWidth="40.0" layoutX="109.0" layoutY="10.0" onMouseClicked="#bgPoliceClicked" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../iconeTheme/police.png" />
+                        <Image url="@../../../map.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
@@ -184,7 +184,7 @@
       </ScrollPane>
       <Label fx:id="agentLBL" alignment="CENTER" layoutX="10.0" layoutY="470.0" prefHeight="30.0" prefWidth="280.0" text="Choose Agent" textFill="WHITE" visible="false">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
       <ScrollPane fx:id="agentSP" layoutX="22.0" layoutY="500.0" prefHeight="76.0" prefWidth="256.0" visible="false">
@@ -253,7 +253,7 @@
       </ScrollPane>
       <Label fx:id="targetLBL" alignment="CENTER" layoutX="10.0" layoutY="577.0" prefHeight="30.0" prefWidth="280.0" text="Choose Target" textFill="WHITE" visible="false">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
       <ScrollPane fx:id="targetSP" layoutX="22.0" layoutY="607.0" prefHeight="76.0" prefWidth="256.0" visible="false">
@@ -334,9 +334,9 @@
             <Image url="@../../../exportIcon.png" />
          </image>
       </ImageView>
-      <Label layoutX="20.0" layoutY="750.0" prefHeight="30.0" prefWidth="88.0" text="Timer :" textFill="WHITE">
+      <Label layoutX="15.0" layoutY="750.0" prefHeight="30.0" prefWidth="88.0" text="Timer :" textFill="WHITE">
          <font>
-            <Font name="Arial" size="25.0" />
+            <Font name="Arial Bold" size="25.0" />
          </font>
       </Label>
    </children>

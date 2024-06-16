@@ -12,7 +12,7 @@
 
     <AnchorPane prefHeight="800.0" prefWidth="300.0">
         <fx:include source="Interface.fxml" />
-      <Label fx:id="lbl_Timmer" layoutX="109.0" layoutY="750.0" prefHeight="30.0" prefWidth="185.0" text="--.-" textFill="WHITE">
+      <Label fx:id="lbl_Timmer" layoutX="104.0" layoutY="750.0" prefHeight="30.0" prefWidth="185.0" text="--.-" textFill="WHITE">
          <font>
             <Font name="Arial" size="20.0" />
          </font></Label>

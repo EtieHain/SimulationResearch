@@ -94,9 +94,9 @@ public class InterfaceController {
     private static final Image police = new Image("police.png",40,40,false,false);
     private static final Image policeStop = new Image("policestop.png",40,40,false,false);
     private static final Image money = new Image("money.png",40,40,false,false);
-    private static final Image map = new Image("bgh.png");
-    private static final Image note = new Image("brick.png");
-    private static final Image[] policeTheme = {police,policeStop,money,map,note};
+    private static final Image map = new Image("map.png");
+    private static final Image phone = new Image("phone.png");
+    private static final Image[] policeTheme = {police,policeStop,money,map,phone};
 
     private static final Image shark = new Image("shark.png",40,40,false,false);
     private static final Image sharkStop = new Image("sharkstop.png",40,40,false,false);
@@ -124,7 +124,7 @@ public class InterfaceController {
     //Code l'action du bouton de démarrage
     @FXML
     void btnStartClick(){
-        if(!TargetFound) {
+        if(!SimulationDone) {
             if (isOn) {
                 btnPlayPause.setImage(playIcon);
                 isOn = false;
@@ -221,7 +221,7 @@ public class InterfaceController {
     @FXML
     void btnResetClick(){
         btnPlayPause.setImage(playIcon);
-        TargetFound=false;
+        SimulationDone =false;
         isOn = false;
         Situation = 2;                          //Met le code en état Reset
 
@@ -530,7 +530,7 @@ public class InterfaceController {
 
     @FXML
     void onPlayPauseMouseIn(){
-        if(!TargetFound) {
+        if(!SimulationDone) {
             btnPlayPause.setFitHeight(58);
             btnPlayPause.setFitWidth(58);
             btnPlayPause.setLayoutX(124);

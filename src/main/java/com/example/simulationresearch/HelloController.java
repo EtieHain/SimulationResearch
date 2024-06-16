@@ -33,7 +33,7 @@ public class HelloController {
     static public float lastTime = 0f;
     private File[] files;
     static public float ResearchTime = 0.00f;
-    static boolean TargetFound = false;
+    static boolean SimulationDone = false;
 
 
     public void Afficher(Image BackGround) {
@@ -57,9 +57,13 @@ public class HelloController {
         lbl_Timmer.setText(String.valueOf(ResearchTime));
 
         if (NbrFound >= GestionObjects.NbrObjectif) {
-            TargetFound = true;
+            SimulationDone = true;
             InterfaceController.Situation = 3;
             lbl_Timmer.setText(String.valueOf("Found in " + ResearchTime + " sec."));
+        } else if (ResearchTime>=60){
+            SimulationDone = true;
+            InterfaceController.Situation = 3;
+            lbl_Timmer.setText(String.valueOf("Target not found !"));
         }
 
         //Test si 3 frames sont passées
